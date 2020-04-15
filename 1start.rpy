@@ -9,11 +9,11 @@ init python:
 
     def visiting(tagname):
         # If we haven't seen this tag before, c == None
-        # c = getattr(persistent, tagname)
-        # if c != None:
-        #     setattr(persistent, tagname, c+1)
-        # else:
-        #     # First time!
+        c = getattr(persistent, tagname)
+        if c != None:
+            setattr(persistent, tagname, c+1)
+        else:
+        # First time!
             setattr(persistent, tagname, 1)
 
     def mark(tagname, v):
@@ -35,12 +35,12 @@ init python:
 
         m = []
         for k,v in items:
-            # c = getattr(persistent, v)
-            # if c == None:
-            m.append((k, v))
-            # else:
-            #     s = suffix + ' (%d)' % c if count else suffix
-            #     m.append((k + s, v))
+            c = getattr(persistent, v)
+            if c == None:
+                m.append((k, v))
+            else:
+                s = suffix + ' (%d)' % c if count else suffix
+                m.append((k + s, v))
 
         choice = menu(m)
         if call:
@@ -107,14 +107,15 @@ transform flip:
 label start:
     scene bg home
     python:
-        # if not persistent.povname:
-        povname = renpy.input("What is your name?")
-        povname = povname.strip()
-        if not povname:
-            povname = "Anony M. Ous"
-        persistent.povname = povname
-        # else:
-        #     povname = persistent.povname
+        if not persistent.povname:
+            povname = renpy.input("What is your name?")
+            povname = povname.strip()
+            if not povname:
+                povname = "Anony M. Ous"
+            persistent.povname = povname
+        else:
+             povname = persistent.povname
+             persistent.povname = False
 
         score = 0
 

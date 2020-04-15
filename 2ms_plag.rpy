@@ -1,13 +1,20 @@
 
 label start_plag:
     scene bg home2
+
     #show txtexamp at top
-    show pari happy at right
+    # show pari happy at right
+
+    show keri happy:
+        pos(950, 40)
+        zoom 0.6
 
     p "Hi! You are [povname], right? My name is Pari."
 
-    show pari talk at right
-
+    # show pari talk at right
+    show keri talk:
+        pos(950, 40)
+        zoom 0.6
     p "I'm a new student as well. Everything is so confusing."
 
     p "For example, everyone is talking about Plagiarism. I didn't know what it was..."
@@ -26,26 +33,41 @@ label start_plag:
             pass
         "All of the above":
                 p "That's right! The TA told me the same!"
-                show pari mhappy at right
+                # show pari mhappy at right
+                show keri mhappy:
+                    pos(950, 40)
+                    zoom 0.6
                 pov "Plagarism is such a big deal here."
                 "But what if we are really struggling or stuck for time on our essay?"
 
 
 
-    show pari happy at right
+    #show pari happy at right
+    show keri happy:
+        pos(950, 40)
+        zoom 0.6
 
     menu:
         "Do you think it's alright if we really need to do it?"
 
         "Plagiarism is fine if you need to do it!":
-            show pari sad at right
+            # show pari sad at right
+            show keri sad:
+                pos(950, 40)
+                zoom 0.6
             call j1 from _call_j1
             # HERE SOME MORE DIALOG THAT PLAGIARISM ALWAYS LEADS TO BAD MARKS
         "Plagiarism is always wrong, even if you need to do it!":
-            show pari vhappy at right
+            # show pari vhappy at right
+            show keri vhappy:
+                pos(950, 40)
+                zoom 0.6
             call j2 from _call_j2
 
-    show pari happy at right
+    # show pari happy at right
+    show keri happy:
+        pos(950, 40)
+        zoom 0.6
 
     p "Anyways, it was nice talking to you, [povname]"
 
@@ -53,7 +75,9 @@ label start_plag:
 
     pov "Bye"
 
-    hide pari happy
+    # hide pari happy
+    hide keri happy
+
 
     "Let's see, if we can find some other students to talk to"
 
