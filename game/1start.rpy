@@ -1,19 +1,19 @@
 
 init python:
     # label_callback code from: https://lemmasoft.renai.us/forums/viewtopic.php?t=10578
-    # def label_callback(name, abnormal):
-    #     store.last_label = name
-    #     visiting(last_label)
-    #
-    # config.label_callback = label_callback
+
+    def label_callback(name, abnormal):
+        store.last_label = name
+        visiting(last_label)
+    config.label_callback = label_callback
 
     def visiting(tagname):
         # If we haven't seen this tag before, c == None
-        # c = getattr(persistent, tagname)
-        # if c != None:
-        #     setattr(persistent, tagname, c+1)
-        # else:
-        #     # First time!
+        c = getattr(persistent, tagname)
+        if c != None:
+            setattr(persistent, tagname, c+1)
+        else:
+        # First time!
             setattr(persistent, tagname, 1)
 
     def mark(tagname, v):
@@ -35,12 +35,12 @@ init python:
 
         m = []
         for k,v in items:
-            # c = getattr(persistent, v)
-            # if c == None:
-            m.append((k, v))
-            # else:
-            #     s = suffix + ' (%d)' % c if count else suffix
-            #     m.append((k + s, v))
+            c = getattr(persistent, v)
+            if c == None:
+                m.append((k, v))
+            else:
+                s = suffix + ' (%d)' % c if count else suffix
+                m.append((k + s, v))
 
         choice = menu(m)
         if call:
@@ -54,7 +54,7 @@ init python:
                'ask_sara': 2,
                'se1_confused': 2,
                'noplag': -2,
-               'yesplag': 1,
+               'yesplag1': 1,
                'noplag2': 2,
                'yesplag2': -1,
                'ohright': 1,
@@ -107,14 +107,15 @@ transform flip:
 label start:
     scene bg home
     python:
-        # if not persistent.povname:
-        povname = renpy.input("What is your name?")
-        povname = povname.strip()
-        if not povname:
-            povname = "Anony M. Ous"
-        persistent.povname = povname
-        # else:
-        #     povname = persistent.povname
+        if not persistent.povname:
+            povname = renpy.input("What is your name?")
+            povname = povname.strip()
+            if not povname:
+                povname = "Anony M. Ous"
+            persistent.povname = povname
+        else:
+             povname = persistent.povname
+             persistent.povname = False
 
         score = 0
 
@@ -126,11 +127,19 @@ label start:
         tracked_menu(cs, call=True)
 
     scene
+
+    # Old version: calculating scoring incorrectly (using all entries in scoring items)
     python:
+        tags = ""
         for k,v in scoring.items():
             k1 = getattr(persistent, k)
             if k1 and k1 > 0:
+                tags += k + ","
                 score += v
     show text "Your score is [score]!"
     "There is so much to learn."
+
+    python:
+        for k, v in scoring.items():
+            setattr(persistent, k, None)
     return

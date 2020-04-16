@@ -328,6 +328,10 @@ screen navigation():
             ## Help isn't necessary or relevant to mobile devices.
             textbutton _("Help") action ShowMenu("help")
 
+
+            ## CharacterShaping not possible mobile devices.
+            textbutton _("Characters") action ShowMenu("start_dressup")
+
             ## The quit button is banned on iOS and unnecessary on Android.
             textbutton _("Quit") action Quit(confirm=not main_menu)
 
@@ -550,6 +554,33 @@ screen about():
     use game_menu(_("About"), scroll="viewport"):
 
         style_prefix "about"
+
+        vbox:
+
+            label "[config.name!t]"
+            text _("Version [config.version!t]\n")
+
+            ## gui.about is usually set in options.rpy.
+            if gui.about:
+                text "[gui.about!t]\n"
+
+            text _("Made with {a=https://www.renpy.org/}Ren'Py{/a} [renpy.version_only].\n\n[renpy.license!t]")
+
+
+## This is redefined in options.rpy to add text to the about screen.
+define gui.about = ""
+
+
+screen characters():
+
+    tag menu
+
+    ## This use statement includes the game_menu screen inside this one. The
+    ## vbox child is then included inside the viewport inside the game_menu
+    ## screen.
+    use game_menu(_("Character"), scroll="viewport"):
+
+        style_prefix "characters"
 
         vbox:
 
