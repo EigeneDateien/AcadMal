@@ -96,6 +96,7 @@ image bg home = "Scene/kilburn-inside2.png"
 image bg home2 = "Scene/kilburn-inside.png"
 image bg lab = "Scene/kilburn-lab.png"
 image bg office = "Scene/kilburn-office.png"
+image bg outside = "Scene/bg kilburn outside.png"
 image bg plants = "Scene/Plants.png"
 define pov = Character("[povname]")
 
