@@ -25,20 +25,32 @@ label start_plag:
         p "Do you know what Plagiarism is?"
 
         "Taking someone else's work and passing it off as your own":
-            pass
+            $ change_score('plagiarism', +1)
+            p "Oh, there is Sara, the TA."
+            jump plagiarism_detail
         "Copying a paragraph from a friend's essay without their knowing":
-                "I think that this is certainly one example of plagiarism"
-                jump start_plag
+            $ change_score('plagiarism', +1)
+            p "Oh, there is Sara, the TA."
+            jump plagiarism_detail
         "Copying someone else's work without paraphrasing or using quotation marks around the copied sentence":
-            pass
+            $ change_score('plagiarism', +1)
+            p "Oh, there is Sara, the TA."
+            jump plagiarism_detail
         "All of the above":
-                p "That's right! The TA told me the same!"
-                # show pari mhappy at right
-                show keri mhappy:
-                    pos(950, 40)
-                    zoom 0.6
-                pov "Plagarism is such a big deal here."
-                "But what if we are really struggling or stuck for time on our essay?"
+            $ change_score('plagiarism', +3)
+            p "Wow, [povname]. That's right! I did not know that all these examples were plagiarism."
+            p "Luckily, the TA explained it to me!"
+            jump cont_plag
+
+
+
+label cont_plag:
+    # show pari mhappy at right
+    show keri mhappy:
+        pos(950, 40)
+        zoom 0.6
+    pov "Plagarism is such a big deal here."
+    "But what if we are really struggling or stuck for time on our essay?"
 
 
 
@@ -48,21 +60,25 @@ label start_plag:
         zoom 0.6
 
     menu:
-        "Do you think it's alright if we really need to do it?"
+        p "Do you think it's alright if we really need to do it?"
 
         "Plagiarism is fine if you need to do it!":
             # show pari sad at right
             show keri sad:
                 pos(950, 40)
                 zoom 0.6
-            call j1 from _call_j1
+            $ change_score('j1', -3)
+            p "NOOO! Plagiarism could not only lead to a bad mark."
+            p "If it is a severe case, you could risk your whole degree!"
+            p "Be careful!"
             # HERE SOME MORE DIALOG THAT PLAGIARISM ALWAYS LEADS TO BAD MARKS
         "Plagiarism is always wrong, even if you need to do it!":
             # show pari vhappy at right
             show keri vhappy:
                 pos(950, 40)
                 zoom 0.6
-            call j2 from _call_j2
+            "That's right!"
+            $ change_score('j2', +1)
 
     # show pari happy at right
     show keri happy:
@@ -79,7 +95,7 @@ label start_plag:
     hide keri happy
 
 
-    "Let's see, if we can find some other students to talk to"
+    pov "Let's see, if we can find some other students to talk to"
 
     scene bg lab
 
@@ -125,12 +141,47 @@ label start_plag:
         "Yeah":
             jump yesplag1
 
+label plagiarism_detail:
+    show sara at right
+    show keri happy:
+        pos(120, 40)
+        zoom 0.6
+    ta1 "Hey, I heard that you two are discussing about plagiarism."
+    p "Yes, can you help us understanding the term?"
+    ta1 "Don't worry! Most new students are confused about these terms."
+    ta1 "There are examples of plagiarism that are more easy to understand"
+    ta1 "Can you give us an example for this, [povname]?"
+    menu:
+        "Passing work done by someone else as my own":
+            $ change_score('plagiarism', +1)
+            ta1 "Yes, that is a great example!"
+            ta1 "Pari, can you think of another example"
+            p "Copying a text without using my own works or quotation marks for the copied sentence"
+            ta1 "Great! Another example would be to use a text from another student without their knowing"
+        "Using a text from another students without their knowing":
+            $ change_score('plagiarism', +1)
+            ta1 "Yes, that is a great example!"
+            ta1 "Pari, can you think of another example"
+            p "Copying a text without using my own works or quotation marks for the copied sentence"
+            ta1 "Great! It is in general a bad idea to pass in work done by someone else as your own"
+        "Copying a text without using my own works or quotation marks for the copied sentence":
+            $ change_score('plagiarism', +1)
+            ta1 "Yes, that is a great example!"
+            ta1 "Pari, can you think of another example"
+            p "Using a text from another students without their knowing"
+            ta1 "Great! It is in general a bad idea to pass in work done by someone else as your own"
+        "All of the above":
+            $ change_score('plagiarism', +2)
+            ta1 "Right! Great, [povname]! These were all examples for plagiarism"
 
+    hide sara
+    jump cont_plag
 
 
 label noplag1:
 
     # show alex normal
+    $ change_score('noplag1', -2)
 
     pov "Nope, you haven't copied the text"
 
@@ -162,6 +213,7 @@ label failedassignment:
 
     scene white
     show alex sad
+    $ change_score('failedassignment', -3)
 
     a "Oh no.. "
 
@@ -209,6 +261,8 @@ label warning:
 
 label yesplag1:
 
+    $ change_score('yesplag1', 1)
+
     scene white
 
     show alex surprised
@@ -245,6 +299,8 @@ label noplag2:
 
 label yesplag2:
 
+    $ change_score('yesplag2', 1)
+
     scene white
     pov "You haven't referenced it properly."
     show alex surprised
@@ -262,6 +318,8 @@ label yesplag2:
 
 label noidont:
 
+    $ change_score('noidont', -1)
+
     scene white
     # show alex normal
     a "I don't need to put it in quotation marks - it's in my own words, remember?"
@@ -271,6 +329,7 @@ label noidont:
     return
 
 label ohright:
+    $ change_score('ohright', 1)
     scene white
     a "Oh right - I forgot about that sentence."
 
@@ -284,6 +343,9 @@ label ohright:
         "Not very good at this, are you?":
             jump goodending
 
+# BEFORE goodending make sure to include patchwriting minigame
+
+
 label goodending:
 
     scene white
@@ -295,19 +357,11 @@ label goodending:
     pov "Congrats!"
 
     scene black
-    "You Won! Well Done :)"
+    "You won! Well Done :)"
 
     return
 
 
     # This ends the game.
 
-    return
-
-label j1:
-    "No!"
-    return
-
-label j2:
-    "That's right!"
     return

@@ -17,8 +17,16 @@ label start_col:
 
 
 label essay_experienced:
-    "I know enough not to share with her."
-    return
+    p "Great! Then you can help me!"
+    P "I really don't know what to do for the first essay, SE1."
+    p "Maybe we can work together on it?"
+    menu:
+        "Yes! We'll both do better if we collaborate.":
+            pass
+        "No! I want to do it all by myself.":
+            pass
+        "I'd like to, but is it ok for us to work together on SE1?":
+            jump se1_confused
 
 
 label essay_novice:
@@ -28,11 +36,20 @@ label essay_novice:
         "Yes! We'll both do better if we collaborate.":
             pass
         "No! I want to do it all by myself.":
-            pass
+            p "Wow, why are you so rude?"
+            p "Please, can we just share ideas on what to write?"
+            menu:
+                "I really think you should work on it alone.":
+                    "Please ask the TA if you have any questions"
+                "Ok, fine! I will help you":
+                    pass
+                "Please let's ask the TA if it is fine":
+                    jump ask_sara
         "I'd like to, but is it ok for us to work together on SE1?":
             jump se1_confused
 
 label se1_confused:
+    $ change_score("se1_confused", +2)
     p "I think it's fine. We're supposed to be learning from each other."
     p "Let's look at the question!"
     show se1q at truecenter
@@ -54,6 +71,7 @@ label se1_confused:
                     jump ask_sara
 
 label ask_sara:
+    $ change_score('ask_sara', +2)
     p "Oh, alright. Let's ask Sara the TA."
     show sara at right
     p "Hey Sara. It's ok if we work togehter on SE1, right?"
@@ -142,4 +160,4 @@ label se1_collaboration(speaker="Instructor"):
 
 
 label essay_confused:
-    pass
+    jump essay_novice
