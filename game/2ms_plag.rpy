@@ -120,19 +120,19 @@ label patchwriting:
     show alex happy at left
     # show paragraph1 at right
 
-    # show logicrep at right
+
 
     show logicrep at right
 
     a "But look at this article... This part of the paragraph is all I need to finish my dissertation."
 
-    show alex talk at right
+    show alex talk at left
 
     a "I just want my dissertation to be finished at last"
 
     a "I'll just use that and the main idea from this article."
 
-    # show bad_paragraph at right
+    show bad_paragraph at right
 
     a "Finally I'm finished"
 
@@ -154,15 +154,18 @@ label patchwriting:
                     pov "Do at least that"
 
                 "We should ask a TA!":
-                    jump patchwriting_minigame
+                    jump ta_intervention
 
 
         "Yeah, I think it's fine":
-            jump patchwriting_minigame
+            jump ta_intervention
 
-    # show cited_paragraph at right
+    hide bad_paragraph
+    show cited_paragraph at right
+    a "Now I referenced it!"
+    a "I think it's perfect now!"
     menu:
-        a "Now I referenced it. Do you think I should change something?"
+        a "Or do you think I should change something?"
 
         "No, it's perfect now!":
             jump ta_intervention
@@ -177,6 +180,9 @@ label patchwriting:
 
 
 label patchwriting_part2:
+    hide sara
+    show alex at left
+    show logicrep at right
     show paragragh1a at right
 
     a "Okay that's good. It's entirely in my own words."
@@ -194,6 +200,12 @@ label patchwriting_part2:
 
 
 label ta_intervention:
+    hide logicrep
+    hide cited_paragraph
+    hide bad_paragraph
+    hide paragraph1a
+    show alex at left
+    show sara at right
     ta1 "Hey, I heard you two were discussing about correct citation."
     ta1 "By now, you should know about plagiarism"
     ta1 "But do you know what patchwriting is?"
@@ -221,10 +233,15 @@ label ta_intervention:
 
 label patchwriting_minigame:
     screen white
-    show logicrep at left
+    hide alex
+    show sara at left
+    show logicrep at right
     ta1 "Let's look at the original source"
+    hide sara
+    show logicrep at left
+    show essay_choice at right
     ta1 "And here are some paragraphs that reference this source"
-    #show paragraphs at right
+    ta1 "Let's look at the paragraphs on the right side that reference the original source"
     menu:
         ta1 "Which of these paragraphs is an example for patchwriting?"
 
@@ -238,6 +255,8 @@ label patchwriting_minigame:
     ta1 "Even though he referenced the original paragraph, he merely just copied and pasted the text"
     ta1 "Using synonyms and changing the original structure just a tiny bit is bad academic practice"
     ta1 "In this way, we don't know whether the student actually understood what he was writing or was just copying the original source"
+    hide essay_choice
+    hide logicrep
     jump patchwriting_part2
 
 label plagiarism_detail:
@@ -292,7 +311,7 @@ label noplag1:
 
 label part2:
 
-    # show alex normal
+    show alex normal
 
     a """I could give it to my supervisor to have a read through, but she is very busy and it's very last minute.
     She probably not here right now anyway because it's pretty late."""
@@ -375,11 +394,11 @@ label yesplag1:
     show alex surprised
     pov "Yeah, it's still plagiarism if you form a conclusion based on the article and not reference it."
 
-    show alex happy
+    show alex happy at left
 
     a "Oh yeah, I forgot to cite it."
 
-    # show paragraph1b at right
+    show paragraph1b at right
 
     a "There, how's that?"
     jump submission
@@ -387,7 +406,7 @@ label yesplag1:
 label submission:
 
     scene white
-    # show paragraph1b
+    show paragraph1b at right
 
     menu:
 
@@ -401,7 +420,7 @@ label submission:
 
 
 label noplag2:
-    jump failedassignment
+    jump part2
 
 
 label yesplag2:

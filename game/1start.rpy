@@ -72,12 +72,16 @@ define ta1 = Character("Sara the TA")
 
 define s = Character("Supervisor")
 
+define e = Character("Eileen")
+
 # image pari composite = Composite(
 #     (300, 600),
 #     (64, 0), "Curly.png",
 #     (0, 30+187), "Baggy Pants.png",
 #     (12, 104), "Hoodie.png")
 
+
+image eileen happy = "eileen happy.png"
 image pari happy  = "Pari/pari happy.png"
 
 image alex happy = "Alex/alex happy.png"
