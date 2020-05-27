@@ -1,6 +1,75 @@
 ﻿#image keri = DynamicDisplayable(keri_sprite) #uncomment to use python version
 
 
+# sara definition
+define sara = "Sara"
+image sara composite = keri
+image sara happy = Composite(
+    (311, 631),
+    (0, 0), "Create_Character/Base/base3.png",
+    (0, 0), "Create_Character/Bottoms/bottom1_6.png",
+    (0, 0), "Create_Character/Tops/top5_5.png",
+    (0, 0), "Create_Character/Eyebrows/eyebrows3_1.png",
+    (0, 0), "Create_Character/Eyes/eyes1_9.png",
+    (0, 0), "Create_Character/Mouth/mouth3_1.png",
+    (0, 0), "Create_Character/Hair/hair4_7.png",
+)
+
+image sara angry = Composite(
+    (311, 631),
+    (0, 0), "Create_Character/Base/base3.png",
+    (0, 0), "Create_Character/Bottoms/bottom1_6.png",
+    (0, 0), "Create_Character/Tops/top5_5.png",
+    (0, 0), "Create_character/Eyebrows/eyebrows_angry.png",
+    (0, 0), "Create_Character/Eyes/eyes1_9.png",
+    (0, 0), "Create_character/Mouth/mouth_angry.png",
+    (0, 0), "Create_Character/Hair/hair4_7.png",
+)
+
+image sara talk = Composite(
+    (311, 631),
+    (0, 0), "Create_Character/Base/base3.png",
+    (0, 0), "Create_Character/Bottoms/bottom1_6.png",
+    (0, 0), "Create_Character/Tops/top5_5.png",
+    (0, 0), "Create_character/Eyebrows/eyebrows_normal.png",
+    (0, 0), "Create_Character/Eyes/eyes1_9.png",
+    (0, 0), "Create_character/Mouth/mouth_talk.png",
+    (0, 0), "Create_Character/Hair/hair4_7.png",
+)
+
+image sara mhappy = Composite(
+    (311, 631),
+    (0, 0), "Create_Character/Base/base3.png",
+    (0, 0), "Create_Character/Bottoms/bottom1_6.png",
+    (0, 0), "Create_Character/Tops/top5_5.png",
+    (0, 0), "Create_character/Eyebrows/eyebrows_normal.png",
+    (0, 0), "Create_Character/Eyes/eyes1_9.png",
+    (0, 0), "Create_character/Mouth/mouth_mhappy.png",
+    (0, 0), "Create_Character/Hair/hair4_7.png",
+)
+
+image sara vhappy = Composite(
+    (311, 631),
+    (0, 0), "Create_Character/Base/base3.png",
+    (0, 0), "Create_Character/Bottoms/bottom1_6.png",
+    (0, 0), "Create_Character/Tops/top5_5.png",
+    (0, 0), "Create_character/Eyebrows/eyebrows_normal.png",
+    (0, 0), "Create_Character/Eyes/eyes1_9.png",
+    (0, 0), "Create_character/Mouth/mouth_vhappy.png",
+    (0, 0), "Create_Character/Hair/hair4_7.png",
+)
+
+image sara sad = Composite(
+    (311, 631),
+    (0, 0), "Create_Character/Base/base3.png",
+    (0, 0), "Create_Character/Bottoms/bottom1_6.png",
+    (0, 0), "Create_Character/Tops/top5_5.png",
+    (0, 0), "Create_character/Eyebrows/eyebrows_sad.png",
+    (0, 0), "Create_Character/Eyes/eyes1_9.png",
+    (0, 0), "Create_character/Mouth/mouth_sad.png",
+    (0, 0), "Create_Character/Hair/hair4_7.png",
+)
+
 label start_dressup0:
     scene bg outside
 

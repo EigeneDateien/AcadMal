@@ -328,7 +328,6 @@ screen navigation():
             ## Help isn't necessary or relevant to mobile devices.
             textbutton _("Help") action ShowMenu("help")
 
-
             ## CharacterShaping not possible mobile devices.
             textbutton _("Characters") action ShowMenu("start_dressup0")
 

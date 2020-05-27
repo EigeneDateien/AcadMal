@@ -1,9 +1,12 @@
 
 define b = Character("Bee", kind=nvl)
 label start_best:
-    show bee helpful
+    show sara talk:
+        pos(100, 40)
+        zoom 0.6
+    #show bee helpful
     b "Hi there!"
-    b "I'm an expert writer will a lot of experience."
+    b "I'm an expert writer with a lot of experience."
     b "You probably have gotten a lot of {b}Don't{/b}s i.e.,..."
     b "{b}Don't collude!{/b}"
     b "{b}Don't plagiarise!{/b}"
@@ -36,9 +39,9 @@ label start_best:
     python:
 
         cs = [("The Goals of Writing", 'start_goals'),
-              ("Explore Coursework Essay Questions", 'start_cw'),
-              ("Explore Exam Essay Questions", 'start_examq'),
-              ("Explore Dissertation Writing", 'start_diss')]
+              ("Explore Coursework Essay Questions", 'coursework'),
+              ("Explore Exam Essay Questions", 'exam'),
+              ("Explore Dissertation Writing", 'dissertation')]
         tracked_menu(cs, call=True)
 
 label start_goals:
@@ -79,8 +82,31 @@ label start_goals:
         "Goal 2: Communicate With Others":
             label .communicate:
                 "WE ARE COMMUNICATING!!"
+                b """You might have to work with others during your coursework.
+
+                When working in groups as well as for individual tasks, you should always try to be as clear as possible
+
+                For written assignments, we will assess how well you communicate and explain difficult scenarios or terms.
+
+                For group assignments, you won't be able to get high marks without a good communication.
+
+                """
+
+                b "Let's move to goal 3"
+
+                jump mark
         "Goal 3: Get a Mark":
-            pass
+            label mark:
+                b "This might be the most interesting goal for your study. But beware that the other options are just as important"
+                menu:
+                    b "If you like, I can give you some tips and best practices on how to deal with coursework, exams and your dissertation"
+
+                    "That would be great":
+                        jump best_practices
+
+                    "No, thanks":
+                        return
+
 label theory:
     b """There are a lot of theories about how people learn.
 
@@ -123,7 +149,7 @@ label theory:
         "This will be a perfectly fine answer once you fix the citation issue.":
             $ mark('passivity', -1)
             b "At the very least, we must fix that citation issue!"
-            call .plag(True)
+            call .plag(True) from _call_theory_plag
 
         "This is not a good answer.":
             p "Yes, it has multiple problems."
@@ -138,14 +164,13 @@ label .plag(only_one=False):
     image tm 3 = Text("\"A Turing machine is a mathematical model of computation that defines an abstract machine, which manipulates symbols on a strip of tape according to a table of rules. Despite the model's simplicity, given any computer algorithm, a Turing machine capable of simulating that algorithm's logic can be constructed.\"\n--From https://en.wikipedia.org/wiki/Turing_machine", size=25, justify=True)
     show tm 3
     b "Quote and reference!"
-    if only_one:
-        menu:
-            "With the citation, we've fixed all the problems.":
-                p "With the citation we've avoided sanctionable academic malpractice."
-                p "Which is a good thing."
-                p "But this answer has a lot of problems, both from grade you'll get and from a learning perspective."
-            "Even with this tweak, it's not a good answer.":
-                p "Exactly. We've managed to avoid sanctionable academic malpractice, but we're unlikely to get a good grade and we problably haven't learned much."
+    menu:
+        "With the citation, we've fixed all the problems.":
+            p "With the citation we've avoided sanctionable academic malpractice."
+            p "Which is a good thing."
+            p "But this answer has a lot of problems, both from grade you'll get and from a learning perspective."
+        "Even with this tweak, it's not a good answer.":
+            p "Exactly. We've managed to avoid sanctionable academic malpractice, but we're unlikely to get a good grade and we problably haven't learned much."
     jump .passive
 
 label .passive:
@@ -183,3 +208,116 @@ label .passive:
     image tm 5 = Text("A Turing machine is a {u}conceptual{/u} model of computation that defines an abstract {u}system{/u}, which manipulates symbols on a strip of {u}paper{/u} according to a {u}set{/u} of rules. Despite {u}this minimalism{/u}, given any computer {u}program{/u}, {u}we can design a Turing machine which can execute that program.{/u}.\n--From https://en.wikipedia.org/wiki/Turing_machine", size=25, justify=True)
     show tm 5
     b "This does give us an answer different from the original text!"
+
+
+label best_practices:
+
+    menu:
+        b "What would you like to discuss first?"
+
+        "Coursework":
+            jump coursework
+
+        "Exams":
+            jump exam
+
+        "Dissertation":
+            jump dissertation
+
+        "I'm fine, thanks!":
+            b "You're welcome"
+            "Now we return back to your explorations"
+            hide sara
+            jump intro
+
+label coursework:
+    b "In your coursework, you may have not only pure programming tasks"
+    b "Many lectures include some kind of essay"
+    b "For these essay, there are some best practices to follow"
+    b "If you need to answer a question or explain a term on phenomen you should try to find information"
+    menu:
+        b "Where would you look for information first?"
+
+        "The slides":
+            b "Great, it is always a good idea to consult the slides first"
+            b "Most likely, the relevant information will be at least mentioned"
+
+        "The provided literature":
+            b "That is a great idea! However, you may consult the slides first"
+            b "Often, the information you need is at least mentioned there"
+            b "But the provided literature is a excellent second step!"
+
+        "Look it up online":
+            b "Well, that is the most straightforward idea, isn't it?"
+            b "However, for most of the essay questions the answer is not so obvious."
+            b "You may need to consult different sources some of which might be not as qualified as others"
+            b "That is why you should try to find some information in the slides and the provided literature"
+            b "Afterwards, you may have found out for which information you are looking"
+            b "And remember, some online sources may have wrong information"
+
+    b "For these essays, it is not enough to just look for the information"
+    b "You will always have to write the gathered information in your own words"
+    menu:
+        b "What do you think will get you the most marks"
+
+        "Copy and paste should be sufficient":
+            b "Well, this will get you exactly zero points. If you forget to reference it properly, you may face some serious problems"
+
+        "Reading and understand the content of several sources before writing my essay":
+            b "Right! It is important that you do understand the sources"
+            b "If you don't understand a text, we will most likely find out because of the way you are writing about it"
+
+        "Rearranging the text and inserting synonyms for words in the source":
+            b "While this might be the way to go in some areas, it won't get you high marks here"
+            b "We want to know whether you have understood a topic"
+            b "If you don't understand a source text, we will most likely find out because of the way you are writing about it"
+
+    if not goodwritingbool:
+        jump goodwriting
+
+label goodwriting(context = "essay"):
+    $ goodwritingbool = True
+    b "When you have found the right information, it may be useful to follow these steps to get a higher mark:"
+    b "First, try to understand the topic of your task"
+    b "Then read the information you have several times and try to understand the given information"
+    if context == "essay":
+        b "When you dont understand something, look for an answer in the slides, the literature or online"
+        b "If you can't find anything or you are still struggling to understand you can always ask a TA"
+        b "You can always post a question on blackboard as well"
+        b "Here, students and staff will see your question and will try to answer it"
+    else:
+        b "When you dont understand something, look for an answer in the literature"
+        b "You can always ask your supervisor"
+        b "He will guide you to the relevant resources"
+    b "After having read and understood the text, give yourself a short break"
+    b "Let the information sink in"
+    b "Write down in your own words what you have understood"
+    b "Check with the source text to see if they resemble each other"
+    b "For resembling paragraphs try to formulate the paragraphs in your own words"
+    b "Often, your structure will differ from the structure in the source text because of the question you were given to answer"
+    b "And remember, never forget to reference your sources!"
+    b "After you wrote your text leave it for some time"
+    b "Come back after a while and reread your essay"
+    b "You may rewrite some parts that seem unclear or misleading"
+    jump best_practices
+
+label exam:
+    b "Your exam may include some short essay-style questions"
+    b "Most of the lectures with these kind of questions will include some essay assessment during the coursework"
+    b "It will help you practicing writing essays"
+    b "It is important that you understand the feedback given to you after submission"
+    b "The feedback will guide you to understand what we expect from you in the exams"
+    b "Also, the library has some useful courses and resources to help you writing."
+    b "These courses will help with most of the problems you might encounter"
+    jump best_practices
+
+label dissertation:
+    b "The library has some useful courses and resources to help you writing."
+    b "These courses will help with most of the problems you might encounter"
+    b "Also make sure to attend lectures provided by your school about scientific writing"
+    b "It is important that you never copy and paste a paper or a book chapter"
+    b "Also make sure to reference your sources"
+    b "Furthermore, follow the guidlines of good writing"
+    if not goodwritingbool:
+        call goodwriting pass (context = "dissertation") from _call_goodwriting
+    jump best_practices

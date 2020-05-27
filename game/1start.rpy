@@ -58,6 +58,10 @@ init python:
                'ohright': 1,
                'failedassignment': -1}
     comp61511 = True
+    meet_already = False
+    goodwritingbool = False
+    plag = False
+    collab = False
 
 python:
     def cond_item(condition, truebranch, falsebranch):
@@ -85,8 +89,6 @@ image eileen happy = "eileen happy.png"
 image pari happy  = "Pari/pari happy.png"
 
 image alex happy = "Alex/alex happy.png"
-
-image sara  = "Humaaans/sitting-5.png"
 
 image txtexamp = Text("\nHello, World! This is fun\nif you like that sort of\nthing", size=40, justify=True)
 
@@ -119,13 +121,28 @@ label start:
              persistent.povname = False
 
         score = 0
+    jump intro
 
+label intro:
+    scene bg home
     "Hi [povname]! Enjoy your explorations!"
-    python:
-        cs = [("Explore Plagiarism", 'start_plag'),
-              ("Explore Collusion", 'start_col'),
-              ("Explore Best Pratices", 'start_best')]
-        tracked_menu(cs, call=True)
+    menu:
+        "Hi [povname]! Enjoy your explorations!"
+
+        "Explore Plagiarism":
+            jump start_plag
+
+        "Explore Collusion":
+            jump start_col
+
+        "Explore Fabrication and Falsification of data":
+            jump fabrication
+
+        "Learn some Best Pratices":
+            jump start_best
+
+        "Return to the menu" if plag and collab and fabrication:
+            return
 
     scene
 

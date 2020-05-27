@@ -1,5 +1,6 @@
 
 label start_plag:
+    $ meet_already = True
     scene bg home2
 
     #show txtexamp at top
@@ -9,13 +10,18 @@ label start_plag:
         pos(950, 40)
         zoom 0.6
 
-    p "Hi! You are [povname], right? My name is Pari."
+    if meet_already:
+        p "Hello, [povname]. Nice to see you again!"
+        p "Everything is so confusing."
+
+    else:
+        p "Hi! You are [povname], right? My name is Pari."
+        p "I'm a new student as well. Everything is so confusing."
 
     # show pari talk at right
     show keri talk:
         pos(950, 40)
         zoom 0.6
-    p "I'm a new student as well. Everything is so confusing."
 
     p "For example, everyone is talking about Plagiarism. I didn't know what it was..."
 
@@ -205,7 +211,9 @@ label ta_intervention:
     hide bad_paragraph
     hide paragraph1a
     show alex at left
-    show sara at right
+    show sara talk:
+        pos(950, 40)
+        zoom 0.6
     ta1 "Hey, I heard you two were discussing about correct citation."
     ta1 "By now, you should know about plagiarism"
     ta1 "But do you know what patchwriting is?"
@@ -234,7 +242,9 @@ label ta_intervention:
 label patchwriting_minigame:
     screen white
     hide alex
-    show sara at left
+    show sara talk:
+        pos(120, 40)
+        zoom 0.6
     show logicrep at right
     ta1 "Let's look at the original source"
     hide sara
@@ -255,12 +265,16 @@ label patchwriting_minigame:
     ta1 "Even though he referenced the original paragraph, he merely just copied and pasted the text"
     ta1 "Using synonyms and changing the original structure just a tiny bit is bad academic practice"
     ta1 "In this way, we don't know whether the student actually understood what he was writing or was just copying the original source"
+    ta1 "I hope I could help you with your confusion!"
+    ta1 "Just talk to me, when you have any more questions! See you!"
     hide essay_choice
     hide logicrep
     jump patchwriting_part2
 
 label plagiarism_detail:
-    show sara at right
+    show sara mhappy:
+        pos(950, 40)
+        zoom 0.6
     show keri happy:
         pos(120, 40)
         zoom 0.6
@@ -292,6 +306,12 @@ label plagiarism_detail:
             $ change_score('plagiarism', +2)
             ta1 "Right! Great, [povname]! These were all examples for plagiarism"
 
+    p "Thank you, Sara!"
+
+    ta1 "You're welcome! Just come to me if you have any other questions"
+
+    ta1 "We are here to answer your questions"
+
     hide sara
     jump cont_plag
 
@@ -314,7 +334,7 @@ label part2:
     show alex normal
 
     a """I could give it to my supervisor to have a read through, but she is very busy and it's very last minute.
-    She probably not here right now anyway because it's pretty late."""
+    She is probably not here right now anyway because it's pretty late."""
 
     menu:
 
@@ -366,7 +386,7 @@ label failedassignment:
         "Yes, but not from the start":
             jump part2
         "No":
-            return
+            jump intro
 
 label warning:
 
@@ -452,7 +472,7 @@ label noidont:
 
     jump submission
 
-    return
+
 
 label ohright:
     $ change_score('ohright', 1)
@@ -483,7 +503,7 @@ label goodending:
     scene black
     "You won! Well Done :)"
 
-    return
+    jump intro
 
 
     # This ends the game.
