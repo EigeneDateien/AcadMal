@@ -34,6 +34,25 @@ label fabricate_data:
 
 label dialogue_fabrication_bad:
     p "Oh, I have just found some slides about academic malpractice"
+    if preferences.fullscreen == True:
+        define b = Character("Helper", kind=nvl)
+        b "Hey there, sorry to interupt!"
+
+        b "You are currently playing the game in fullscreen mode which is awesome"
+
+        b "However, we have some linked resources that can help you understand academic malpratice"
+
+        b "If you play in fullscreen mode, you will not see the documents until the end of the game"
+
+        b "You could however play the game in window mode and have a look at the resources"
+        menu:
+            b "Do you want to turn fullscreen off to have a look on the linked resource"
+
+            "Yes":
+                $ preferences.fullscreen = False
+
+            "No":
+                b "Alright, then! Please feel free to continue"
     p "You can find them {a=https://documents.manchester.ac.uk/display.aspx?DocID=2870}here{/a}!"
     menu:
         p "Hmm, do you think they apply here?"
@@ -67,6 +86,25 @@ label dialogue_fabrication_good:
     pov "I know, but we cannot fabricate the data"
     p "But why not?"
     pov "Fabrication of data is academic malpractice"
+    if preferences.fullscreen == True:
+        define b = Character("Helper", kind=nvl)
+        b "Hey there, sorry to interupt!"
+
+        b "You are currently playing the game in fullscreen mode which is awesome"
+
+        b "However, we have some linked resources that can help you understand academic malpratice"
+
+        b "If you play in fullscreen mode, you will not see the documents until the end of the game"
+
+        b "You could however play the game in window mode and have a look at the resources"
+        menu:
+            b "Do you want to turn fullscreen off to have a look on the linked resource"
+
+            "Yes":
+                $ preferences.fullscreen = False
+
+            "No":
+                b "Alright, then! Please feel free to continue"
     pov "You can read about it {a=https://documents.manchester.ac.uk/display.aspx?DocID=2870}here{/a}!"
     p "Oh, I see. I'm sorry! I didn't knew that"
     pov "No worries!"

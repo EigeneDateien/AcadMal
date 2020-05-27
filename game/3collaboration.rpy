@@ -305,6 +305,25 @@ label school_comitee:
     p "What is a more severe context?"
     ta1 "Assessments such as final essays, exams or your dissertation"
     pov "And what will happen then?"
+    if preferences.fullscreen == True:
+        define b = Character("Helper", kind=nvl)
+        b "Hey there, sorry to interupt!"
+
+        b "You are currently playing the game in fullscreen mode which is awesome"
+
+        b "However, we have some linked resources that can help you understand academic malpratice"
+
+        b "If you play in fullscreen mode, you will not see the documents until the end of the game"
+
+        b "You could however play the game in window mode and have a look at the resources"
+        menu:
+            b "Do you want to turn fullscreen off to have a look on the linked resource"
+
+            "Yes":
+                $ preferences.fullscreen = False
+
+            "No":
+                b "Alright, then! Please feel free to continue"
     ta1 "You can read about here: {a=http://documents.manchester.ac.uk/display.aspx?DocID=639}Academic Malpractice Procedure{/a}!"
     hide sara
     menu:

@@ -1,5 +1,5 @@
 
-define b = Character("Bee", kind=nvl)
+define b = Character("Sara", kind=nvl)
 label start_best:
     show sara talk:
         pos(100, 40)
@@ -30,7 +30,7 @@ label start_best:
 
     Best practices still can be done poorly. You need to practice them!
     """
-    define b_adv = Character("Bee")
+    define b_adv = Character("Sara")
     $ b = b_adv
     b "Let's get started!"
     if persistent.start_goals == None:
