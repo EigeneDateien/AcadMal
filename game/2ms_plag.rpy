@@ -1,6 +1,7 @@
 
 label start_plag:
     $ meet_already = True
+    $ plag = True
     scene bg home2
 
     #show txtexamp at top
@@ -390,12 +391,17 @@ label failedassignment:
 
 label warning:
 
-    # show supervisor
     scene bg office
+    show instructor angry at left
+    show alex sad at right
 
     s "Alex - this paragraph is plagarised."
 
+    show instructor sad at left
+
     s "If you hand this in you will fail your assignment..."
+
+    show instructor talk at left
 
     s """I suggest that you reference this paragraph, and if you haven't missed out any other
     references you've used then you should be fine."""

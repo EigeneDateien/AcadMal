@@ -62,6 +62,7 @@ init python:
     goodwritingbool = False
     plag = False
     collab = False
+    fabrication = False
 
 python:
     def cond_item(condition, truebranch, falsebranch):
@@ -84,16 +85,15 @@ define e = Character("Eileen")
 #     (0, 30+187), "Baggy Pants.png",
 #     (12, 104), "Hoodie.png")
 
-
+image instructor happy = "instructor/instructor happy.png"
 image eileen happy = "eileen happy.png"
-image pari happy  = "Pari/pari happy.png"
+image pari happy  = "instructor/instructor happy.png"
 
 image alex happy = "Alex/alex happy.png"
 
 image txtexamp = Text("\nHello, World! This is fun\nif you like that sort of\nthing", size=40, justify=True)
 
-image se1q = Text("\nGive an example of using reverse engineering \nto extract a requirment from an existing program.\nYou should discuss all the steps \nwith specific details.\n\nThis is to be your own work.", size=30, justify=True)
-
+image se1q = "seq1.png"
 image bg home = "Scene/kilburn-inside2.png"
 image bg home2 = "Scene/kilburn-inside.png"
 image bg lab = "Scene/kilburn-lab.png"
@@ -142,7 +142,7 @@ label intro:
             jump start_best
 
         "Return to the menu" if plag and collab and fabrication:
-            return
+            $ MainMenu(confirm=False)()
 
     scene
 

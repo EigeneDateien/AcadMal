@@ -1,4 +1,5 @@
 label fabrication:
+    $ fabrication = True
     # scene bg blabla
 
     "On the third week, Pari and you have a group work together"
@@ -191,11 +192,11 @@ label good_ending:
             pass
 
     # scene black
-    """Congratulations! You did not fabricate or falsify your results! Even if you did not get the wanted results, never
+    "Congratulations! You did not fabricate or falsify your results!"
 
-    falsify or fabricate data. This will lead to zero marks! If you can explain where you might have struggled or
+    "Even if you did not get the wanted results, never falsify or fabricate data. This will lead to zero marks!"
 
-    why you think you got the results you obtained, we will reward you with positive marks"""
+    "If you can explain where you might have struggled or why you think you got the results you obtained, we will reward you with positive marks"
 
     hide keri
 

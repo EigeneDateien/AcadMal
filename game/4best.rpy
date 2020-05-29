@@ -233,8 +233,8 @@ label best_practices:
 label coursework:
     b "In your coursework, you may have not only pure programming tasks"
     b "Many lectures include some kind of essay"
-    b "For these essay, there are some best practices to follow"
-    b "If you need to answer a question or explain a term on phenomen you should try to find information"
+    b "For these essays, there are some best practices to follow"
+    b "If you need to answer a question or explain a term or phenomenon you should try to find information"
     menu:
         b "Where would you look for information first?"
 

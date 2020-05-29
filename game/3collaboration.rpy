@@ -70,13 +70,16 @@ label se1_confused:
     p "Let's look at the question!"
     show se1q at truecenter
     p "This looks tricky!"
-    hide seq1
     menu:
         "It does look tricky. We should divide up the work.":
+            hide se1q
             jump failing
         "It seems straighforward. I'm going to do it on my own.":
             p "That's not very nice! Be a jerk about it!"
+            hide se1q
+            jump one_day_before
         "Look! It says it should be our own work. We can't collaborate.":
+            hide se1q
             p "I don't think it means we can't work together."
             p "It just means we can't submit the same essay."
             menu:
@@ -93,6 +96,7 @@ label se1_confused:
                             return
                 "I'm unsure and think we should ask a TA.":
                     jump ask_sara
+
 
 label ask_sara:
     $ change_score('ask_sara', +2)
@@ -139,9 +143,12 @@ label se1_collaboration(speaker="Instructor"):
             pos(100, 40)
             zoom 0.6
         $ s = ta1
+    else:
+        show instructor happy at left
     p "That's a good idea! [speaker] should explain what's going on."
     "We find [speaker] in the lab."
     "Hello, we have a question about SE1."
+    show instructor talk at left
     s "Sure, what's up?"
     p """We know we aren't supposed to work together on SE1, even if we produce different essays.
 
