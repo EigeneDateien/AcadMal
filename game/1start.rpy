@@ -7,6 +7,11 @@ init python:
         visiting(last_label)
     config.label_callback = label_callback
 
+
+    def change_score(tagname, v):
+        mark(tagname, v)
+        visiting(tagname)
+
     def visiting(tagname):
         # If we haven't seen this tag before, c == None
         c = getattr(persistent, tagname)
@@ -49,24 +54,20 @@ init python:
             renpy.jump(choice)
 
 
-    scoring = {'j2': 1,
-               'j1': -1,
-               'ask_sara': 2,
-               'se1_confused': 2,
-               'noplag': -2,
-               'yesplag1': 1,
-               'noplag2': 2,
-               'yesplag2': -1,
+    scoring = {
                'ohright': 1,
                'failedassignment': -1}
     comp61511 = True
+    meet_already = False
+    goodwritingbool = False
+    plag = False
+    collab = False
+    fabrication = False
 
 python:
     def cond_item(condition, truebranch, falsebranch):
         pass
 
-    def change_score():
-        pass
 define p_name = "Pari"
 define p = Character(p_name)
 
@@ -76,26 +77,28 @@ define ta1 = Character("Sara the TA")
 
 define s = Character("Supervisor")
 
+define e = Character("Eileen")
+
 # image pari composite = Composite(
 #     (300, 600),
 #     (64, 0), "Curly.png",
 #     (0, 30+187), "Baggy Pants.png",
 #     (12, 104), "Hoodie.png")
 
-image pari happy  = "Pari/pari happy.png"
+image instructor happy = "instructor/instructor happy.png"
+image eileen happy = "eileen happy.png"
+image pari happy  = "instructor/instructor happy.png"
 
 image alex happy = "Alex/alex happy.png"
 
-image sara  = "Humaaans/sitting-5.png"
-
 image txtexamp = Text("\nHello, World! This is fun\nif you like that sort of\nthing", size=40, justify=True)
 
-image se1q = Text("\nGive an example of using reverse engineering \nto extract a requirment from an existing program.\nYou should discuss all the steps \nwith specific details.\n\nThis is to be your own work.", size=30, justify=True)
-
+image se1q = "seq1.png"
 image bg home = "Scene/kilburn-inside2.png"
 image bg home2 = "Scene/kilburn-inside.png"
 image bg lab = "Scene/kilburn-lab.png"
 image bg office = "Scene/kilburn-office.png"
+image bg outside = "Scene/bg kilburn outside.png"
 image bg plants = "Scene/Plants.png"
 define pov = Character("[povname]")
 
@@ -118,13 +121,28 @@ label start:
              persistent.povname = False
 
         score = 0
+    jump intro
 
+label intro:
+    scene bg home
     "Hi [povname]! Enjoy your explorations!"
-    python:
-        cs = [("Explore Plagiarism", 'start_plag'),
-              ("Explore Collusion", 'start_col'),
-              ("Explore Best Pratices", 'start_best')]
-        tracked_menu(cs, call=True)
+    menu:
+        "Hi [povname]! Enjoy your explorations!"
+
+        "Explore Plagiarism":
+            jump start_plag
+
+        "Explore Collusion":
+            jump start_col
+
+        "Explore Fabrication and Falsification of data":
+            jump fabrication
+
+        "Learn some Best Pratices":
+            jump start_best
+
+        "Return to the menu" if plag and collab and fabrication:
+            $ MainMenu(confirm=False)()
 
     scene
 
@@ -136,10 +154,30 @@ label start:
             if k1 and k1 > 0:
                 tags += k + ","
                 score += v
+    "The tags are [tags]"
+    $ val1 = scoring["plagiarism"]
+    "The value for plagiarism is [val1]"
+    $ val2 = scoring["yesplag1"]
+    "The value for yesplag1 is [val2]"
+
+    if score >= 4 and "ask_sara" in scoring.keys():
+        "Well done! Always make sure to not validate academic malpractice"
+    elif "ask_sara" in scoring.keys() and score < 4:
+        "Please make sure to not collaborate on assignments where it is not explicitly stated"
+    elif score >= 7:
+        "Well done! You are a plagiarism expert!"
+        "But please make sure to understand what plagiarism is."
+        "When in doubt, ask your TA!"
+    #other possibilities
+
     show text "Your score is [score]!"
-    "There is so much to learn."
 
     python:
         for k, v in scoring.items():
+            scoring[k] = 0
             setattr(persistent, k, None)
+
+    "There is so much to learn."
+
+
     return
