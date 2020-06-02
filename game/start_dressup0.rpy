@@ -10,7 +10,7 @@ image sara happy = Composite(
     (0, 0), "Create_Character/Bottoms/bottom1_6.png",
     (0, 0), "Create_Character/Tops/top5_5.png",
     (0, 0), "Create_Character/Eyebrows/eyebrows3_1.png",
-    (0, 0), "Create_Character/Eyes/eyes1_9.png",
+    (0, 0), "Create_Character/Eyes/eyes2_9.png",
     (0, 0), "Create_Character/Mouth/mouth3_1.png",
     (0, 0), "Create_Character/Hair/hair4_7.png",
 )
@@ -21,7 +21,7 @@ image sara angry = Composite(
     (0, 0), "Create_Character/Bottoms/bottom1_6.png",
     (0, 0), "Create_Character/Tops/top5_5.png",
     (0, 0), "Create_character/Eyebrows/eyebrows_angry.png",
-    (0, 0), "Create_Character/Eyes/eyes1_9.png",
+    (0, 0), "Create_Character/Eyes/eyes2_9.png",
     (0, 0), "Create_character/Mouth/mouth_angry.png",
     (0, 0), "Create_Character/Hair/hair4_7.png",
 )
@@ -32,7 +32,7 @@ image sara talk = Composite(
     (0, 0), "Create_Character/Bottoms/bottom1_6.png",
     (0, 0), "Create_Character/Tops/top5_5.png",
     (0, 0), "Create_character/Eyebrows/eyebrows_normal.png",
-    (0, 0), "Create_Character/Eyes/eyes1_9.png",
+    (0, 0), "Create_Character/Eyes/eyes2_9.png",
     (0, 0), "Create_character/Mouth/mouth_talk.png",
     (0, 0), "Create_Character/Hair/hair4_7.png",
 )
@@ -43,7 +43,7 @@ image sara mhappy = Composite(
     (0, 0), "Create_Character/Bottoms/bottom1_6.png",
     (0, 0), "Create_Character/Tops/top5_5.png",
     (0, 0), "Create_character/Eyebrows/eyebrows_normal.png",
-    (0, 0), "Create_Character/Eyes/eyes1_9.png",
+    (0, 0), "Create_Character/Eyes/eyes2_9.png",
     (0, 0), "Create_character/Mouth/mouth_mhappy.png",
     (0, 0), "Create_Character/Hair/hair4_7.png",
 )
@@ -54,7 +54,7 @@ image sara vhappy = Composite(
     (0, 0), "Create_Character/Bottoms/bottom1_6.png",
     (0, 0), "Create_Character/Tops/top5_5.png",
     (0, 0), "Create_character/Eyebrows/eyebrows_normal.png",
-    (0, 0), "Create_Character/Eyes/eyes1_9.png",
+    (0, 0), "Create_Character/Eyes/eyes2_9.png",
     (0, 0), "Create_character/Mouth/mouth_vhappy.png",
     (0, 0), "Create_Character/Hair/hair4_7.png",
 )
@@ -65,7 +65,7 @@ image sara sad = Composite(
     (0, 0), "Create_Character/Bottoms/bottom1_6.png",
     (0, 0), "Create_Character/Tops/top5_5.png",
     (0, 0), "Create_character/Eyebrows/eyebrows_sad.png",
-    (0, 0), "Create_Character/Eyes/eyes1_9.png",
+    (0, 0), "Create_Character/Eyes/eyes2_9.png",
     (0, 0), "Create_character/Mouth/mouth_sad.png",
     (0, 0), "Create_Character/Hair/hair4_7.png",
 )
@@ -226,6 +226,17 @@ label start_dressup_female:
         (0, 0), "Create_character/Eyebrows/eyebrows_sad.png",
         (0, 0), "Create_character/Eyes/eyes[eyes_keri]_[eye_color_keri].png",
         (0, 0), "Create_character/Mouth/mouth_sad.png",
+        (0, 0), "Create_character/Hair/hair[hairstyle_keri]_[hair_color_keri].png",
+    )
+
+    image keri surprised = Composite(
+        (311, 631),
+        (0, 0), "Create_Character/Base/base[skin_color_keri].png",
+        (0, 0), "Create_character/Bottoms/bottom[bottom_choice]_[bottom_style].png",
+        (0, 0), "Create_character/Tops/top[top_choice]_[top_style].png",
+        (0, 0), "Create_character/Eyebrows/eyebrows_sad.png",
+        (0, 0), "Create_character/Eyes/eyes[eyes_keri]_[eye_color_keri].png",
+        (0, 0), "Create_character/Mouth/mouth_surprised.png",
         (0, 0), "Create_character/Hair/hair[hairstyle_keri]_[hair_color_keri].png",
     )
 

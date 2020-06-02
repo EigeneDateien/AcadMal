@@ -1,7 +1,7 @@
 label start_col:
     $ collab = True
     scene bg home
-    show keri happy:
+    show keri mhappy:
         pos(950, 40)
         zoom 0.6
 
@@ -12,9 +12,15 @@ label start_col:
         p "Hello, you must be [povname]! My name is Pari. I am a new student as well."
         p "This is my first time in the UK. I'm a bit nervous about the MSc program."
     $ meet_already = True
+    show keri talk:
+        pos(950, 40)
+        zoom 0.6
     p "I thought I would be programming all the time, but they want us to write essays."
     p "I haven't had to write a lot of essays before. And some of them are quite strange!"
     p "Have you done coursework like this before?"
+    show keri happy:
+        pos(950, 40)
+        zoom 0.6
     menu:
         "Yes, I have.":
             jump essay_experienced
@@ -25,13 +31,25 @@ label start_col:
 
 
 label essay_experienced:
+    show keri vhappy:
+        pos(950, 40)
+        zoom 0.6
     p "Great! Then you can help me!"
+    show keri talk:
+        pos(950, 40)
+        zoom 0.6
     p "I really don't know what to do for the first essay, SE1."
     p "Maybe we can work together on it?"
+    show keri mhappy:
+        pos(950, 40)
+        zoom 0.6
     menu:
         "Yes! We'll both do better if we collaborate.":
             jump failing
         "No! I want to do it all by myself.":
+            show keri sad:
+                pos(950, 40)
+                zoom 0.6
             p "Wow, why are you so rude?"
             p "Please, can we just share ideas on what to write?"
             menu:
@@ -46,12 +64,18 @@ label essay_experienced:
 
 
 label essay_novice:
+    show keri vhappy:
+        pos(950, 40)
+        zoom 0.6
     p "I'm glad to meet another beginner! Maybe we can help each other figure it out."
     p "Would you like to work together on the first essay, SE1?"
     menu:
         "Yes! We'll both do better if we collaborate.":
             jump failing
         "No! I want to do it all by myself.":
+            show keri sad:
+                pos(950, 40)
+                zoom 0.6
             p "Wow, why are you so rude?"
             p "Please, can we just share ideas on what to write?"
             menu:
@@ -66,6 +90,9 @@ label essay_novice:
 
 label se1_confused:
     $ change_score("se1_confused", +2)
+    show keri talk:
+        pos(950, 40)
+        zoom 0.6
     p "I think it's fine. We're supposed to be learning from each other."
     p "Let's look at the question!"
     show se1q at truecenter
@@ -104,21 +131,48 @@ label ask_sara:
     show sara mhappy:
         pos(100, 40)
         zoom 0.6
+    show keri talk:
+        pos(950, 40)
+        zoom 0.6
 
     p "Hey Sara. It's ok if we work togehter on SE1, right?"
     p "I mean, as long as the final essays are different?"
     jump sara_feedback
 
 label sara_feedback:
+    show keri happy:
+        pos(950, 40)
+        zoom 0.6
+    show sara angry:
+        pos(100, 40)
+        zoom 0.6
     ta1 "No! Didn't you see the part of the question where it says it must be your own work?"
+    show keri talk:
+        pos(950, 40)
+        zoom 0.6
+    show sara happy:
+        pos(100, 40)
+        zoom 0.6
     p "I did, but that doesn't mean we can't discuss the question and give each other feedback?"
+    show keri happy:
+        pos(950, 40)
+        zoom 0.6
+    show sara talk:
+        pos(100, 40)
+        zoom 0.6
     ta1 "That's exactly what it means. You shouldn't work together at all on SE1."
     ta1 "If you have a question or problem, you should ask a TA, email an instructor, or post a question on Blackboard."
     ta1 "If you had worked together on SE1 that would have been collusion!"
     ta1 "In the best case, you would have gotten zero points on SE1 and a mark on your record."
+    show keri surprised:
+        pos(950, 40)
+        zoom 0.6
     p "Yeek! Thanks for this! I didn't realise."
     "We walk away from Sara."
     hide sara
+    show keri talk:
+        pos(950, 40)
+        zoom 0.6
     p """I guess it's a good thing we talked with Sara about this.
 
     But, it's strange. The instructor talked about the importance of
@@ -126,6 +180,9 @@ label sara_feedback:
 
     What's wrong with working together as long as we each write our own essays?
     """
+    show keri happy:
+        pos(950, 40)
+        zoom 0.6
     menu:
         "Tell [p_name] that we should just do what we are told":
             jump one_day_before
@@ -139,7 +196,7 @@ label sara_feedback:
 
 label se1_collaboration(speaker="Instructor"):
     if speaker == "Sara":
-        show sara mhappy:
+        show sara happy:
             pos(100, 40)
             zoom 0.6
         $ s = ta1
@@ -147,12 +204,36 @@ label se1_collaboration(speaker="Instructor"):
         show instructor happy at left
     p "That's a good idea! [speaker] should explain what's going on."
     "We find [speaker] in the lab."
-    "Hello, we have a question about SE1."
-    show instructor talk at left
+    pov "Hello, we have a question about SE1."
+    if speaker == "Sara":
+        show sara talk:
+            pos(100, 40)
+            zoom 0.6
+    else:
+        show instructor talk at left
+
     s "Sure, what's up?"
+
+    if speaker == "Sara":
+        show sara happy:
+            pos(100, 40)
+            zoom 0.6
+        $ s = ta1
+    else:
+        show instructor happy at left
+
+    show keri talk:
+        pos(950, 40)
+        zoom 0.6
+
     p """We know we aren't supposed to work together on SE1, even if we produce different essays.
 
     But we don't understand why. What's wrong with collaboration?"""
+
+    show keri happy:
+        pos(950, 40)
+        zoom 0.6
+
     menu:
         "You add in:"
         "We'll get a worse grade if we can't get some help.":
@@ -161,6 +242,14 @@ label se1_collaboration(speaker="Instructor"):
             pass
         "We've never done something like this before" if True: #hook back to "novice" path.
             pass
+
+    if speaker == "Sara":
+        show sara talk:
+            pos(100, 40)
+            zoom 0.6
+    else:
+        show instructor talk at left
+
     s """I understand your concerns.
 
     We think a lot about how our assignments affect your learning, esp. for writing.
@@ -188,15 +277,35 @@ label se1_collaboration(speaker="Instructor"):
 
     And the best way to get better at writing is to practice it."""
 
+    if speaker == "Sara":
+        show sara mhappy:
+            pos(100, 40)
+            zoom 0.6
+        $ s = ta1
+    else:
+        show instructor happy at left
+
     menu:
         "But we don't even know how to get started on SE1!":
             s "If you want, we can talk individually and I will answer your questions as far as possible"
         "We'll lose points if we don't get help now!":
             s "Part of the assignement is to figure out how to start and what an essay should entail"
+            if speaker == "Sara":
+                show sara talk:
+                    pos(100, 40)
+                    zoom 0.6
+            else:
+                show instructor talk at left
             s "This way, you will learn the most"
             s "And you will get helpful feedback after the submission so that you know what to do next time"
         "What sort of help are we going to get?":
             s "First, you can always ask a TA or an instructor for help."
+            if speaker == "Sara":
+                show sara talk:
+                    pos(100, 40)
+                    zoom 0.6
+            else:
+                show instructor talk at left
             s "We know how much aid to give without breaking the value of the assignment."
             if comp61511:
                 s "Next, in a lab after submitting SE1, we'll have an exercise where we will do some peer review."
@@ -235,55 +344,106 @@ label one_day_before:
 
 label near_miss:
     # pari will use the same ideas
+    show keri vhappy:
+        pos(950, 40)
+        zoom 0.6
     p "Thank you, [povname]! You are a life saver"
+    show keri talk:
+        pos(950, 40)
+        zoom 0.6
     p "This is such a great help! Your essay is way better than mine!"
+    show keri vhappy:
+        pos(950, 40)
+        zoom 0.6
     pov "But don't copy my text"
+    show keri talk:
+        pos(950, 40)
+        zoom 0.6
     p "No worries, I will rewrite it and use my own words"
     jump collusion
 
 label failing:
     # intervention by the ta
-    show sara happy:
+    show sara mhappy:
         pos(100, 40)
+        zoom 0.6
+    show keri happy:
+        pos(950, 40)
         zoom 0.6
     ta1 "Hey, you two are seem to get along well."
     p "Yeah, [povname] is a great working partner"
+    show sara talk:
+        pos(100, 40)
+        zoom 0.6
     menu:
         ta1 "Excuse me, you two are not working on the essay together, do you?"
 
         "We are just discussing what to write":
             ta1 "If you don't understand a question or what you should do, you can always ask a TA or the instructor"
             ta1 "But please don't discuss your answers with each other"
+            show sara happy:
+                pos(100, 40)
+                zoom 0.6
+            show keri talk:
+                pos(950, 40)
+                zoom 0.6
             p "But we can work together, right?"
 
         "We are working on it together, but we will both write an individual text":
+            show sara angry:
+                pos(100, 40)
+                zoom 0.6
             ta1 "Please stop that immediately!"
+            show keri talk:
+                pos(950, 40)
+                zoom 0.6
             p "Why? I thought we could work together on the essay?"
 
         "We are splitting up the work, because it is too much":
+            show sara happy:
+                pos(100, 40)
+                zoom 0.6
             ta1 "Well, I know that these questions seem hard in the beginning, but please stop working together immediately!"
+            show sara happy:
+                pos(100, 40)
+                zoom 0.6
+            show keri talk:
+                pos(950, 40)
+                zoom 0.6
             p "Why? I thought we could work together on the essay?"
 
     jump sara_feedback
 
 label collusion:
-    # scene black
+    scene black
     "One week later"
-    # scene lab
+    scene bg home2
     show keri angry:
         pos(950, 40)
         zoom 0.6
     p "[povname]! Have you seen the marks? I got zero points! What have you got?"
     pov "Let me check..."
-    p "Oh no! I also got zero points. But why?"
+    pov "Oh no! I also got zero points. But why?"
     show sara mhappy:
         pos(100, 40)
         zoom 0.6
     ta1 "Pari, [povname]? Can I talk to you?"
+    show keri sad:
+        pos(950, 40)
+        zoom 0.6
     p "Sara, why do we have zero points?"
+    show sara talk:
+        pos(100, 40)
+        zoom 0.6
     ta1 "We found that your essays were very alike! You even made the same mistakes"
     ta1 "Did you two worked together on the essay or compared your essays"
+    show sara happy:
+        pos(100, 40)
+        zoom 0.6
     pov "Yes, we compared it, but we wrote different essays"
+    show sara talk:
+        pos(100, 40)
+        zoom 0.6
     ta1 "Thank you for your honesty, [povname]. As I told you before, it was an individual coursework"
     ta1 "We wanted to see how well you understand the topic. But each of you and not just one of you"
     ta1 "You are glad that it was in a coursework"
@@ -303,14 +463,28 @@ label collusion:
                     jump one_day_before
 
                 "No":
-                    return
+                    scene black
+                    "Returning to explorations again"
+                    jump intro
 
 
 label school_comitee:
     # having to speak in front of the school commitee
+    show sara talk:
+        pos(100, 40)
+        zoom 0.6
     ta1 "If you commit academic malpractice in a more severe context, there will be a chain of escalation"
+    show sara happy:
+        pos(100, 40)
+        zoom 0.6
     p "What is a more severe context?"
+    show sara talk:
+        pos(100, 40)
+        zoom 0.6
     ta1 "Assessments such as final essays, exams or your dissertation"
+    show sara happy:
+        pos(100, 40)
+        zoom 0.6
     pov "And what will happen then?"
     if preferences.fullscreen == True:
         define b = Character("Helper", kind=nvl)
@@ -331,6 +505,9 @@ label school_comitee:
 
             "No":
                 b "Alright, then! Please feel free to continue"
+    show sara talk:
+        pos(100, 40)
+        zoom 0.6
     ta1 "You can read about here: {a=http://documents.manchester.ac.uk/display.aspx?DocID=639}Academic Malpractice Procedure{/a}!"
     hide sara
     menu:

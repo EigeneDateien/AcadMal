@@ -28,23 +28,39 @@ label start_plag:
 
     p "I had to ask the teaching assistant and she explained it to me."
 
+    show keri happy:
+        pos(950, 40)
+        zoom 0.6
+
     menu:
         p "Do you know what Plagiarism is?"
 
         "Taking someone else's work and passing it off as your own":
             $ change_score('plagiarism', +1)
+            show keri talk:
+                pos(950, 40)
+                zoom 0.6
             p "Oh, there is Sara, the TA."
             jump plagiarism_detail
         "Copying a paragraph from a friend's essay without their knowing":
             $ change_score('plagiarism', +1)
+            show keri talk:
+                pos(950, 40)
+                zoom 0.6
             p "Oh, there is Sara, the TA."
             jump plagiarism_detail
         "Copying someone else's work without paraphrasing or using quotation marks around the copied sentence":
             $ change_score('plagiarism', +1)
+            show keri talk:
+                pos(950, 40)
+                zoom 0.6
             p "Oh, there is Sara, the TA."
             jump plagiarism_detail
         "All of the above":
             $ change_score('plagiarism', +3)
+            show keri talk:
+                pos(950, 40)
+                zoom 0.6
             p "Wow, [povname]. That's right! I did not know that all these examples were plagiarism."
             p "Luckily, the TA explained it to me!"
             jump cont_plag
@@ -53,7 +69,7 @@ label start_plag:
 
 label cont_plag:
     # show pari mhappy at right
-    show keri mhappy:
+    show keri happy:
         pos(950, 40)
         zoom 0.6
     pov "Plagarism is such a big deal here."
@@ -115,9 +131,9 @@ label patchwriting:
 
     a "Hello, I'm Alex"
 
-    a "I am an MSc student studying Computer Science here at the University of Manchester."
-
     show alex talk at left
+
+    a "I am an MSc student studying Computer Science here at the University of Manchester."
 
     a """I have my dissertation due tomorrow and I've still got a paragraph left to write.
     The last assignment I handed in wasn't a very good one either..."""
@@ -143,11 +159,15 @@ label patchwriting:
 
     a "Finally I'm finished"
 
+    show alex happy at left
+
     menu:
 
         a "What do you think? Great, isn't it?"
 
         "No, not really":
+
+            show alex sad at left
 
             menu:
                 pov "You really need to change something"
@@ -169,8 +189,10 @@ label patchwriting:
 
     hide bad_paragraph
     show cited_paragraph at right
+    show alex talk at left
     a "Now I referenced it!"
     a "I think it's perfect now!"
+    show alex happy at left
     menu:
         a "Or do you think I should change something?"
 
@@ -187,12 +209,15 @@ label patchwriting:
 
 
 label patchwriting_part2:
+    scene bg home2
     hide sara
-    show alex at left
+    show alex talk at left
     show logicrep at right
     show paragragh1a at right
 
     a "Okay that's good. It's entirely in my own words."
+
+    show alex happy at left
 
     menu:
 
@@ -211,31 +236,67 @@ label ta_intervention:
     hide cited_paragraph
     hide bad_paragraph
     hide paragraph1a
-    show alex at left
+    show alex happy at left
     show sara talk:
         pos(950, 40)
         zoom 0.6
     ta1 "Hey, I heard you two were discussing about correct citation."
     ta1 "By now, you should know about plagiarism"
     ta1 "But do you know what patchwriting is?"
+    show sara happy:
+        pos(950, 40)
+        zoom 0.6
+    show alex talk at left
     a "Not at all, can you explain it to us?"
+    show alex happy at left
+    show sara talk:
+        pos(950, 40)
+        zoom 0.6
     ta1 "Sure! We don't expect you to know everything here!"
     ta1 "You are encouraged to search for information in order to answer questions or to use in your dissertation"
     ta1 "However, you should always make sure that you don't plagiarise!"
     ta1 "And, if you want good marks, you should avoid patchwriting!"
+    show sara happy:
+        pos(950, 40)
+        zoom 0.6
     pov "So, what is patchwriting then?"
+    show sara mhappy:
+        pos(950, 40)
+        zoom 0.6
     ta1 "If you find an interesting text or paragraph in a paper, make sure to paraphrase it in your own words"
     ta1 "We want you to understand the information and not just consume it"
+    show sara happy:
+        pos(950, 40)
+        zoom 0.6
     menu:
         ta1 "[povname], what do you think is an example for patchwriting?"
 
         "If I use the same structure and similiar words as in the original source":
+            show sara vhappy:
+                pos(950, 40)
+                zoom 0.6
             ta1 "That's correct! Great, [povname]!"
         "If I just copy and paste a text without referencing":
+            show sara sad:
+                pos(950, 40)
+                zoom 0.6
             ta1 "Nooo! That is plagiarism!"
+            show sara talk:
+                pos(950, 40)
+                zoom 0.6
             ta1 "Alex, can you think of an example?"
+            show alex talk at left
+            show sara happy:
+                pos(950, 40)
+                zoom 0.6
             a "Well, maybe if I use the same structure and similiar words as in the original source?"
+            show sara vhappy:
+                pos(950, 40)
+                zoom 0.6
             ta1 "Great, Alex! That's correct!"
+    show sara talk:
+        pos(950, 40)
+        zoom 0.6
     ta1 "So, let's look at an example!"
     jump patchwriting_minigame
 
@@ -280,34 +341,98 @@ label plagiarism_detail:
         pos(120, 40)
         zoom 0.6
     ta1 "Hey, I heard that you two are discussing about plagiarism."
+    show sara happy:
+        pos(950, 40)
+        zoom 0.6
+    show keri talk:
+        pos(120, 40)
+        zoom 0.6
     p "Yes, can you help us understanding the term?"
+    show sara talk:
+        pos(950, 40)
+        zoom 0.6
+    show keri happy:
+        pos(120, 40)
+        zoom 0.6
     ta1 "Don't worry! Most new students are confused about these terms."
     ta1 "There are examples of plagiarism that are more easy to understand"
     ta1 "Can you give us an example for this, [povname]?"
+    show sara happy:
+        pos(950, 40)
+        zoom 0.6
     menu:
         "Passing work done by someone else as my own":
             $ change_score('plagiarism', +1)
+            show sara mhappy:
+                pos(950, 40)
+                zoom 0.6
             ta1 "Yes, that is a great example!"
             ta1 "Pari, can you think of another example"
+            show keri talk:
+                pos(120, 40)
+                zoom 0.6
             p "Copying a text without using my own works or quotation marks for the copied sentence"
+            show keri vhappy:
+                pos(120, 40)
+                zoom 0.6
+            show sara talk:
+                pos(950, 40)
+                zoom 0.6
             ta1 "Great! Another example would be to use a text from another student without their knowing"
         "Using a text from another students without their knowing":
             $ change_score('plagiarism', +1)
+            show sara mhappy:
+                pos(950, 40)
+                zoom 0.6
             ta1 "Yes, that is a great example!"
             ta1 "Pari, can you think of another example"
+            show keri talk:
+                pos(120, 40)
+                zoom 0.6
             p "Copying a text without using my own works or quotation marks for the copied sentence"
+            show keri vhappy:
+                pos(120, 40)
+                zoom 0.6
+            show sara talk:
+                pos(950, 40)
+                zoom 0.6
             ta1 "Great! It is in general a bad idea to pass in work done by someone else as your own"
         "Copying a text without using my own works or quotation marks for the copied sentence":
             $ change_score('plagiarism', +1)
+            show sara mhappy:
+                pos(950, 40)
+                zoom 0.6
             ta1 "Yes, that is a great example!"
             ta1 "Pari, can you think of another example"
+            show keri talk:
+                pos(120, 40)
+                zoom 0.6
             p "Using a text from another students without their knowing"
+            show keri vhappy:
+                pos(120, 40)
+                zoom 0.6
+            show sara talk:
+                pos(950, 40)
+                zoom 0.6
             ta1 "Great! It is in general a bad idea to pass in work done by someone else as your own"
         "All of the above":
             $ change_score('plagiarism', +2)
+            show sara vhappy:
+                pos(950, 40)
+                zoom 0.6
             ta1 "Right! Great, [povname]! These were all examples for plagiarism"
 
+    show keri talk:
+        pos(120, 40)
+        zoom 0.6
     p "Thank you, Sara!"
+
+    show keri happy:
+        pos(120, 40)
+        zoom 0.6
+    show sara talk:
+        pos(950, 40)
+        zoom 0.6
 
     ta1 "You're welcome! Just come to me if you have any other questions"
 
@@ -332,10 +457,12 @@ label noplag1:
 
 label part2:
 
-    show alex normal
+    show alex talk
 
     a """I could give it to my supervisor to have a read through, but she is very busy and it's very last minute.
     She is probably not here right now anyway because it's pretty late."""
+
+    show alex happy
 
     menu:
 
@@ -415,8 +542,6 @@ label yesplag1:
 
     $ change_score('yesplag1', 1)
 
-    scene white
-
     show alex surprised
     pov "Yeah, it's still plagiarism if you form a conclusion based on the article and not reference it."
 
@@ -424,15 +549,18 @@ label yesplag1:
 
     a "Oh yeah, I forgot to cite it."
 
+    hide paragragh1a
+
     show paragraph1b at right
+    show alex talk at left
 
     a "There, how's that?"
     jump submission
 
 label submission:
 
-    scene white
     show paragraph1b at right
+    show alex happy at left
 
     menu:
 
@@ -453,7 +581,6 @@ label yesplag2:
 
     $ change_score('yesplag2', 1)
 
-    scene white
     pov "You haven't referenced it properly."
     show alex surprised
     a "Why, what's wrong with it?"
@@ -472,9 +599,10 @@ label noidont:
 
     $ change_score('noidont', -1)
 
-    scene white
-    # show alex normal
+    show alex vhappy
     a "I don't need to put it in quotation marks - it's in my own words, remember?"
+
+    show alex happy
 
     jump submission
 
@@ -482,7 +610,7 @@ label noidont:
 
 label ohright:
     $ change_score('ohright', 1)
-    scene white
+    show alex mhappy at left
     a "Oh right - I forgot about that sentence."
 
     menu:
@@ -507,7 +635,7 @@ label goodending:
     pov "Congrats!"
 
     scene black
-    "You won! Well Done :)"
+    "Returning back to your explorations"
 
     jump intro
 

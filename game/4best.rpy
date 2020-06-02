@@ -1,9 +1,6 @@
 
 define b = Character("Sara", kind=nvl)
 label start_best:
-    show sara talk:
-        pos(100, 40)
-        zoom 0.6
     #show bee helpful
     b "Hi there!"
     b "I'm an expert writer with a lot of experience."
@@ -30,6 +27,9 @@ label start_best:
 
     Best practices still can be done poorly. You need to practice them!
     """
+    show sara talk:
+        pos(100, 40)
+        zoom 0.6
     define b_adv = Character("Sara")
     $ b = b_adv
     b "Let's get started!"
@@ -54,8 +54,15 @@ label start_goals:
 
     They are interrelated, but we can consider each in turn."""
 
+    show sara happy:
+        pos(100, 40)
+        zoom 0.6
+
     menu:
         "Goal 1: Improve Understanding":
+            show sara talk:
+                pos(100, 40)
+                zoom 0.6
             b """This is probably the most important goal and a key reason for writing.
 
             This is what most of your coursework is trying to do.
@@ -81,6 +88,9 @@ label start_goals:
 
         "Goal 2: Communicate With Others":
             label .communicate:
+                show sara talk:
+                    pos(100, 40)
+                    zoom 0.6
                 "WE ARE COMMUNICATING!!"
                 b """You might have to work with others during your coursework.
 
@@ -97,7 +107,13 @@ label start_goals:
                 jump mark
         "Goal 3: Get a Mark":
             label mark:
+                show sara talk:
+                    pos(100, 40)
+                    zoom 0.6
                 b "This might be the most interesting goal for your study. But beware that the other options are just as important"
+                show sara happy:
+                    pos(100, 40)
+                    zoom 0.6
                 menu:
                     b "If you like, I can give you some tips and best practices on how to deal with coursework, exams and your dissertation"
 
@@ -105,9 +121,14 @@ label start_goals:
                         jump best_practices
 
                     "No, thanks":
-                        return
+                        scene black
+                        "Returning to explorations"
+                        jump intro
 
 label theory:
+    show sara talk:
+        pos(100, 40)
+        zoom 0.6
     b """There are a lot of theories about how people learn.
 
     None of them are conclusive...learning is a very complex phenomenon.
@@ -119,7 +140,7 @@ label theory:
 
     show text "What is a Turing Machine?"
 
-    b """The essence of this  question can be phrased in many ways.
+    b """The essence of this question can be phrased in many ways.
 
     But as it's written, it looks like a simple recall or research question.
 
@@ -140,23 +161,41 @@ label theory:
 
     show tm 2 at truecenter
     b "So! What sort of answer is it?"
+    show sara happy:
+        pos(100, 40)
+        zoom 0.6
     menu:
 
         "This is a perfectly fine answer.":
             $ mark('plagiarism', -1)
             $ mark('passivity', -1)
+            show sara sad:
+                pos(100, 40)
+                zoom 0.6
             b "At the very least, you should have noted the potentially very serious academic malpractice issue!"
         "This will be a perfectly fine answer once you fix the citation issue.":
+            show sara talk:
+                pos(100, 40)
+                zoom 0.6
             $ mark('passivity', -1)
             b "At the very least, we must fix that citation issue!"
             call .plag(True) from _call_theory_plag
 
         "This is not a good answer.":
+            show sara vhappy:
+                pos(100, 40)
+                zoom 0.6
             p "Yes, it has multiple problems."
+            show sara talk:
+                pos(100, 40)
+                zoom 0.6
             p "Let's deal with the citation problem first"
             jump .plag
 
 label .plag(only_one=False):
+    show sara talk:
+        pos(100, 40)
+        zoom 0.6
     b "Note that the problem here isn't claiming credit for the {i}idea{/i}, since that's common knowledge, but for the text."
     b "We in no way wrote those words!"
     b "But a simple fix gets us out of that problem:"
@@ -164,16 +203,28 @@ label .plag(only_one=False):
     image tm 3 = Text("\"A Turing machine is a mathematical model of computation that defines an abstract machine, which manipulates symbols on a strip of tape according to a table of rules. Despite the model's simplicity, given any computer algorithm, a Turing machine capable of simulating that algorithm's logic can be constructed.\"\n--From https://en.wikipedia.org/wiki/Turing_machine", size=25, justify=True)
     show tm 3
     b "Quote and reference!"
+    show sara happy:
+        pos(100, 40)
+        zoom 0.6
     menu:
         "With the citation, we've fixed all the problems.":
+            show sara talk:
+                pos(100, 40)
+                zoom 0.6
             p "With the citation we've avoided sanctionable academic malpractice."
             p "Which is a good thing."
             p "But this answer has a lot of problems, both from grade you'll get and from a learning perspective."
         "Even with this tweak, it's not a good answer.":
+            show sara talk:
+                pos(100, 40)
+                zoom 0.6
             p "Exactly. We've managed to avoid sanctionable academic malpractice, but we're unlikely to get a good grade and we problably haven't learned much."
     jump .passive
 
 label .passive:
+    show sara talk:
+        pos(100, 40)
+        zoom 0.6
     b """A major issue with this answer, both from the perspective of your learning and of assessing your learning is that you didn't do much!
 
     If this was a formative question, the goal wasn't for you to search and retrieve a paragraph. We're not testing your googling skills!
@@ -211,6 +262,9 @@ label .passive:
 
 
 label best_practices:
+    show sara happy:
+        pos(100, 40)
+        zoom 0.6
 
     menu:
         b "What would you like to discuss first?"
@@ -225,29 +279,47 @@ label best_practices:
             jump dissertation
 
         "I'm fine, thanks!":
+            show sara talk:
+                pos(100, 40)
+                zoom 0.6
             b "You're welcome"
             "Now we return back to your explorations"
             hide sara
             jump intro
 
 label coursework:
+    show sara talk:
+        pos(100, 40)
+        zoom 0.6
     b "In your coursework, you may have not only pure programming tasks"
     b "Many lectures include some kind of essay"
     b "For these essays, there are some best practices to follow"
     b "If you need to answer a question or explain a term or phenomenon you should try to find information"
+    show sara happy:
+        pos(100, 40)
+        zoom 0.6
     menu:
         b "Where would you look for information first?"
 
         "The slides":
+            show sara talk:
+                pos(100, 40)
+                zoom 0.6
             b "Great, it is always a good idea to consult the slides first"
             b "Most likely, the relevant information will be at least mentioned"
 
         "The provided literature":
+            show sara talk:
+                pos(100, 40)
+                zoom 0.6
             b "That is a great idea! However, you may consult the slides first"
             b "Often, the information you need is at least mentioned there"
             b "But the provided literature is a excellent second step!"
 
         "Look it up online":
+            show sara talk:
+                pos(100, 40)
+                zoom 0.6
             b "Well, that is the most straightforward idea, isn't it?"
             b "However, for most of the essay questions the answer is not so obvious."
             b "You may need to consult different sources some of which might be not as qualified as others"
@@ -255,19 +327,34 @@ label coursework:
             b "Afterwards, you may have found out for which information you are looking"
             b "And remember, some online sources may have wrong information"
 
+    show sara talk:
+        pos(100, 40)
+        zoom 0.6
     b "For these essays, it is not enough to just look for the information"
     b "You will always have to write the gathered information in your own words"
+    show sara happy:
+        pos(100, 40)
+        zoom 0.6
     menu:
         b "What do you think will get you the most marks"
 
         "Copy and paste should be sufficient":
+            show sara talk:
+                pos(100, 40)
+                zoom 0.6
             b "Well, this will get you exactly zero points. If you forget to reference it properly, you may face some serious problems"
 
         "Reading and understand the content of several sources before writing my essay":
+            show sara talk:
+                pos(100, 40)
+                zoom 0.6
             b "Right! It is important that you do understand the sources"
             b "If you don't understand a text, we will most likely find out because of the way you are writing about it"
 
         "Rearranging the text and inserting synonyms for words in the source":
+            show sara talk:
+                pos(100, 40)
+                zoom 0.6
             b "While this might be the way to go in some areas, it won't get you high marks here"
             b "We want to know whether you have understood a topic"
             b "If you don't understand a source text, we will most likely find out because of the way you are writing about it"
@@ -277,6 +364,9 @@ label coursework:
 
 label goodwriting(context = "essay"):
     $ goodwritingbool = True
+    show sara talk:
+        pos(100, 40)
+        zoom 0.6
     b "When you have found the right information, it may be useful to follow these steps to get a higher mark:"
     b "First, try to understand the topic of your task"
     b "Then read the information you have several times and try to understand the given information"
@@ -302,6 +392,9 @@ label goodwriting(context = "essay"):
     jump best_practices
 
 label exam:
+    show sara talk:
+        pos(100, 40)
+        zoom 0.6
     b "Your exam may include some short essay-style questions"
     b "Most of the lectures with these kind of questions will include some essay assessment during the coursework"
     b "It will help you practicing writing essays"
@@ -312,6 +405,9 @@ label exam:
     jump best_practices
 
 label dissertation:
+    show sara talk:
+        pos(100, 40)
+        zoom 0.6
     b "The library has some useful courses and resources to help you writing."
     b "These courses will help with most of the problems you might encounter"
     b "Also make sure to attend lectures provided by your school about scientific writing"
