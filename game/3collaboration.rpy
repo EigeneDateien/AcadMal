@@ -2,8 +2,8 @@ label start_col:
     $ collab = True
     scene bg home
     show keri happy:
-        pos(950, 40)
-        zoom 0.6
+        pos(950, 250)
+        zoom 0.8
 
     if meet_already:
         p "Hello, [povname]. Nice to see you again!"
@@ -102,8 +102,8 @@ label ask_sara:
     $ change_score('ask_sara', +2)
     p "Oh, alright. Let's ask Sara the TA."
     show sara mhappy:
-        pos(100, 40)
-        zoom 0.6
+        pos(100, 250)
+        zoom 0.8
 
     p "Hey Sara. It's ok if we work togehter on SE1, right?"
     p "I mean, as long as the final essays are different?"
@@ -140,8 +140,8 @@ label sara_feedback:
 label se1_collaboration(speaker="Instructor"):
     if speaker == "Sara":
         show sara mhappy:
-            pos(100, 40)
-            zoom 0.6
+            pos(100, 250)
+            zoom 0.8
         $ s = ta1
     else:
         show instructor happy at left
@@ -207,8 +207,8 @@ label one_day_before:
     "One day before the deadline"
     scene bg home2
     show keri sad:
-        pos(950, 40)
-        zoom 0.6
+        pos(950, 250)
+        zoom 0.8
 
     p "Hey, [povname]! I'm still struggling with the essay. And I can't reach the TAs! I really need your help!"
 
@@ -244,8 +244,8 @@ label near_miss:
 label failing:
     # intervention by the ta
     show sara happy:
-        pos(100, 40)
-        zoom 0.6
+        pos(100, 250)
+        zoom 0.8
     ta1 "Hey, you two are seem to get along well."
     p "Yeah, [povname] is a great working partner"
     menu:
@@ -271,14 +271,14 @@ label collusion:
     "One week later"
     # scene lab
     show keri angry:
-        pos(950, 40)
-        zoom 0.6
+        pos(950, 250)
+        zoom 0.8
     p "[povname]! Have you seen the marks? I got zero points! What have you got?"
     pov "Let me check..."
     p "Oh no! I also got zero points. But why?"
     show sara mhappy:
-        pos(100, 40)
-        zoom 0.6
+        pos(100, 250)
+        zoom 0.8
     ta1 "Pari, [povname]? Can I talk to you?"
     p "Sara, why do we have zero points?"
     ta1 "We found that your essays were very alike! You even made the same mistakes"

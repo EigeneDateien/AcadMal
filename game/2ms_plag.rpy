@@ -8,8 +8,8 @@ label start_plag:
     # show pari happy at right
 
     show keri happy:
-        pos(950, 40)
-        zoom 0.6
+        pos(940, 250)
+        zoom 0.8
 
     if meet_already:
         p "Hello, [povname]. Nice to see you again!"
@@ -21,8 +21,8 @@ label start_plag:
 
     # show pari talk at right
     show keri talk:
-        pos(950, 40)
-        zoom 0.6
+        pos(940, 250)
+        zoom 0.8
 
     p "For example, everyone is talking about Plagiarism. I didn't know what it was..."
 
@@ -54,8 +54,8 @@ label start_plag:
 label cont_plag:
     # show pari mhappy at right
     show keri mhappy:
-        pos(950, 40)
-        zoom 0.6
+        pos(940, 250)
+        zoom 0.8
     pov "Plagarism is such a big deal here."
     "But what if we are really struggling or stuck for time on our essay?"
 
@@ -63,8 +63,8 @@ label cont_plag:
 
     #show pari happy at right
     show keri happy:
-        pos(950, 40)
-        zoom 0.6
+        pos(940, 250)
+        zoom 0.8
 
     menu:
         p "Do you think it's alright if we really need to do it?"
@@ -72,8 +72,8 @@ label cont_plag:
         "Plagiarism is fine if you need to do it!":
             # show pari sad at right
             show keri sad:
-                pos(950, 40)
-                zoom 0.6
+                pos(940, 250)
+                zoom 0.8
             $ change_score('j1', -3)
             p "NOOO! Plagiarism could not only lead to a bad mark."
             p "If it is a severe case, you could risk your whole degree!"
@@ -82,15 +82,15 @@ label cont_plag:
         "Plagiarism is always wrong, even if you need to do it!":
             # show pari vhappy at right
             show keri vhappy:
-                pos(950, 40)
-                zoom 0.6
+                pos(940, 250)
+                zoom 0.8
             "That's right!"
             $ change_score('j2', +1)
 
     # show pari happy at right
     show keri happy:
-        pos(950, 40)
-        zoom 0.6
+        pos(940, 250)
+        zoom 0.8
 
     p "Anyways, it was nice talking to you, [povname]"
 
@@ -213,8 +213,8 @@ label ta_intervention:
     hide paragraph1a
     show alex at left
     show sara talk:
-        pos(950, 40)
-        zoom 0.6
+        pos(940, 250)
+        zoom 0.8
     ta1 "Hey, I heard you two were discussing about correct citation."
     ta1 "By now, you should know about plagiarism"
     ta1 "But do you know what patchwriting is?"
@@ -244,8 +244,8 @@ label patchwriting_minigame:
     screen white
     hide alex
     show sara talk:
-        pos(120, 40)
-        zoom 0.6
+        pos(120, 250)
+        zoom 0.8
     show logicrep at right
     ta1 "Let's look at the original source"
     hide sara
@@ -274,11 +274,11 @@ label patchwriting_minigame:
 
 label plagiarism_detail:
     show sara mhappy:
-        pos(950, 40)
-        zoom 0.6
+        pos(940, 250)
+        zoom 0.8
     show keri happy:
-        pos(120, 40)
-        zoom 0.6
+        pos(120, 250)
+        zoom 0.8
     ta1 "Hey, I heard that you two are discussing about plagiarism."
     p "Yes, can you help us understanding the term?"
     ta1 "Don't worry! Most new students are confused about these terms."
@@ -332,7 +332,7 @@ label noplag1:
 
 label part2:
 
-    show alex normal
+    show alex happy at left
 
     a """I could give it to my supervisor to have a read through, but she is very busy and it's very last minute.
     She is probably not here right now anyway because it's pretty late."""
@@ -507,7 +507,7 @@ label goodending:
     pov "Congrats!"
 
     scene black
-    "You won! Well Done :)"
+    "Returning to explorations now"
 
     jump intro
 

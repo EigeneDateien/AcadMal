@@ -2,8 +2,8 @@
 define b = Character("Sara", kind=nvl)
 label start_best:
     show sara talk:
-        pos(100, 40)
-        zoom 0.6
+        pos(100, 250)
+        zoom 0.8
     #show bee helpful
     b "Hi there!"
     b "I'm an expert writer with a lot of experience."

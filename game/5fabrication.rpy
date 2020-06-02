@@ -6,8 +6,8 @@ label fabrication:
     "You are supposed to programm an efficient way to query for data"
     "To prove efficiency, you will have to submit statistics about the time needed for querying the data"
     show keri talk:
-        pos(950, 40)
-        zoom 0.6
+        pos(950, 250)
+        zoom 0.8
     p "Hey. [povname]! We need to hurry up! Tommorow is deadline!"
     p "It is still not working! And I have to go home soon."
     p "We need to get the statistics now!"
@@ -145,8 +145,8 @@ label fabrication_fail(path="falsification"):
     p "Oh no, we did get zero points!"
     p "Sara! Why did we get no points?"
     show sara talk:
-        pos(100, 40)
-        zoom 0.6
+        pos(100, 250)
+        zoom 0.8
     ta1 "Oh hey, I wanted to talk to you either way"
     ta1 "We tested your code and the statistics could in no way be correct! We tried on different machines! We never came even close to your results"
     menu:
