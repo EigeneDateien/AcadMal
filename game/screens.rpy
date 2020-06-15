@@ -329,7 +329,7 @@ screen navigation():
             textbutton _("Help") action ShowMenu("help")
 
             ## CharacterShaping not possible mobile devices.
-            textbutton _("Characters") action ShowMenu("start_dressup0")
+            textbutton _("Characters") action ShowMenu("start_dressup")
 
             ## The quit button is banned on iOS and unnecessary on Android.
             textbutton _("Quit") action Quit(confirm=not main_menu)

@@ -1,39 +1,39 @@
 init:
-    default skin_color_alex = 1
-    default hairstyle_alex = 1
-    default hair_color_alex = 1
-    default eyes_alex = 1
-    default eye_color_alex = 1
+    default skin_color_male = 1
+    default hairstyle_male = 1
+    default hair_color_male = 1
+    default eyes_male = 1
+    default eye_color_male = 1
+    default skin_color_female = 1
+    default hairstyle_female = 1
+    default hair_color_female = 1
+    default eyes_female = 1
+    default eye_color_female = 1
     default top_choice = 1
-    default bottom_choice = 1
     default top_style = 1
     default top_style_max = 6
+    default bottom_choice = 1
     default bottom_style = 1
     default bottom_style_max = 6
-    default skin_color_keri = 1
-    default hairstyle_keri = 1
-    default hair_color_keri = 1
-    default eyes_keri = 1
-    default eye_color_keri = 1
 
 #####################################renpy langauge version:
-image alex = Composite(
+image male = Composite(
     (311, 631),
-    (0, 0), "Create_Character/male/Base/base[skin_color_alex].png",
+    (0, 0), "Create_Character/male/Base/base[skin_color_male].png",
     (0, 0), "Create_character/male/Eyebrows/eyebrows_normal.png",
-    (0, 0), "Create_character/male/Eyes/eyes1_[eye_color_alex].png",
+    (0, 0), "Create_character/male/Eyes/eyes[eyes_male]_[eye_color_male].png",
     (0, 0), "Create_character/male/Mouth/mouth_happy.png",
-    (0, 0), "Create_character/male/Hair/hair1_[hair_color_alex].png",
+    (0, 0), "Create_character/male/Hair/hair1_[hair_color_male].png",
 )
-image keri = Composite(
+image female = Composite(
     (311, 631),
-    (0, 0), "Create_Character/Base/base[skin_color_keri].png",
+    (0, 0), "Create_Character/Base/base[skin_color_female].png",
     (0, 0), "Create_character/Bottoms/bottom[bottom_choice]_[bottom_style].png",
     (0, 0), "Create_character/Tops/top[top_choice]_[top_style].png",
-    (0, 0), "Create_character/Eyebrows/eyebrows[skin_color_keri]_1.png",
-    (0, 0), "Create_character/Eyes/eyes[eyes_keri]_[eye_color_keri].png",
-    (0, 0), "Create_character/Mouth/mouth[skin_color_keri]_1.png",
-    (0, 0), "Create_character/Hair/hair[hairstyle_keri]_[hair_color_keri].png",
+    (0, 0), "Create_character/Eyebrows/eyebrows[skin_color_female]_1.png",
+    (0, 0), "Create_character/Eyes/eyes[eyes_female]_[eye_color_female].png",
+    (0, 0), "Create_character/Mouth/mouth[skin_color_female]_1.png",
+    (0, 0), "Create_character/Hair/hair[hairstyle_female]_[hair_color_female].png",
 )
 #####################################python version:
 # init python:
@@ -58,7 +58,7 @@ image keri = Composite(
 #             (0, 0), "Create_character/Hair/hair{}_{}.png".format(hairstyle, hair_color),
 #         ),.1
 
-screen dress_alex():
+screen dress_male():
     modal True
 
     imagemap:
@@ -69,27 +69,27 @@ screen dress_alex():
         selected_hover "Dressup_Screen/selected.png"
 
         ##Skin Color##
-        hotspot(178, 75, 53, 53) action SetVariable("skin_color_alex", 1)
-        hotspot(243, 75, 53, 53) action SetVariable("skin_color_alex", 2)
-        hotspot(307, 75, 53, 53) action SetVariable("skin_color_alex", 3)
-        hotspot(372, 75, 53, 53) action SetVariable("skin_color_alex", 4)
-        hotspot(437, 75, 53, 53) action SetVariable("skin_color_alex", 5)
+        hotspot(178, 75, 53, 53) action SetVariable("skin_color_male", 1)
+        hotspot(243, 75, 53, 53) action SetVariable("skin_color_male", 2)
+        hotspot(307, 75, 53, 53) action SetVariable("skin_color_male", 3)
+        hotspot(372, 75, 53, 53) action SetVariable("skin_color_male", 4)
+        hotspot(437, 75, 53, 53) action SetVariable("skin_color_male", 5)
 
         ##Hairstyle##
-        hotspot(178, 155, 53, 53) action SetVariable("hairstyle_alex", 1)
-        # hotspot(243, 155, 53, 53) action SetVariable("hairstyle", 2)
-        # hotspot(307, 155, 53, 53) action SetVariable("hairstyle", 3)
+        hotspot(178, 155, 53, 53) action SetVariable("hairstyle_male", 1)
+        hotspot(243, 155, 53, 53) action SetVariable("hairstyle_male", 2)
+        hotspot(307, 155, 53, 53) action SetVariable("hairstyle_male", 3)
         # hotspot(372, 155, 53, 53) action SetVariable("hairstyle", 4)
         # hotspot(437, 155, 53, 53) action SetVariable("hairstyle", 5)
 
         ##Hair Color##
-        hotspot(178, 235, 53, 53) action SetVariable("hair_color_alex", 1)
-        hotspot(243, 235, 53, 53) action SetVariable("hair_color_alex", 2)
-        hotspot(307, 235, 53, 53) action SetVariable("hair_color_alex", 3)
-        hotspot(372, 235, 53, 53) action SetVariable("hair_color_alex", 4)
-        hotspot(437, 235, 53, 53) action SetVariable("hair_color_alex", 5)
-        hotspot(178, 297, 53, 53) action SetVariable("hair_color_alex", 6)
-        hotspot(243, 297, 53, 53) action SetVariable("hair_color_alex", 7)
+        hotspot(178, 235, 53, 53) action SetVariable("hair_color_male", 1)
+        hotspot(243, 235, 53, 53) action SetVariable("hair_color_male", 2)
+        hotspot(307, 235, 53, 53) action SetVariable("hair_color_male", 3)
+        hotspot(372, 235, 53, 53) action SetVariable("hair_color_male", 4)
+        hotspot(437, 235, 53, 53) action SetVariable("hair_color_male", 5)
+        hotspot(178, 297, 53, 53) action SetVariable("hair_color_male", 6)
+        hotspot(243, 297, 53, 53) action SetVariable("hair_color_male", 7)
         # hotspot(307, 297, 53, 53) action SetVariable("hair_color", 8)
         # hotspot(372, 297, 53, 53) action SetVariable("hair_color", 9)
         # hotspot(437, 297, 53, 53) action SetVariable("hair_color", 10)
@@ -100,15 +100,15 @@ screen dress_alex():
         # hotspot(437, 359, 53, 53) action SetVariable("hair_color", 15)
 
         ##Eyes##
-        hotspot(178, 450, 53, 53) action SetVariable("eyes_alex", 1)
-        # hotspot(243, 450, 53, 53) action SetVariable("eyes", 2)
-        # hotspot(307, 450, 53, 53) action SetVariable("eyes", 3)
+        hotspot(178, 450, 53, 53) action SetVariable("eyes_male", 1)
+        hotspot(243, 450, 53, 53) action SetVariable("eyes_male", 2)
+        hotspot(307, 450, 53, 53) action SetVariable("eyes_male", 3)
 
         ##Eye Color##
-        hotspot(178, 529, 53, 53) action SetVariable("eye_color_alex", 1)
-        hotspot(243, 529, 53, 53) action SetVariable("eye_color_alex", 2)
-        hotspot(307, 529, 53, 53) action SetVariable("eye_color_alex", 3)
-        hotspot(372, 529, 53, 53) action SetVariable("eye_color_alex", 4)
+        hotspot(178, 529, 53, 53) action SetVariable("eye_color_male", 1)
+        hotspot(243, 529, 53, 53) action SetVariable("eye_color_male", 2)
+        hotspot(307, 529, 53, 53) action SetVariable("eye_color_male", 3)
+        hotspot(372, 529, 53, 53) action SetVariable("eye_color_male", 4)
         # hotspot(437, 529, 53, 53) action SetVariable("eye_color", 5)
         # hotspot(178, 591, 53, 53) action SetVariable("eye_color", 6)
         # hotspot(243, 591, 53, 53) action SetVariable("eye_color", 7)
@@ -141,12 +141,12 @@ screen dress_alex():
         ##Continue##
         hotspot(1107, 9, 157, 53) action Return()
 
-    add "alex":
+    add "male":
         pos(867, 80)
         zoom 0.5
 
 
-screen dress_keri():
+screen dress_female():
     modal True
 
     imagemap:
@@ -157,52 +157,52 @@ screen dress_keri():
         selected_hover "Dressup_Screen/selected.png"
 
         ##Skin Color##
-        hotspot(178, 75, 53, 53) action SetVariable("skin_color_keri", 1)
-        hotspot(243, 75, 53, 53) action SetVariable("skin_color_keri", 2)
-        hotspot(307, 75, 53, 53) action SetVariable("skin_color_keri", 3)
-        hotspot(372, 75, 53, 53) action SetVariable("skin_color_keri", 4)
-        hotspot(437, 75, 53, 53) action SetVariable("skin_color_keri", 5)
+        hotspot(178, 75, 53, 53) action SetVariable("skin_color_female", 1)
+        hotspot(243, 75, 53, 53) action SetVariable("skin_color_female", 2)
+        hotspot(307, 75, 53, 53) action SetVariable("skin_color_female", 3)
+        hotspot(372, 75, 53, 53) action SetVariable("skin_color_female", 4)
+        hotspot(437, 75, 53, 53) action SetVariable("skin_color_female", 5)
 
         ##Hairstyle##
-        hotspot(178, 155, 53, 53) action SetVariable("hairstyle_keri", 1)
-        hotspot(243, 155, 53, 53) action SetVariable("hairstyle_keri", 2)
-        hotspot(307, 155, 53, 53) action SetVariable("hairstyle_keri", 3)
-        hotspot(372, 155, 53, 53) action SetVariable("hairstyle_keri", 4)
-        hotspot(437, 155, 53, 53) action SetVariable("hairstyle_keri", 5)
+        hotspot(178, 155, 53, 53) action SetVariable("hairstyle_female", 1)
+        hotspot(243, 155, 53, 53) action SetVariable("hairstyle_female", 2)
+        hotspot(307, 155, 53, 53) action SetVariable("hairstyle_female", 3)
+        hotspot(372, 155, 53, 53) action SetVariable("hairstyle_female", 4)
+        hotspot(437, 155, 53, 53) action SetVariable("hairstyle_female", 5)
 
         ##Hair Color##
-        hotspot(178, 235, 53, 53) action SetVariable("hair_color_keri", 1)
-        hotspot(243, 235, 53, 53) action SetVariable("hair_color_keri", 2)
-        hotspot(307, 235, 53, 53) action SetVariable("hair_color_keri", 3)
-        hotspot(372, 235, 53, 53) action SetVariable("hair_color_keri", 4)
-        hotspot(437, 235, 53, 53) action SetVariable("hair_color_keri", 5)
-        hotspot(178, 297, 53, 53) action SetVariable("hair_color_keri", 6)
-        hotspot(243, 297, 53, 53) action SetVariable("hair_color_keri", 7)
-        hotspot(307, 297, 53, 53) action SetVariable("hair_color_keri", 8)
-        hotspot(372, 297, 53, 53) action SetVariable("hair_color_keri", 9)
-        hotspot(437, 297, 53, 53) action SetVariable("hair_color_keri", 10)
-        hotspot(178, 359, 53, 53) action SetVariable("hair_color_keri", 11)
-        hotspot(243, 359, 53, 53) action SetVariable("hair_color_keri", 12)
-        hotspot(307, 359, 53, 53) action SetVariable("hair_color_keri", 13)
-        hotspot(372, 359, 53, 53) action SetVariable("hair_color_keri", 14)
-        hotspot(437, 359, 53, 53) action SetVariable("hair_color_keri", 15)
+        hotspot(178, 235, 53, 53) action SetVariable("hair_color_female", 1)
+        hotspot(243, 235, 53, 53) action SetVariable("hair_color_female", 2)
+        hotspot(307, 235, 53, 53) action SetVariable("hair_color_female", 3)
+        hotspot(372, 235, 53, 53) action SetVariable("hair_color_female", 4)
+        hotspot(437, 235, 53, 53) action SetVariable("hair_color_female", 5)
+        hotspot(178, 297, 53, 53) action SetVariable("hair_color_female", 6)
+        hotspot(243, 297, 53, 53) action SetVariable("hair_color_female", 7)
+        hotspot(307, 297, 53, 53) action SetVariable("hair_color_female", 8)
+        hotspot(372, 297, 53, 53) action SetVariable("hair_color_female", 9)
+        hotspot(437, 297, 53, 53) action SetVariable("hair_color_female", 10)
+        hotspot(178, 359, 53, 53) action SetVariable("hair_color_female", 11)
+        hotspot(243, 359, 53, 53) action SetVariable("hair_color_female", 12)
+        hotspot(307, 359, 53, 53) action SetVariable("hair_color_female", 13)
+        hotspot(372, 359, 53, 53) action SetVariable("hair_color_female", 14)
+        hotspot(437, 359, 53, 53) action SetVariable("hair_color_female", 15)
 
         ##Eyes##
-        hotspot(178, 450, 53, 53) action SetVariable("eyes_keri", 1)
-        hotspot(243, 450, 53, 53) action SetVariable("eyes_keri", 2)
-        hotspot(307, 450, 53, 53) action SetVariable("eyes_keri", 3)
+        hotspot(178, 450, 53, 53) action SetVariable("eyes_female", 1)
+        hotspot(243, 450, 53, 53) action SetVariable("eyes_female", 2)
+        hotspot(307, 450, 53, 53) action SetVariable("eyes_female", 3)
 
         ##Eye Color##
-        hotspot(178, 529, 53, 53) action SetVariable("eye_color_keri", 1)
-        hotspot(243, 529, 53, 53) action SetVariable("eye_color_keri", 2)
-        hotspot(307, 529, 53, 53) action SetVariable("eye_color_keri", 3)
-        hotspot(372, 529, 53, 53) action SetVariable("eye_color_keri", 4)
-        hotspot(437, 529, 53, 53) action SetVariable("eye_color_keri", 5)
-        hotspot(178, 591, 53, 53) action SetVariable("eye_color_keri", 6)
-        hotspot(243, 591, 53, 53) action SetVariable("eye_color_keri", 7)
-        hotspot(307, 591, 53, 53) action SetVariable("eye_color_keri", 8)
-        hotspot(372, 591, 53, 53) action SetVariable("eye_color_keri", 9)
-        hotspot(437, 591, 53, 53) action SetVariable("eye_color_keri", 10)
+        hotspot(178, 529, 53, 53) action SetVariable("eye_color_female", 1)
+        hotspot(243, 529, 53, 53) action SetVariable("eye_color_female", 2)
+        hotspot(307, 529, 53, 53) action SetVariable("eye_color_female", 3)
+        hotspot(372, 529, 53, 53) action SetVariable("eye_color_female", 4)
+        hotspot(437, 529, 53, 53) action SetVariable("eye_color_female", 5)
+        hotspot(178, 591, 53, 53) action SetVariable("eye_color_female", 6)
+        hotspot(243, 591, 53, 53) action SetVariable("eye_color_female", 7)
+        hotspot(307, 591, 53, 53) action SetVariable("eye_color_female", 8)
+        hotspot(372, 591, 53, 53) action SetVariable("eye_color_female", 9)
+        hotspot(437, 591, 53, 53) action SetVariable("eye_color_female", 10)
 
         ##Top Choice##
         hotspot(635, 75, 53, 53) action SetVariable("top_choice", 1)
@@ -229,6 +229,6 @@ screen dress_keri():
         ##Continue##
         hotspot(1107, 9, 157, 53) action Return()
 
-    add "keri":
+    add "female":
         pos(867, 80)
         zoom 0.5

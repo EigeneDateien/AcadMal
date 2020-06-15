@@ -127,11 +127,15 @@ label cont_plag:
 label patchwriting:
     scene bg lab
 
-    show alex happy at left
+    show alex happy:
+        pos(120, 40)
+        zoom 0.6
 
     a "Hello, I'm Alex"
 
-    show alex talk at left
+    show alex talk:
+        pos(120, 40)
+        zoom 0.6
 
     a "I am an MSc student studying Computer Science here at the University of Manchester."
 
@@ -140,7 +144,9 @@ label patchwriting:
 
     a "I need to write something and I need to do it as fast as I can."
 
-    show alex happy at left
+    show alex happy:
+        pos(120, 40)
+        zoom 0.6
     # show paragraph1 at right
 
 
@@ -149,7 +155,9 @@ label patchwriting:
 
     a "But look at this article... This part of the paragraph is all I need to finish my dissertation."
 
-    show alex talk at left
+    show alex talk:
+        pos(120, 40)
+        zoom 0.6
 
     a "I just want my dissertation to be finished at last"
 
@@ -159,7 +167,9 @@ label patchwriting:
 
     a "Finally I'm finished"
 
-    show alex happy at left
+    show alex happy:
+        pos(120, 40)
+        zoom 0.6
 
     menu:
 
@@ -167,7 +177,9 @@ label patchwriting:
 
         "No, not really":
 
-            show alex sad at left
+            show alex sad:
+                pos(120, 40)
+                zoom 0.6
 
             menu:
                 pov "You really need to change something"
@@ -189,10 +201,14 @@ label patchwriting:
 
     hide bad_paragraph
     show cited_paragraph at right
-    show alex talk at left
+    show alex talk:
+        pos(120, 40)
+        zoom 0.6
     a "Now I referenced it!"
     a "I think it's perfect now!"
-    show alex happy at left
+    show alex happy:
+        pos(120, 40)
+        zoom 0.6
     menu:
         a "Or do you think I should change something?"
 
@@ -211,13 +227,17 @@ label patchwriting:
 label patchwriting_part2:
     scene bg home2
     hide sara
-    show alex talk at left
+    show alex talk:
+        pos(120, 40)
+        zoom 0.6
     show logicrep at right
     show paragragh1a at right
 
     a "Okay that's good. It's entirely in my own words."
 
-    show alex happy at left
+    show alex happy:
+        pos(120, 40)
+        zoom 0.6
 
     menu:
 
@@ -236,7 +256,9 @@ label ta_intervention:
     hide cited_paragraph
     hide bad_paragraph
     hide paragraph1a
-    show alex happy at left
+    show alex happy:
+        pos(120, 40)
+        zoom 0.6
     show sara talk:
         pos(950, 40)
         zoom 0.6
@@ -246,9 +268,13 @@ label ta_intervention:
     show sara happy:
         pos(950, 40)
         zoom 0.6
-    show alex talk at left
+    show alex talk:
+        pos(120, 40)
+        zoom 0.6
     a "Not at all, can you explain it to us?"
-    show alex happy at left
+    show alex happy:
+        pos(120, 40)
+        zoom 0.6
     show sara talk:
         pos(950, 40)
         zoom 0.6
@@ -285,7 +311,9 @@ label ta_intervention:
                 pos(950, 40)
                 zoom 0.6
             ta1 "Alex, can you think of an example?"
-            show alex talk at left
+            show alex talk:
+                pos(120, 40)
+                zoom 0.6
             show sara happy:
                 pos(950, 40)
                 zoom 0.6
@@ -449,7 +477,9 @@ label noplag1:
 
     pov "Nope, you haven't copied the text"
 
-    show alex vhappy
+    show alex vhappy:
+        pos(120, 40)
+        zoom 0.6
 
     a "Oh good! Phew, my assignment's finally done."
 
@@ -457,12 +487,16 @@ label noplag1:
 
 label part2:
 
-    show alex talk
+    show alex talk:
+        pos(120, 40)
+        zoom 0.6
 
     a """I could give it to my supervisor to have a read through, but she is very busy and it's very last minute.
     She is probably not here right now anyway because it's pretty late."""
 
-    show alex happy
+    show alex happy:
+        pos(120, 40)
+        zoom 0.6
 
     menu:
 
@@ -478,7 +512,9 @@ label part2:
 label failedassignment:
 
     scene white
-    show alex sad
+    show alex sad:
+        pos(120, 40)
+        zoom 0.6
     $ change_score('failedassignment', -3)
 
     a "Oh no.. "
@@ -487,7 +523,9 @@ label failedassignment:
 
     a "Wait - My Supervisor said that one of my paragraphs was plagarised."
 
-    show alex angry
+    show alex angry:
+        pos(120, 40)
+        zoom 0.6
 
     a "You told me that paragraph wasn't plagarised! >:("
 
@@ -520,7 +558,9 @@ label warning:
 
     scene bg office
     show instructor angry at left
-    show alex sad at right
+    show alex sad:
+        pos(120, 40)
+        zoom 0.6
 
     s "Alex - this paragraph is plagarised."
 
@@ -542,17 +582,23 @@ label yesplag1:
 
     $ change_score('yesplag1', 1)
 
-    show alex surprised
+    show alex surprised:
+        pos(120, 40)
+        zoom 0.6
     pov "Yeah, it's still plagiarism if you form a conclusion based on the article and not reference it."
 
-    show alex happy at left
+    show alex happy:
+        pos(120, 40)
+        zoom 0.6
 
     a "Oh yeah, I forgot to cite it."
 
     hide paragragh1a
 
     show paragraph1b at right
-    show alex talk at left
+    show alex talk:
+        pos(120, 40)
+        zoom 0.6
 
     a "There, how's that?"
     jump submission
@@ -560,7 +606,9 @@ label yesplag1:
 label submission:
 
     show paragraph1b at right
-    show alex happy at left
+    show alex happy:
+        pos(120, 40)
+        zoom 0.6
 
     menu:
 
@@ -582,7 +630,9 @@ label yesplag2:
     $ change_score('yesplag2', 1)
 
     pov "You haven't referenced it properly."
-    show alex surprised
+    show alex surprised:
+        pos(120, 40)
+        zoom 0.6
     a "Why, what's wrong with it?"
 
     menu:
@@ -599,10 +649,14 @@ label noidont:
 
     $ change_score('noidont', -1)
 
-    show alex vhappy
+    show alex vhappy:
+        pos(120, 40)
+        zoom 0.6
     a "I don't need to put it in quotation marks - it's in my own words, remember?"
 
-    show alex happy
+    show alex happy:
+        pos(120, 40)
+        zoom 0.6
 
     jump submission
 
@@ -610,7 +664,9 @@ label noidont:
 
 label ohright:
     $ change_score('ohright', 1)
-    show alex mhappy at left
+    show alex mhappy:
+        pos(120, 40)
+        zoom 0.6
     a "Oh right - I forgot about that sentence."
 
     menu:
@@ -627,7 +683,9 @@ label ohright:
 label goodending:
 
     scene white
-    show alex vhappy
+    show alex vhappy:
+        pos(120, 40)
+        zoom 0.6
     a "I got back my grade for my dissertation!"
 
     a "Look, I got a First!"
