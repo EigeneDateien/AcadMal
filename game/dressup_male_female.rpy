@@ -23,7 +23,7 @@ image male = Composite(
     (0, 0), "Create_character/male/Eyebrows/eyebrows_normal.png",
     (0, 0), "Create_character/male/Eyes/eyes[eyes_male]_[eye_color_male].png",
     (0, 0), "Create_character/male/Mouth/mouth_happy.png",
-    (0, 0), "Create_character/male/Hair/hair1_[hair_color_male].png",
+    (0, 0), "Create_character/male/Hair/hair[hairstyle_male]_[hair_color_male].png",
 )
 image female = Composite(
     (311, 631),
@@ -63,10 +63,10 @@ screen dress_male():
 
     imagemap:
         ground "Dressup_Screen/background.png"
-        idle "Dressup_Screen/idle.png"
-        hover "Dressup_Screen/hover.png"
-        selected_idle "Dressup_Screen/selected.png"
-        selected_hover "Dressup_Screen/selected.png"
+        idle "Dressup_Screen/idle_male.png"
+        hover "Dressup_Screen/hover_male.png"
+        selected_idle "Dressup_Screen/selected_male.png"
+        selected_hover "Dressup_Screen/selected_male.png"
 
         ##Skin Color##
         hotspot(178, 75, 53, 53) action SetVariable("skin_color_male", 1)
@@ -89,7 +89,7 @@ screen dress_male():
         hotspot(372, 235, 53, 53) action SetVariable("hair_color_male", 4)
         hotspot(437, 235, 53, 53) action SetVariable("hair_color_male", 5)
         hotspot(178, 297, 53, 53) action SetVariable("hair_color_male", 6)
-        hotspot(243, 297, 53, 53) action SetVariable("hair_color_male", 7)
+        # hotspot(243, 297, 53, 53) action SetVariable("hair_color_male", 7)
         # hotspot(307, 297, 53, 53) action SetVariable("hair_color", 8)
         # hotspot(372, 297, 53, 53) action SetVariable("hair_color", 9)
         # hotspot(437, 297, 53, 53) action SetVariable("hair_color", 10)
