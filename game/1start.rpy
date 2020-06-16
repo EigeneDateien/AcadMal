@@ -89,8 +89,6 @@ image instructor happy = "instructor/instructor happy.png"
 image eileen happy = "eileen happy.png"
 image pari happy  = "instructor/instructor happy.png"
 
-image alex happy = "Alex/alex happy.png"
-
 image txtexamp = Text("\nHello, World! This is fun\nif you like that sort of\nthing", size=40, justify=True)
 
 image se1q = "seq1.png"

@@ -1,6 +1,6 @@
 label fabrication:
     $ fabrication = True
-    # scene bg blabla
+    scene bg home2
 
     "On the third week, Pari and you have a group work together"
     "You are supposed to programm an efficient way to query for data"
@@ -11,10 +11,16 @@ label fabrication:
     p "Hey. [povname]! We need to hurry up! Tommorow is deadline!"
     p "It is still not working! And I have to go home soon."
     p "We need to get the statistics now!"
+    show keri happy:
+        pos(950, 40)
+        zoom 0.6
     menu:
         "Do you have an idea how we could get the statistics?"
 
         "We should try more":
+            show keri surprised:
+                pos(950, 40)
+                zoom 0.6
             p "But we are running out of time!"
             jump fabricate_data
 
@@ -22,8 +28,14 @@ label fabrication:
             jump fabricate_data
 
 label fabricate_data:
+    show keri mhappy:
+        pos(950, 40)
+        zoom 0.6
     p "I can't see any TA or instructor around"
     p "And we both know how the data should look like!"
+    show keri vhappy:
+        pos(950, 40)
+        zoom 0.6
     menu:
         p "Maybe we should just invent some data and submit it"
 
@@ -34,6 +46,9 @@ label fabricate_data:
             jump dialogue_fabrication_bad
 
 label dialogue_fabrication_bad:
+    show keri surprised:
+        pos(950, 40)
+        zoom 0.6
     p "Oh, I have just found some slides about academic malpractice"
     if preferences.fullscreen == True:
         define b = Character("Helper", kind=nvl)
@@ -54,38 +69,73 @@ label dialogue_fabrication_bad:
 
             "No":
                 b "Alright, then! Please feel free to continue"
+    show keri mhappy:
+        pos(950, 40)
+        zoom 0.6
     p "You can find them {a=https://documents.manchester.ac.uk/display.aspx?DocID=2870}here{/a}!"
+    show keri happy:
+        pos(950, 40)
+        zoom 0.6
     menu:
         p "Hmm, do you think they apply here?"
 
         "Oh yes":
+            show keri surprised:
+                pos(950, 40)
+                zoom 0.6
             menu:
                 p "Where do they apply then?"
 
                 "It is plagiarism":
+                    show keri talk:
+                        pos(950, 40)
+                        zoom 0.6
                     p "We did not copy from anyone!"
 
                 "It is collusion":
+                    show keri talk:
+                        pos(950, 40)
+                        zoom 0.6
                     p "It is a group work: we are supposed to work together!"
 
                 "It is fabrication of results":
+                    show keri vhappy:
+                        pos(950, 40)
+                        zoom 0.6
                     p "Oh yes, you are right"
                     jump falsification_intro
 
                 "It is falsification of results":
+                    show keri talk:
+                        pos(950, 40)
+                        zoom 0.6
                     p "Well, we did not have any results before."
 
         "No, we don't plagiarise or collude":
             pass
-
+    show keri mhappy:
+        pos(950, 40)
+        zoom 0.6
     p "I guess we can continue then"
     call fabrication_fail pass (path="fabrication") from _call_fabrication_fail
 
 
 label dialogue_fabrication_good:
+    show keri talk:
+        pos(950, 40)
+        zoom 0.6
     p "Oh cmon! We have to get the statistical data!"
+    show keri happy:
+        pos(950, 40)
+        zoom 0.6
     pov "I know, but we cannot fabricate the data"
+    show keri talk:
+        pos(950, 40)
+        zoom 0.6
     p "But why not?"
+    show keri happy:
+        pos(950, 40)
+        zoom 0.6
     pov "Fabrication of data is academic malpractice"
     if preferences.fullscreen == True:
         define b = Character("Helper", kind=nvl)
@@ -107,15 +157,27 @@ label dialogue_fabrication_good:
             "No":
                 b "Alright, then! Please feel free to continue"
     pov "You can read about it {a=https://documents.manchester.ac.uk/display.aspx?DocID=2870}here{/a}!"
+    show keri surprised:
+        pos(950, 40)
+        zoom 0.6
     p "Oh, I see. I'm sorry! I didn't knew that"
+    show keri happy:
+        pos(950, 40)
+        zoom 0.6
     pov "No worries!"
     jump falsification_intro
 
 label falsification_intro:
-    # scene black
+    scene black
     "Several minutes later"
-    # scene bg blabla
+    scene bg home2
+    show keri vhappy:
+        pos(950, 40)
+        zoom 0.6
     p "Yessss! It is working now! Let's look at the statistics"
+    show keri sad:
+        pos(950, 40)
+        zoom 0.6
     p "Oh no! Our queries are way too slow!"
     menu:
         "What do we do now?"
@@ -127,6 +189,9 @@ label falsification_intro:
             jump dialogue_falsification
 
 label dialogue_falsification:
+    show keri sad:
+        pos(950, 40)
+        zoom 0.6
     p "Hmm, [povname], I don't think we should do it!"
     p "In the {a=https://documents.manchester.ac.uk/display.aspx?DocID=2870}document{/a} you showed me, there was something about falsification of results"
     menu:
@@ -139,9 +204,13 @@ label dialogue_falsification:
             jump good_ending
 
 label fabrication_fail(path="falsification"):
-    # scene black
+
+    scene black
     "One week later"
-    # scene bg blabla
+    scene bg home2
+    show keri sad:
+        pos(950, 40)
+        zoom 0.6
     p "Oh no, we did get zero points!"
     p "Sara! Why did we get no points?"
     show sara talk:
@@ -149,6 +218,9 @@ label fabrication_fail(path="falsification"):
         zoom 0.6
     ta1 "Oh hey, I wanted to talk to you either way"
     ta1 "We tested your code and the statistics could in no way be correct! We tried on different machines! We never came even close to your results"
+    show sara happy:
+        pos(100, 40)
+        zoom 0.6
     menu:
         ta1 "Did you guys fake the statistics?"
 
@@ -156,14 +228,24 @@ label fabrication_fail(path="falsification"):
             p "But we were really desperate"
 
         "No, we didn't":
-            ta1 "Well, they please show me how you obtained the data"
+            ta1 "Well, then please show me how you obtained the data"
             p "Okay, yes! We faked the data! But we were really desperate"
-
+    show sara mhappy:
+        pos(100, 40)
+        zoom 0.6
+    show sara talk:
+        pos(100, 40)
+        zoom 0.6
     ta1 "I'm sorry, but this is no excuse!"
     ta1 "You should never fabricate or falsify data. It is bad scientific practice and can even put people in danger"
     ta1 "Wrong statistics could lead to severe damage! So never fake your data"
     ta1 "You are lucky, that we only punished you in this coursework. You could risk your degree!"
+    show keri talk:
+        pos(950, 40)
+        zoom 0.6
     p "We are sorry! We will never do it again!"
+    hide keri
+    hide sara
     menu:
         "Do you want to try again?"
 
@@ -180,7 +262,13 @@ label fabrication_fail(path="falsification"):
 
 
 label good_ending:
+    show keri talk:
+        pos(950, 40)
+        zoom 0.6
     p "Hmm, but then we should explain our results"
+    show keri happy:
+        pos(950, 40)
+        zoom 0.6
     pov "What do you mean?"
     menu:
         p "Well, we should explain why we think we obtained these results and where the error might be"
@@ -191,7 +279,7 @@ label good_ending:
         "Whatever...":
             pass
 
-    # scene black
+    scene black
     "Congratulations! You did not fabricate or falsify your results!"
 
     "Even if you did not get the wanted results, never falsify or fabricate data. This will lead to zero marks!"
@@ -199,5 +287,7 @@ label good_ending:
     "If you can explain where you might have struggled or why you think you got the results you obtained, we will reward you with positive marks"
 
     hide keri
+
+    "Returning to explorations again"
 
     jump intro
