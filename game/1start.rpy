@@ -7,10 +7,22 @@ init python:
         visiting(last_label)
     config.label_callback = label_callback
 
+    def use_slideviewer(name_slide, max_number_slides):
+        slide_name = name_slide
+        renpy.call_screen("show_slides")
+
 
     def change_score(tagname, v):
         mark(tagname, v)
         visiting(tagname)
+
+    def calculate_score():
+        score = 0
+        for k,v in scoring.items():
+            k1 = getattr(persistent, k)
+            if k1 and k1 > 0:
+                score += v
+        return score
 
     def visiting(tagname):
         # If we haven't seen this tag before, c == None
@@ -53,16 +65,18 @@ init python:
         else:
             renpy.jump(choice)
 
-
     scoring = {
                'ohright': 1,
                'failedassignment': -1}
     comp61511 = True
+    markdown_slides = {}
     meet_already = False
     goodwritingbool = False
     plag = False
     collab = False
     fabrication = False
+
+
 
 python:
     def cond_item(condition, truebranch, falsebranch):
@@ -118,11 +132,18 @@ label start:
              povname = persistent.povname
              persistent.povname = False
 
-        score = 0
     jump intro
 
 label intro:
     scene bg home
+
+    # define slide_name = "landslidetest"
+    # define slide_number_max = 5
+    # call screen show_slides
+
+
+
+
     "Hi [povname]! Enjoy your explorations!"
     menu:
         "Hi [povname]! Enjoy your explorations!"
@@ -140,42 +161,17 @@ label intro:
             jump start_best
 
         "Return to the menu" if plag and collab and fabrication:
-            $ MainMenu(confirm=False)()
+            pass
 
-    scene
+    scene black
 
     # Old version: calculating scoring incorrectly (using all entries in scoring items)
-    python:
-        tags = ""
-        for k,v in scoring.items():
-            k1 = getattr(persistent, k)
-            if k1 and k1 > 0:
-                tags += k + ","
-                score += v
-    "The tags are [tags]"
-    $ val1 = scoring["plagiarism"]
-    "The value for plagiarism is [val1]"
-    $ val2 = scoring["yesplag1"]
-    "The value for yesplag1 is [val2]"
 
-    if score >= 4 and "ask_sara" in scoring.keys():
-        "Well done! Always make sure to not validate academic malpractice"
-    elif "ask_sara" in scoring.keys() and score < 4:
-        "Please make sure to not collaborate on assignments where it is not explicitly stated"
-    elif score >= 7:
-        "Well done! You are a plagiarism expert!"
-        "But please make sure to understand what plagiarism is."
-        "When in doubt, ask your TA!"
-    #other possibilities
+    $ score = plagiarism_score + collaboration_score + fabrication_score
 
-    show text "Your score is [score]!"
+    "Your overall score is [score]"
 
-    python:
-        for k, v in scoring.items():
-            scoring[k] = 0
-            setattr(persistent, k, None)
-
-    "There is so much to learn."
+    $ MainMenu(confirm=False)()
 
 
     return

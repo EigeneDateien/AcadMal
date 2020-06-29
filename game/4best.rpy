@@ -21,7 +21,7 @@ label start_best:
 
     One thing to remember about best practices:
 
-    They don't guaruntee success! Even at avoiding malpractice!
+    They don't guarantee success! Even at avoiding malpractice!
 
     You still need the {b}don't{/b}s and to check your work.
 
@@ -136,7 +136,7 @@ label theory:
     One common theme, however, is that learning is something {i}active{/i}. That is,
     learning is something students need to {i}do{/i}, not something that {i}happens{/i} to them.
 
-    Let's consider a simple example of asnwering a short essay question."""
+    Let's consider a simple example of answering a short essay question."""
 
     show text "What is a Turing Machine?"
 
@@ -218,7 +218,7 @@ label .plag(only_one=False):
             show sara talk:
                 pos(100, 40)
                 zoom 0.6
-            p "Exactly. We've managed to avoid sanctionable academic malpractice, but we're unlikely to get a good grade and we problably haven't learned much."
+            p "Exactly. We've managed to avoid sanctionable academic malpractice, but we're unlikely to get a good grade and we probably haven't learned much."
     jump .passive
 
 label .passive:
@@ -322,7 +322,7 @@ label coursework:
                 zoom 0.6
             b "Well, that is the most straightforward idea, isn't it?"
             b "However, for most of the essay questions the answer is not so obvious."
-            b "You may need to consult different sources some of which might be not as qualified as others"
+            b "You may need to consult different sources. Some of which might be not as qualified as others"
             b "That is why you should try to find some information in the slides and the provided literature"
             b "Afterwards, you may have found out for which information you are looking"
             b "And remember, some online sources may have wrong information"
