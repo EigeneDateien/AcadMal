@@ -2,6 +2,8 @@
 label start_plag:
     $ meet_already = True
     $ plag = True
+    $ score = calculate_score()
+    $ initial_score = score
     scene bg home2
 
     #show txtexamp at top
@@ -117,6 +119,25 @@ label cont_plag:
     # hide pari happy
     hide keri happy
 
+    if formative:
+        $ score = calculate_score()
+        $ plagiarism_score = score - initial_score
+        "Your current score is [plagiarism_score]!"
+        if plagiarism_score >= 4:
+            "Well done! You answered all the questions correctly"
+        elif plagiarism_score == 3:
+            "Well done, you did nearly perfect"
+        else:
+            "There is some room for improvement"
+            menu:
+                "Would you like to try again?"
+
+                "Yes, I can do better":
+                    jump start_plag
+
+                "Nah, I'm fine":
+                    pass
+
 
     pov "Let's see, if we can find some other students to talk to"
 
@@ -185,7 +206,7 @@ label patchwriting:
                 pov "You really need to change something"
 
                 "You need to reference your source text":
-                    pass
+                    $ change_score('plagiarism_alex', +1)
 
                 "You should put everything in quotation marks":
                     a "But it's my sentence structure and I left some words from the original"
@@ -197,6 +218,7 @@ label patchwriting:
 
 
         "Yeah, I think it's fine":
+            $ change_score('plagiarism_alex', -2)
             jump ta_intervention
 
     hide bad_paragraph
@@ -213,13 +235,16 @@ label patchwriting:
         a "Or do you think I should change something?"
 
         "No, it's perfect now!":
+            $ change_score('plagiarism2_alex', -1)
             jump ta_intervention
 
         "Yes, I think your text is too close to the original":
+            $ change_score('patchwriting', +3)
             a "You are right! I have to use my own words!"
             jump patchwriting_part2
 
         "Yes, you should just copy the original text. It sounds better!":
+            $ change_score('plagiarism2_alex', -2)
             a "Hey, [povname]! Do you want me to get a bad mark? I can't cite a whole paragraph and get a good mark!"
             jump ta_intervention
 
@@ -298,11 +323,13 @@ label ta_intervention:
         ta1 "[povname], what do you think is an example for patchwriting?"
 
         "If I use the same structure and similiar words as in the original source":
+            $ change_score('patchwriting', 2)
             show sara vhappy:
                 pos(950, 40)
                 zoom 0.6
             ta1 "That's correct! Great, [povname]!"
         "If I just copy and paste a text without referencing":
+            $ change_score('patchwriting', -1)
             show sara sad:
                 pos(950, 40)
                 zoom 0.6
@@ -346,10 +373,13 @@ label patchwriting_minigame:
         ta1 "Which of these paragraphs is an example for patchwriting?"
 
         "Paragraph 1":
+            $ change_score('patchwriting_mg', -1)
             ta1 "That is not correct! Paragraph 2 is an example for patchwriting"
         "Paragraph 2":
+            $ change_score('patchwriting_mg', +1)
             ta1 "That's correct!"
         "Paragraph 3":
+            $ change_score('patchwriting_mg', -1)
             ta1 "That is not correct! Paragraph 2 is an example for patchwriting"
 
     ta1 "Even though he referenced the original paragraph, he merely just copied and pasted the text"
@@ -557,18 +587,18 @@ label failedassignment:
 label warning:
 
     scene bg office
-    show instructor angry at left
+    show instructor angry at right
     show alex sad:
         pos(120, 40)
         zoom 0.6
 
     s "Alex - this paragraph is plagarised."
 
-    show instructor sad at left
+    show instructor sad at right
 
     s "If you hand this in you will fail your assignment..."
 
-    show instructor talk at left
+    show instructor talk at right
 
     s """I suggest that you reference this paragraph, and if you haven't missed out any other
     references you've used then you should be fine."""
@@ -693,6 +723,31 @@ label goodending:
     pov "Congrats!"
 
     scene black
+    $ score = calculate_score()
+    $ plagiarism_score = score - initial_score
+    if formative:
+        "Your score is [plagiarism_score]!"
+
+        if plagiarism_score >= 10:
+            "Well done! You are a plagiarism expert!"
+            "But please make sure to understand what plagiarism is."
+            "When in doubt, ask your TA!"
+        else:
+            if plagiarism_score >= 8:
+                "Good! But there is some room for improvement!"
+            elif plagiarism_score >= 6:
+                "Not bad! But I'm sure you can do better!"
+            else:
+                "You should really consider to try the plagiarism part again"
+            menu:
+                "Would you like to try again?"
+
+                "Yes, I can do better":
+                    jump start_plag
+
+                "Nah, I'm fine":
+                    pass
+
     "Returning back to your explorations"
 
     jump intro

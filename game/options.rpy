@@ -14,7 +14,6 @@
 
 define config.name = _("Test Project")
 
-
 ## Determines if the title given above is shown on the main menu screen. Set
 ## this to False to hide the title.
 
@@ -38,6 +37,13 @@ Authors:
     Matina Shams,
     Frederik Seib\n\n
 """)
+
+
+## Definition of scoring system. If formative points are shown to the player
+## as a motivation to replay the game
+## If summative (not formative), gained points are not shown to the player. If
+## formative points are shown to the player as a motivation to replay the game
+define formative = True
 
 
 ## A short name for the game used for executables and directories in the built

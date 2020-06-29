@@ -1,5 +1,7 @@
 label start_col:
     $ collab = True
+    $ score = calculate_score()
+    $ initial_score = score
     scene bg home
     show keri mhappy:
         pos(950, 40)
@@ -54,7 +56,8 @@ label essay_experienced:
             p "Please, can we just share ideas on what to write?"
             menu:
                 "I really think you should work on it alone.":
-                    "Please ask the TA if you have any questions"
+                    pov "Please ask the TA if you have any questions"
+                    jump ask_sara
                 "Ok, fine! I will help you":
                     jump failing
                 "Please let's ask the TA if it is fine":
@@ -81,6 +84,7 @@ label essay_novice:
             menu:
                 "I really think you should work on it alone.":
                     pov "Please ask the TA if you have any questions"
+                    jump ask_sara
                 "Ok, fine! I will help you":
                     jump failing
                 "Please let's ask the TA if it is fine":
@@ -118,9 +122,10 @@ label se1_confused:
                         "Let's ask the TA then":
                             jump ask_sara
                         "No, please leave me alone":
+                            $ change_score('no_collab', +3)
                             p "Fine! But stop being so rude"
                             pov "I'm sorry, Pari! But we are not allowed to work together!"
-                            return
+                            jump one_day_before
                 "I'm unsure and think we should ask a TA.":
                     jump ask_sara
 
@@ -337,10 +342,11 @@ label one_day_before:
                     jump near_miss
 
                 "No, I'm sorry, Pari!":
+                    $ change_score('no_collab_final', +2)
                     """Well done! You did not commmit collusion. However, be sure to be polite and explain to your fellow students
                     why you are not allowed to help them with their individual coursework. And of course, you can and should help your fellow students
                     for everything that is not related to individual work."""
-                    jump intro
+                    jump collaboration_feedback
 
 label near_miss:
     # pari will use the same ideas
@@ -364,6 +370,7 @@ label near_miss:
 
 label failing:
     # intervention by the ta
+    $ change_score('failing_coll', -4)
     show sara mhappy:
         pos(100, 40)
         zoom 0.6
@@ -415,6 +422,7 @@ label failing:
     jump sara_feedback
 
 label collusion:
+    $ change_score('collusion', -4)
     scene black
     "One week later"
     scene bg home2
@@ -464,8 +472,7 @@ label collusion:
 
                 "No":
                     scene black
-                    "Returning to explorations again"
-                    jump intro
+                    jump collaboration_feedback
 
 
 label school_comitee:
@@ -517,8 +524,36 @@ label school_comitee:
             jump one_day_before
 
         "No":
-            return
+            jump collaboration_feedback
 
 
 label essay_confused:
     jump essay_novice
+
+label collaboration_feedback:
+    hide sara
+    hide keri
+    $ score = calculate_score()
+    $ collaboration_score = score - initial_score
+    if formative:
+        "Your score is [collaboration_score]!"
+
+        if collaboration_score >= 4:
+            "Well done! You did not commit collusion"
+            "And remember: always make sure to not validate academic malpractice"
+        else:
+            "Unfortunately, you commited academic malpractice"
+            "Please make sure to not collaborate on assignments where it is not explicitly stated"
+            "You should really consider to try the collaboration part again"
+            menu:
+                "Would you like to try again?"
+
+                "Yes, I can do better":
+                    jump start_plag
+
+                "Nah, I'm fine":
+                    pass
+
+    scene black
+    "Returning to explorations again"
+    jump intro

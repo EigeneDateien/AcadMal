@@ -1,9 +1,11 @@
 label fabrication:
     $ fabrication = True
+    $ score = calculate_score()
+    $ initial_score = score
     scene bg home2
 
     "On the third week, Pari and you have a group work together"
-    "You are supposed to programm an efficient way to query for data"
+    "You are supposed to program an efficient way to query for data"
     "To prove efficiency, you will have to submit statistics about the time needed for querying the data"
     show keri talk:
         pos(950, 40)
@@ -46,6 +48,7 @@ label fabricate_data:
             jump dialogue_fabrication_bad
 
 label dialogue_fabrication_bad:
+    $ change_score('fabrication_dialogue_bad', -2)
     show keri surprised:
         pos(950, 40)
         zoom 0.6
@@ -99,6 +102,7 @@ label dialogue_fabrication_bad:
                     p "It is a group work: we are supposed to work together!"
 
                 "It is fabrication of results":
+                    $ change_score('fabrication_recognised', +4)
                     show keri vhappy:
                         pos(950, 40)
                         zoom 0.6
@@ -121,6 +125,7 @@ label dialogue_fabrication_bad:
 
 
 label dialogue_fabrication_good:
+    $ change_score('fabrication_dialogue_good', +2)
     show keri talk:
         pos(950, 40)
         zoom 0.6
@@ -189,6 +194,7 @@ label falsification_intro:
             jump dialogue_falsification
 
 label dialogue_falsification:
+    $ change_score('falsification_proposed', -2)
     show keri sad:
         pos(950, 40)
         zoom 0.6
@@ -204,7 +210,10 @@ label dialogue_falsification:
             jump good_ending
 
 label fabrication_fail(path="falsification"):
-
+    if path == "fabrication":
+        $ change_score('fabrication_fail', -2)
+    if path == "falsification":
+        $ change_score('falsification_fail', -2)
     scene black
     "One week later"
     scene bg home2
@@ -257,7 +266,7 @@ label fabrication_fail(path="falsification"):
 
         "No":
             hide keri
-            jump intro
+            jump fabrication_feedback
 
 
 
@@ -280,14 +289,35 @@ label good_ending:
             pass
 
     scene black
-    "Congratulations! You did not fabricate or falsify your results!"
-
-    "Even if you did not get the wanted results, never falsify or fabricate data. This will lead to zero marks!"
-
-    "If you can explain where you might have struggled or why you think you got the results you obtained, we will reward you with positive marks"
 
     hide keri
 
-    "Returning to explorations again"
+    jump fabrication_feedback
 
+label fabrication_feedback:
+    $ score = calculate_score()
+    $ fabrication_score = score - initial_score
+    if formative:
+        "Your score is [fabrication_score]!"
+
+        if fabrication_score >= 2:
+            "Congratulations! You did not fabricate or falsify your results!"
+
+            "Even if you did not get the wanted results, never falsify or fabricate data. This will lead to zero marks!"
+
+            "If you can explain where you might have struggled or why you think you got the results you obtained, we will reward you with positive marks"
+        else:
+            "Unfortunately, you commited academic malpractice"
+            "Please make sure to never fabricate or falsify your data"
+            "You should really consider to try the fabrication and falsification part again"
+            menu:
+                "Would you like to try again?"
+
+                "Yes, I can do better":
+                    jump start_plag
+
+                "Nah, I'm fine":
+                    pass
+    scene black
+    "Returning to explorations again"
     jump intro
