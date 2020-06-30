@@ -137,10 +137,6 @@ label start:
 label intro:
     scene bg home
 
-    # define slide_name = "landslidetest"
-    # define slide_number_max = 5
-    # call screen show_slides
-
 
 
 
@@ -169,7 +165,16 @@ label intro:
 
     $ score = plagiarism_score + collaboration_score + fabrication_score
 
-    "Your overall score is [score]"
+    if not formative:
+        python:
+            with open("points.txt","w") as points_file:
+                points_file.write("Points gained by " + povname + "\n")
+                points_file.write("Plagiarism points " + str(plagiarism_score) + "\n")
+                points_file.write("Collusion points " + str(collaboration_score) + "\n")
+                points_file.write("Fabrication points " + str(fabrication_score) + "\n")
+                points_file.write("Overall points " + str(score))
+
+            points_file.closed
 
     $ MainMenu(confirm=False)()
 
