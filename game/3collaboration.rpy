@@ -141,7 +141,7 @@ label ask_sara:
         pos(950, 40)
         zoom 0.6
 
-    p "Hey Sara. It's ok if we work togehter on SE1, right?"
+    p "Hey Sara. It's ok if we work together on SE1, right?"
     p "I mean, as long as the final essays are different?"
     jump sara_feedback
 

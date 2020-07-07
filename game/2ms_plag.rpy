@@ -1,6 +1,5 @@
 
 label start_plag:
-    $ meet_already = True
     $ plag = True
     $ score = calculate_score()
     $ initial_score = score
@@ -21,6 +20,7 @@ label start_plag:
     else:
         p "Hi! You are [povname], right? My name is Pari."
         p "I'm a new student as well. Everything is so confusing."
+    $ meet_already = True
 
     # show pari talk at right
     show keri talk:
@@ -153,13 +153,21 @@ label patchwriting:
         pos(120, 40)
         zoom 0.6
 
-    a "Hello, I'm Alex"
+    if meet_already_alex:
+        p "Hello, [povname]. Nice to see you again!"
+        show alex talk:
+            pos(120, 40)
+            zoom 0.6
+        p "I'm struggling with my dissertation."
 
-    show alex talk:
-        pos(120, 40)
-        zoom 0.6
+    else:
+        a "Hello, I'm Alex"
+        show alex talk:
+            pos(120, 40)
+            zoom 0.6
+        a "I am an MSc student studying Computer Science here at the University of Manchester."
 
-    a "I am an MSc student studying Computer Science here at the University of Manchester."
+    $ meet_already_alex = True
 
     a """I have my dissertation due tomorrow and I've still got a paragraph left to write.
     The last assignment I handed in wasn't a very good one either..."""

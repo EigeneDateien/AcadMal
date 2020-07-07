@@ -102,7 +102,7 @@ layeredimage alex:
             "Create_character/male/Eyebrows/eyebrows_sad.png"
 
         attribute sad:
-            "Create_character/Eyebrows/eyebrows_sad.png"
+            "Create_character/male/Eyebrows/eyebrows_sad.png"
 
     group mouth:
 

@@ -71,6 +71,7 @@ init python:
     comp61511 = True
     markdown_slides = {}
     meet_already = False
+    meet_already_alex = False
     goodwritingbool = False
     plag = False
     collab = False
