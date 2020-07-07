@@ -4,6 +4,7 @@ label start_plag:
     $ plag = True
     $ score = calculate_score()
     $ initial_score = score
+    $ plag_play += 1
     scene bg home2
 
     #show txtexamp at top

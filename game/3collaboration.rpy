@@ -2,6 +2,7 @@ label start_col:
     $ collab = True
     $ score = calculate_score()
     $ initial_score = score
+    $ coll_play += 1
     scene bg home
     show keri mhappy:
         pos(950, 40)

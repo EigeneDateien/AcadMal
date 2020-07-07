@@ -1,6 +1,7 @@
 
 define b = Character("Sara", kind=nvl)
 label start_best:
+    $ best_play += 1
     #show bee helpful
     b "Hi there!"
     b "I'm an expert writer with a lot of experience."
