@@ -2,6 +2,7 @@ label fabrication:
     $ fabrication = True
     $ score = calculate_score()
     $ initial_score = score
+    $ fab_play += 1
     scene bg home2
 
     "On the third week, Pari and you have a group work together"

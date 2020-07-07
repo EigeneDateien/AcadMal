@@ -75,6 +75,10 @@ init python:
     plag = False
     collab = False
     fabrication = False
+    plag_play = 0
+    coll_play = 0
+    fab_play = 0
+    best_play = 0
 
 
 
@@ -172,7 +176,11 @@ label intro:
                 points_file.write("Plagiarism points " + str(plagiarism_score) + "\n")
                 points_file.write("Collusion points " + str(collaboration_score) + "\n")
                 points_file.write("Fabrication points " + str(fabrication_score) + "\n")
-                points_file.write("Overall points " + str(score))
+                points_file.write("Overall points " + str(score) + "\n")
+                points_file.write("Times plagiarism played " + str(plag_play) + "\n")
+                points_file.write("Times collaboration played " + str(coll_play) + "\n")
+                points_file.write("Times fabrication played " + str(fab_play) + "\n")
+                points_file.write("Times best practices played " + str(best_play) + "\n")
 
             points_file.closed
 
