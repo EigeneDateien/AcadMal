@@ -116,6 +116,10 @@ image bg lab = "Scene/kilburn-lab.png"
 image bg office = "Scene/kilburn-office.png"
 image bg outside = "Scene/bg kilburn outside.png"
 image bg plants = "Scene/Plants.png"
+image bg kilburn lecture = "Scene/kilburn lecture.png"
+image bg kilburn lecture1 = "Scene/kilburn lecture1.png"
+image bg home desk = "Scene/bg home desk.png"
+
 define pov = Character("[povname]")
 
 transform flip:
@@ -142,30 +146,13 @@ label intro:
     scene bg home
 
 
+    "Hi [povname]! Let's start the adventure!"
+    jump first_day
 
 
-    "Hi [povname]! Enjoy your explorations!"
-    menu:
-        "Hi [povname]! Enjoy your explorations!"
-
-        "Explore Plagiarism":
-            jump start_plag
-
-        "Explore Collusion":
-            jump start_col
-
-        "Explore Fabrication and Falsification of data":
-            jump fabrication
-
-        "Learn some Best Pratices":
-            jump start_best
-
-        "Return to the menu" if plag and collab and fabrication:
-            pass
+    # "Return to the menu" if plag and collab and fabrication
 
     scene black
-
-    # Old version: calculating scoring incorrectly (using all entries in scoring items)
 
     $ score = plagiarism_score + collaboration_score + fabrication_score
 
