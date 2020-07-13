@@ -199,15 +199,17 @@ label puzzle:
     jump puzzle
 
 label start_jigsaw:
-    scene black
+    scene bg home queryjigsaw
     image whole = "jigsaw_image.jpg"
     python:
-        coorlistx = [10, 130, 250, 370]
-        coorlisty = [10, 217, 424]
+        # coorlistx = [10, 130, 250, 370]
+        # coorlisty = [10, 217, 424]
+        coorlistx = [80, 200, 320, 440]
+        coorlisty = [55, 263, 469]
         piecelist = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]
         for i in range(12):
             x = renpy.random.randint(0, 59) + 621
-            y = renpy.random.randint(0, 480)
+            y = renpy.random.randint(30, 480)
             piecelist[i] = [x,y]
         movedpiece = 0
         movedplace = [0, 0]
