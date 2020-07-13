@@ -31,8 +31,6 @@ init:
         size 40
 
 label first_day:
-    $ score = calculate_score()
-    $ initial_score = score
     $ plag_play += 1
 
     ##################################################################
@@ -65,8 +63,9 @@ label first_day:
         xalign 0.75
     with Dissolve(1.1, alpha=True)
     "The three of you arranged to meet outside the university on the first day"
+    jump start_first_day
 
-
+label start_first_day:
     scene bg outside
     with flashbulb
 
@@ -125,13 +124,24 @@ label first_day:
     s "In the morning we will have a lecture. And after the lunch break we will go to the labs to have some practical work"
     s "You will have some coursework that you can start during the lab session"
     s "And you can ask questions to the TAs and me, your instructor"
-
+    s "So, let's start our lecture..."
+    scene black
+    with dissolve
+    show text "After the lecture..."
+    pause
+    scene bg kilburn lecture
+    with flashbulb
+    show alex happy at zoom_norm, wideright, sitting
+    show keri happy at zoom_norm, wideleft, sitting
+    show instructor talk at top
     # Cool effect to show time transition
 
     s "So that was our lecture part! I will see you after the lunch break in the labs!"
 
     scene black
-    "You spend the lunch break with Pari and Alex"
+    with dissolve
+    show text "You spend the lunch break with Pari and Alex"
+    pause
 
     scene bg home
     show keri angry at zoomed_in, slightleft
@@ -141,7 +151,11 @@ label first_day:
     pov "Coming!"
     show keri happy at zoom_norm, slightleft
     pov "Let's get ourself some seats"
+    jump lab_session
 
+label lab_session:
+    $ score = calculate_score()
+    $ initial_score = score
     scene bg home2
     show alex happy at zoom_norm, wideleft, sitting
     show keri happy at zoom_norm, wideright, sitting
@@ -186,9 +200,10 @@ label first_day:
     scene black
     with dissolve
     show text "Five minutes later..."
-    ""
+    pause
+    jump lab_work
 
-
+label lab_work:
     scene bg lab
     show alex happy at zoom_norm, slightright
     show keri happy at zoom_norm, slightleft
@@ -222,18 +237,20 @@ label first_day:
             a "That's not very nice! Be a jerk about it!"
             show alex angry at zoom_norm
             show keri mhappy at zoomed_in
-            p "Hey, Alex, caml down! I think [povname] is actually right"
+            p "Hey, Alex, calm down! I think [povname] is actually right"
             p "We are supposed to work on it alone! But we could ask the TA"
             show keri happy at zoom_norm
             hide turing question
             jump ask_sara
         "Look! It says it should be our own work. We can't collaborate.":
+            $ change_score('own_work', +2)
             show alex talk at zoomed_in
             a "I don't think it means we can't work together."
             a "It just means we can't submit the same essay."
             show alex happy at zoom_norm
             menu:
                 "You're right. Let's get started.":
+                    $ change_score('own_work', -2)
                     hide turing question
                     jump failing
                 "You're wrong. I'm going to work alone.":
@@ -519,15 +536,14 @@ label coursework_writing:
     scene black
     with dissolve
     show text "You go home and fall asleep almost immediately"
-    ""
+    pause
     show text "Tomorrow, you will try to write the essay"
-    ""
+    pause
 
     # Auswertung how well do
     jump essay_writing_mg
 
 label essay_writing_mg:
-    # start minigame of writing an short essay on turing machines taken from best practices
 
 
     scene bg home desk
@@ -539,7 +555,6 @@ label essay_writing_mg:
          yalign 0.11
          xalign 0.5
     pause
-    # for one_day, alex asks via smartphone to come to the lab, it's urgent
 
     pov "Hmm, I should define the term Turing machine"
 
@@ -563,6 +578,7 @@ label wikipedia_storyline:
     jump cut_and_paste
 
 label slides_storyline:
+    $ slides = True
     pov "I will have a look at the slides"
     hide turing question
     window hide
@@ -896,6 +912,7 @@ label school_comitee:
 
 
 label bad_essay:
+    $ change_score('bad_essay', -1)
     scene black
     with dissolve
     show text "The next day..."
@@ -963,6 +980,7 @@ label bad_essay:
 
 
 label mediocre_essay:
+    $ change_score('mediocre_essay', +1)
     scene black
     with dissolve
     show text "The next day..."
@@ -1030,6 +1048,7 @@ label mediocre_essay:
 
 
 label good_essay:
+    $ change_score('good_essay', +4)
     scene black
     with dissolve
     show text "The next day..."
@@ -1067,6 +1086,7 @@ label good_essay:
 
 
 label overtop_essay:
+    $ change_score('overtop_essay', +1)
     scene black
     with dissolve
     show text "The next day..."
@@ -1131,6 +1151,7 @@ label overtop_essay:
     jump after_essay_mark
 
 label failed_essay:
+    $ change_score('failed_essay', -2)
     scene black
     with dissolve
     show text "The next day..."
@@ -1230,6 +1251,70 @@ label transition_to_fabrication:
     # Option for more interlude, e.g. in the lecture you learn a lot of useful things
     show text "In the second week, you are able to gain full marks on your coursework"
     pause
+
+    hide sara
+    hide keri
+    scene black
+    $ score = calculate_score()
+    $ firstweek_score = score - initial_score
+    if formative:
+        menu:
+
+            "Do you want to know, how well you did?"
+
+            "Yes":
+                "Your score is [firstweek_score]!"
+
+                if firstweek_score >= 12:
+                    show text "Well done! You did excellent"
+                    pause
+                    show text "You may graduate with distinction"
+                    pause
+                    show text "Keep up the good work"
+                    pause
+                elif firstweek_score >= 9:
+                    show text "Well done! You did pretty decent"
+                    pause
+                    show text "You understand what academic malpractice is about"
+                    pause
+                    show text "Keep up the good work"
+                    pause
+                elif firstweek_score >= 6:
+                    show text "You did alright"
+                    pause
+                    show text "However, you should think about replaying this part"
+                    pause
+                    scene black
+                    menu:
+                        "Would you like to try again?"
+
+                        "Yes, I can do better":
+                            jump first_day
+
+                        "Yes, but not from the beginning":
+                            jump lab_session
+
+                        "Nah, I'm fine":
+                            pass
+                else:
+                    show text "You did too many mistakes"
+                    pause
+                    show text "Please consider to replay the game"
+                    pause
+                    scene black
+                    menu:
+                        "Would you like to try again?"
+
+                        "Yes, I can do better":
+                            jump first_day
+
+                        "Yes, but not from the beginning":
+                            jump lab_session
+
+                        "Nah, I'm fine":
+                            pass
+            "No":
+                pass
     jump fabrication
 
 
@@ -1263,28 +1348,7 @@ label essay_feedback:
 
 
 
-    # hide sara
-    # hide keri
-    # $ score = calculate_score()
-    # $ collaboration_score = score - initial_score
-    # if formative:
-    #     "Your score is [collaboration_score]!"
-    #
-    #     if collaboration_score >= 4:
-    #         "Well done! You did not commit collusion"
-    #         "And remember: always make sure to not validate academic malpractice"
-    #     else:
-    #         "Unfortunately, you commited academic malpractice"
-    #         "Please make sure to not collaborate on assignments where it is not explicitly stated"
-    #         "You should really consider to try the collaboration part again"
-    #         menu:
-    #             "Would you like to try again?"
-    #
-    #             "Yes, I can do better":
-    #                 jump start_plag
-    #
-    #             "Nah, I'm fine":
-    #                 pass
+
 
 
 

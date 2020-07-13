@@ -53,10 +53,6 @@ label fabrication:
     call screen query_selection
     call start_jigsaw
 
-    # Improve Query Choice by Jigsaw game
-    # jump start_jigsaw
-
-    #call screen query_choice
     jump hurry_up_dialogue
 
 screen query_selection:
@@ -391,27 +387,44 @@ label good_ending:
 label fabrication_feedback:
     $ score = calculate_score()
     $ fabrication_score = score - initial_score
+    scene black
 
     if formative:
-        "Your score is [fabrication_score]!"
 
-        if fabrication_score >= 2:
-            "Congratulations! You did not fabricate or falsify your results!"
+        menu:
 
-            "Even if you did not get the wanted results, never falsify or fabricate data. This will lead to zero marks!"
+            "Do you want to know, how well you did?"
 
-            "If you can explain where you might have struggled or why you think you got the results you obtained, we will reward you with positive marks"
-        else:
-            "Unfortunately, you commited academic malpractice"
-            "Please make sure to never fabricate or falsify your data"
-            "You should really consider to try the fabrication and falsification part again"
-            menu:
-                "Would you like to try again?"
+            "Yes":
+                "Your score is [fabrication_score]!"
 
-                "Yes, I can do better":
-                    jump start_plag
+                if fabrication_score >= 2:
+                    show text "Congratulations! You did not fabricate or falsify your results!"
+                    pause
+                    show text "Even if you did not get the wanted results, never falsify or fabricate data. This will lead to zero marks!"
+                    pause
+                    show text "If you can explain where you might have struggled or why you think you got the results you obtained, we will reward you with positive marks"
+                    pause
+                else:
+                    show text "Unfortunately, you commited academic malpractice"
+                    pause
+                    show text "Please make sure to never fabricate or falsify your data"
+                    pause
+                    show text "You should really consider to try the fabrication and falsification part again"
+                    pause
+                    scene black
+                    menu:
+                        "Would you like to try again?"
 
-                "Nah, I'm fine":
-                    pass
+                        "Yes, I can do better":
+                            jump fabrication
+
+                        "Yes, but not from the beginning":
+                            jump hurry_up_dialogue
+
+                        "Nah, I'm fine":
+                            pass
+            "No":
+                pass
 
     jump dissertation_transition

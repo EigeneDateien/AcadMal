@@ -1,4 +1,7 @@
 label dissertation_transition:
+    $ score = calculate_score()
+    $ initial_score = score
+    $ diss_play += 1
     scene black
     with dissolve
     show text "During the rest of the year, you learn a lot of useful stuff"
@@ -198,6 +201,7 @@ label ta_intervention:
         $ paragraph_chosen = _return
         jump ta_intervention
     elif paragraph_chosen == 'paragraph_good' or paragraph_chosen == 'paragraph1c':
+        $ change_score('good_paragraph', +2)
         s "Well done, [povname]!"
         s "You don't need to worry at all. The paragraph is perfectly fine"
         s "You can submit your dissertation now and I will be more then happy to read it!"
@@ -269,32 +273,44 @@ label happy_end:
     pause
     show text "Everyone is really proud of you"
     pause
+    scene black
+    $ score = calculate_score()
+    $ dissertation_score = score - initial_score
+    if formative:
+
+        menu:
+
+            "Do you want to know, how well you did?"
+
+            "Yes":
+                "Your score is [dissertation_score]!"
+
+                if dissertation_score >= 3:
+                    show text "Well done!"
+                    pause
+                    show text "You wrote an excellent dissertation"
+                    pause
+                else:
+                    show text "You did good, but you could have done better!"
+                    pause
+                    show text "You should consider to replay this part of the game"
+                    pause
+                    scene black
+                    menu:
+                        "Would you like to try again?"
+
+                        "Yes, I can do better":
+                            jump fabrication
+
+                        "Yes, but not from the beginning":
+                            jump hurry_up_dialogue
+
+                        "Nah, I'm fine":
+                            pass
+            "No":
+                pass
+    scene black
     show text "The End"
     pause
+    $ MainMenu(confirm=False)()
     return
-
-    # scene black
-    # $ score = calculate_score()
-    # $ plagiarism_score = score - initial_score
-    # if formative:
-    #     "Your score is [plagiarism_score]!"
-    #
-    #     if plagiarism_score >= 10:
-    #         "Well done! You are a plagiarism expert!"
-    #         "But please make sure to understand what plagiarism is."
-    #         "When in doubt, ask your TA!"
-    #     else:
-    #         if plagiarism_score >= 8:
-    #             "Good! But there is some room for improvement!"
-    #         elif plagiarism_score >= 6:
-    #             "Not bad! But I'm sure you can do better!"
-    #         else:
-    #             "You should really consider to try the plagiarism part again"
-    #         menu:
-    #             "Would you like to try again?"
-    #
-    #             "Yes, I can do better":
-    #                 jump start_plag
-    #
-    #             "Nah, I'm fine":
-    #                 pass

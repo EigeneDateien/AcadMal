@@ -76,9 +76,8 @@ init python:
     collab = False
     fabrication = False
     plag_play = 0
-    coll_play = 0
     fab_play = 0
-    best_play = 0
+    diss_play = 0
 
 
 
