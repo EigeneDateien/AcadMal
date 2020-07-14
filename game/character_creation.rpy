@@ -12,6 +12,7 @@ init python:
             character[name] = character_values
             renpy.jump(start_dressup_female(name))
 
+
 # sara definition
 define sara = "Sara"
 
@@ -49,6 +50,9 @@ layeredimage sara:
         attribute vhappy:
             "Create_character/Eyebrows/eyebrows_normal.png"
 
+        attribute surprised:
+            "Create_character/Eyebrows/eyebrows_sad.png"
+
         attribute sad:
             "Create_character/Eyebrows/eyebrows_sad.png"
 
@@ -68,6 +72,9 @@ layeredimage sara:
 
         attribute vhappy:
             "Create_character/Mouth/mouth_vhappy.png"
+            
+        attribute surprised:
+            "Create_character/Mouth/mouth_surprised.png"
 
         attribute sad:
             "Create_character/Mouth/mouth_sad.png"
@@ -102,7 +109,7 @@ layeredimage alex:
             "Create_character/male/Eyebrows/eyebrows_sad.png"
 
         attribute sad:
-            "Create_character/Eyebrows/eyebrows_sad.png"
+            "Create_character/male/Eyebrows/eyebrows_sad.png"
 
     group mouth:
 
