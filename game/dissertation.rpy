@@ -74,7 +74,7 @@ label writing_continue:
     pov "Now I referenced it!"
 
     menu:
-        a "Do I want to change some more?"
+        pov "Do I want to change some more?"
 
         "No, it's perfect now!":
             $ paragraph_chosen = "cited_paragraph"
@@ -229,6 +229,7 @@ label failedassignment:
     scene black
     show text "You lost..."
     pause
+    scene black
 
 
     menu:
@@ -283,7 +284,6 @@ label happy_end:
             "Do you want to know, how well you did?"
 
             "Yes":
-                "Your score is [dissertation_score]!"
 
                 if dissertation_score >= 3:
                     show text "Well done!"

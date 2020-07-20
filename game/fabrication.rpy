@@ -1,8 +1,4 @@
 label fabrication:
-    $ fabrication = True
-    $ score = calculate_score()
-    $ initial_score = score
-    $ fab_play += 1
     scene black
     show text "In the third week, you have your first group work"
     pause
@@ -50,7 +46,21 @@ label fabrication:
     p "This is all new to me. But I am confident that we will succeed"
     show keri happy at zoom_norm
     pov "Let's get to work then!"
+    jump query_selection_loop
+
+label query_selection_loop:
     call screen query_selection
+    $ return_value = _return
+    if return_value == "False":
+        show alex sad at zoomed_in
+        a "I think it's a different one"
+        jump query_selection_loop
+
+    show alex happy:
+        xalign 0.7
+        zoom 0.7
+    "Perfect. So let's create our new query!"
+
     call start_jigsaw
 
     jump hurry_up_dialogue
@@ -60,8 +70,16 @@ screen query_selection:
         ground "Scene/bg home queryselection.png"
         idle "Scene/bg home queryselection.png"
         hover "Scene/bg home queryselection hover.png"
+        selected_idle "Scene/bg home queryselection selected.png"
+        selected_hover "Scene/bg home queryselection selected.png"
 
-        hotspot (123, 413, 484, 42) clicked Return()
+        hotspot (123, 220, 489, 39) clicked Return("False")
+        hotspot (123, 269, 316, 39) clicked Return("False")
+        hotspot (140, 317, 682, 39) clicked Return("False")
+        hotspot (832, 317, 277, 39) clicked Return("False")
+        hotspot (123, 364, 728, 39) clicked Return("False")
+        hotspot (123, 413, 484, 42) clicked Return("True")
+        hotspot (123, 463, 397, 39) clicked Return("False")
 
 screen query_choice:
     default query_list = []
@@ -92,6 +110,10 @@ screen query_choice:
 
 
 label hurry_up_dialogue:
+    $ fabrication = True
+    $ score = calculate_score()
+    $ initial_score = score
+    $ fab_play += 1
     scene bg home2
     with dissolve
     show keri happy:
@@ -344,6 +366,8 @@ label fabrication_fail(path="falsification"):
         "Do you want to try again?"
 
         "Yes":
+            $ score = calculate_score()
+            $ initial_score = score
             if path == "fabrication":
                 jump fabricate_data
             if path == "falsification":
@@ -396,7 +420,6 @@ label fabrication_feedback:
             "Do you want to know, how well you did?"
 
             "Yes":
-                "Your score is [fabrication_score]!"
 
                 if fabrication_score >= 2:
                     show text "Congratulations! You did not fabricate or falsify your results!"
@@ -405,6 +428,25 @@ label fabrication_feedback:
                     pause
                     show text "If you can explain where you might have struggled or why you think you got the results you obtained, we will reward you with positive marks"
                     pause
+                elif fabrication_score >= 0:
+                    show text "You had some problems understanding fabrication and falsification!"
+                    pause
+                    show text "Maybe have a look at the definitions again!"
+                    pause
+                    show text "You should also consider to replay this chapter"
+                    pause
+                    scene black
+                    menu:
+                        "Would you like to try again?"
+
+                        "Yes, I can do better":
+                            jump fabrication
+
+                        "Yes, but not from the beginning":
+                            jump hurry_up_dialogue
+
+                        "Nah, I'm fine":
+                            pass
                 else:
                     show text "Unfortunately, you commited academic malpractice"
                     pause
