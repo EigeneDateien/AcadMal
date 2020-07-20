@@ -1,13 +1,13 @@
 init:
     default skin_color_male = 1
     default hairstyle_male = 1
-    default hair_color_male = 1
+    default hair_color_male = 3
     default eyes_male = 1
     default eye_color_male = 1
-    default skin_color_female = 1
-    default hairstyle_female = 1
-    default hair_color_female = 1
-    default eyes_female = 1
+    default skin_color_female = 2
+    default hairstyle_female = 2
+    default hair_color_female = 7
+    default eyes_female = 3
     default eye_color_female = 1
     default top_choice = 1
     default top_style = 1

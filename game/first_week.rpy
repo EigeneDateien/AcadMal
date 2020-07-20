@@ -123,7 +123,7 @@ label start_first_day:
     s "Before we start with our lecture, let's give you some facts about this lecture!"
     s "In the morning we will have a lecture. And after the lunch break we will go to the labs to have some practical work"
     s "You will have some coursework that you can start during the lab session"
-    s "And you can ask questions to the TAs and me, your instructor"
+    s "And you can ask questions to the teaching assisants and me, your instructor"
     s "So, let's start our lecture..."
     scene black
     with dissolve
@@ -192,7 +192,8 @@ label lab_session:
         xalign 0.65
     show instructor talk:
         xalign 0.35
-    s "So, that would be all. Feel free to start your coursework now"
+    s "So, that would be all. We will go into the lab now."
+    s "So that everyone has their own computer. Feel free to start your coursework now"
     s "But as I said, I would recommend starting with the essay"
     s "We will go around now and you can ask us some questions"
 
@@ -209,7 +210,7 @@ label lab_work:
     show keri happy at zoom_norm, slightleft
     "You enter the lab room and choose your seat between Pari and Alex"
     show alex talk at zoomed_in, slightright
-    a "Hey, [povname]. Can you help?"
+    a "Hey, [povname]. Can you help me?"
     show alex happy at zoom_norm, slightright
     pov "Sure, what's up?"
     show alex talk at zoomed_in, slightright
@@ -225,7 +226,8 @@ label lab_work:
     show turing question:
         yalign 0.5
         linear 1.0 yalign 0.05
-    show keri mhappy at zoomed_in
+    show keri mhappy at zoomed_in:
+        xalign 0.1
     p "This looks tricky!"
     show keri happy at zoom_norm
     menu:
@@ -323,7 +325,7 @@ label ask_sara:
     show sara happy at zoom_norm:
         xalign 0.5
 
-    a "Hey Sara. It's ok if we work together on SE1, right?"
+    a "Hey Sara. It's ok if we work together on the short essay SE1, right?"
     a "I mean, as long as the final essays are different?"
     show alex happy at zoom_norm
     jump sara_feedback
@@ -338,7 +340,7 @@ label sara_feedback:
     p "Or does it mean that we have to work individually?"
     show keri happy at zoom_norm
     show sara talk at zoomed_in
-    ta1 "That's exactly what it means. You shouldn't work together at all on SE1."
+    ta1 "That's exactly what it means. You should NOT work together at all on the short essay SE1."
     show sara happy at zoom_norm
     show alex surprised at zoomed_in
     a "Whaaaaat? But if we have a question?"
@@ -357,7 +359,7 @@ label sara_feedback:
     p "I guess it's a good thing we talked with Sara about this."
     show keri happy at zoom_norm
     show alex talk at zoomed_in
-    a "Yeah. But I don't know. It's strange. The instructor talked about the importance of collaboration."
+    a "Yeah. But I don't know. It's strange. Today in the lecture, the instructor talked about the importance of collaboration."
     a "What's wrong with working together as long as we each write our own essays?"
     show alex happy at zoom_norm
     menu:
@@ -587,6 +589,7 @@ label slides_storyline:
     pause 1.0
     pov "Perfect, I found the right slide!"
     pov "Indeed, this is the exact paragraph I need!"
+    pov "Oh, and it's taken from Wikipedia"
     jump cut_and_paste
 
 
@@ -665,7 +668,7 @@ label selection_mg:
         pov "Should I do something else?"
 
         "No, I'm finally done with everything!":
-            jump bad_essay
+            jump bad_essay_selected
 
         "I should write a text completely in my own words":
             jump avoid_patchwriting
@@ -683,6 +686,8 @@ screen essay_text:
     default model_simplictiy = None
     default algorithm = None
     default turing_machine = None
+    default selected_words = 7
+
     imagemap:
         ground "Scene/bg home turing tm3.png"
         idle "Scene/bg home turing tm3.png"
@@ -690,13 +695,19 @@ screen essay_text:
         selected_idle "Scene/bg home turing tm3 selected.png"
         selected_hover "Scene/bg home turing tm3 selected.png"
 
-        hotspot (407, 233, 200, 27) clicked SetScreenVariable("mathematical", True)
-        hotspot (218, 268, 122, 24) clicked SetScreenVariable("machine", True)
-        hotspot (912, 268, 69, 26) clicked SetScreenVariable("tape", True)
-        hotspot (119, 296, 78, 27) clicked SetScreenVariable("table", True)
-        hotspot (433, 296, 307, 27) clicked SetScreenVariable("model_simplictiy", True)
-        hotspot (98, 328, 135, 25) clicked SetScreenVariable("algorithm", True)
-        hotspot (247, 328, 899, 27) clicked SetScreenVariable("turing_machine", True)
+        hotspot (407, 233, 200, 27) action [SetScreenVariable("selected_words", selected_words-1), SetScreenVariable("mathematical", True)]
+        hotspot (218, 268, 122, 24) action [SetScreenVariable("selected_words", selected_words-1), SetScreenVariable("machine", True)]
+        hotspot (912, 268, 69, 26) action [SetScreenVariable("selected_words", selected_words-1), SetScreenVariable("tape", True)]
+        hotspot (119, 296, 78, 27) action [SetScreenVariable("selected_words", selected_words-1), SetScreenVariable("table", True)]
+        hotspot (433, 296, 307, 27) action [SetScreenVariable("selected_words", selected_words-1), SetScreenVariable("model_simplictiy", True)]
+        hotspot (98, 328, 135, 25) action [SetScreenVariable("selected_words", selected_words-1), SetScreenVariable("algorithm", True)]
+        hotspot (247, 328, 899, 27) action [SetScreenVariable("selected_words", selected_words-1), SetScreenVariable("turing_machine", True)]
+
+        if selected_words >= 1:
+            text "{color=#801a34}Please select [selected_words] more phrases{/color}":
+                xalign 0.5
+                yalign 0.7
+                size 30
 
         if mathematical and machine and tape and table and model_simplictiy and algorithm and turing_machine:
             imagebutton auto "select_%s.png":
@@ -950,19 +961,36 @@ label bad_essay:
     show sara talk at zoomed_in
     ta1 "I see. Well, to be honest you were in luck"
     ta1 "You closely copied the source paragraph but at least you referenced it"
-    ta1 "But, be honest, you haven't put much effort in it"
-    show sara surprised at zoom_norm
-    pov "I looked up the information and gave a correct answer!"
-    pov "What was wrong about it?"
-    show sara mhappy at zoomed_in
-    ta1 "Well, [povname]. Let me explain it to you"
+    menu:
+        ta1 "What do you think why you got only a few points out of it?"
+
+        "I didn't put much effort in it":
+            ta1 "Yes, and that is part of the problem"
+
+        "I don't know! I looked up the information and gave a correct answer!":
+            show sara surprised at zoom_norm
+            pov "What was wrong about it?"
+            show sara mhappy at zoomed_in
+            ta1 "Well, [povname]. Let me explain it to you"
+
     ta1 "We were not assessing your googling skills"
     ta1 "We expected you to look up the information"
     show sara happy at zoom_norm
-    pov "That is what I did!"
-    show sara mhappy at zoomed_in
-    ta1 "Yes, but we wanted you to understand the information"
-    ta1 "Just copying and referencing a paragraph is not enough"
+    menu:
+        "Which I correcty did":
+            show sara mhappy at zoomed_in
+            ta1 "Yes, but we wanted you to understand the information"
+
+        "So what was wrong?":
+            show sara mhappy at zoomed_in
+            ta1 "We wanted you to understand the information"
+    menu:
+        "So copying and referencing a paragraph was not enough?":
+            ta1 "Exactly!"
+
+        "Well, I understood the information!":
+            ta1 "I don't say that you didn't"
+            ta1 "But with just copying and referencing we can't see that you did"
     ta1 "That way, you have spend more time referencing the paragraph than actually thinking about the content"
     ta1 "Even, when you change some words or the structure of the text, this is not sufficient for a high mark"
     show sara happy at zoom_norm
@@ -978,6 +1006,117 @@ label bad_essay:
     hide sara
     jump after_essay_mark
 
+
+label bad_essay_selected:
+    $ change_score('bad_essay', -1)
+    scene black
+    with dissolve
+    show text "The next day..."
+    pause
+    scene bg home2
+    show alex angry at zoomed_in:
+        xalign 0.5
+    a "[povname]! Have you seen the marks? I got low points! What have you got?"
+    show alex angry at zoom_norm
+    pov "Let me check..."
+    pov "Oh no! I have also only a few points. But why?"
+    show alex sad at slightright, zoom_norm
+    show keri happy at slightleft, zoom_norm
+    with dissolve
+    pov "Hey, Pari! What have you got on your essay?"
+    show keri mhappy at zoomed_in
+    p "I have full points... And you?"
+    show keri happy at zoom_norm
+    pov "Alex and me only have a few points"
+    show keri surprised at zoomed_in
+    p "Whaaat? What did you guys do?!"
+    show keri happy at zoom_norm
+    pov "I don't know..."
+    pov "I will go to Sara and ask her. I will be back in a minute"
+    show keri mhappy at zoomed_in
+    p "Good Luck, [povname]"
+    scene bg home2
+    with dissolve
+    show sara happy at top, zoom_norm
+    pov "Hey, Sara? Can I talk to you"
+    show sara talk at zoomed_in
+    ta1 "Sure, what do you want to talk about?"
+    show sara happy at zoom_norm
+    pov "About my essay. I don't understand why I have only so few points"
+    show sara talk at zoomed_in
+    ta1 "I see. Well, to be honest you were in luck"
+    ta1 "You closely copied the source paragraph but at least you referenced it"
+    menu:
+        ta1 "What do you think why you got only a few points out of it?"
+
+        "I didn't put much effort in it":
+            ta1 "Yes, and that is part of the problem"
+
+        "I don't know! I looked up the information and gave a correct answer!":
+            show sara surprised at zoom_norm
+            pov "What was wrong about it?"
+            show sara mhappy at zoomed_in
+            ta1 "Well, [povname]. Let me explain it to you"
+
+    menu:
+        ta1 "So, tell me exactly how you tackled this problem"
+
+        "I looked the information up on Wikipedia":
+            pass
+
+        "I looked the information up on the slides":
+            pass
+
+    menu:
+        ta1 "And what did you do then?"
+
+        "I took the paragraph and change some words":
+            pass
+
+        "I used synonyms to make the text my own":
+            pass
+
+    ta1 "Well, but was it really your own text?"
+
+    pov "Yes, I think so"
+
+    ta1 "But think about the process. You just replaced some of the words"
+
+    ta1 "You didn't change any of the structure of the text"
+
+    ta1 "We were not assessing your googling skills"
+    ta1 "We expected you to look up the information"
+    show sara happy at zoom_norm
+    menu:
+        "Which I correcty did":
+            show sara mhappy at zoomed_in
+            ta1 "Yes, but we wanted you to understand the information"
+
+        "So what was wrong?":
+            show sara mhappy at zoomed_in
+            ta1 "We wanted you to understand the information"
+
+    menu:
+        "So inserting synonyms was not enough?":
+            ta1 "Exactly!"
+
+        "Well, I understood the information!":
+            ta1 "I don't say that you didn't"
+            ta1 "But with just using synonyms we can't see that you did"
+    ta1 "That way, you have spend more time thinking about synonyms than actually thinking about the content"
+    ta1 "Even, when you change some words or the structure of the text, this is not sufficient for a high mark"
+    show sara happy at zoom_norm
+    pov "So what should I have done?"
+    show sara talk at zoom_norm
+    ta1 "Well, read the text. Understand it. Try to find some more sources."
+    ta1 "Then take the information together and write an essay in your own words without copying large chunks from your sources..."
+    show sara happy at zoom_norm
+    pov "I see! I think I understand! Thank you, Sara!"
+    pov "I will do it better next time!"
+    show sara talk at zoom_norm
+    ta1 "Good luck! See you"
+    hide sara
+    jump after_essay_mark
 
 label mediocre_essay:
     $ change_score('mediocre_essay', +1)
@@ -1018,13 +1157,24 @@ label mediocre_essay:
     show sara talk at zoomed_in
     ta1 "I see. Well, let me explain it to you"
     ta1 "Your essay wasn't bad at all. You referenced all your sources"
-    ta1 "However, you cited way too much"
-    show sara surprised at zoom_norm
-    pov "But I thought we are supposed to cite our sources"
-    show sara mhappy at zoomed_in
-    ta1 "Well, it is always a good idea to cite something that could not be expressed better"
-    ta1 "And referencing your sources is vital"
-    ta1 "However, your essay consisted of almost nothing else than quotations"
+    ta1 "So why do you think you did not get full points?"
+    menu:
+        ta1 "So why do you think you did not get full points?"
+
+        "Did I referenced them incorrectly?":
+            ta1 "No, the references themselves were all fine"
+            menu:
+                ta1 "It was more the number of direct quotations"
+
+                "But I thought we should use several sources":
+                    ta1 "Yes, the sources were fine, but your essay consisted of almost nothing else than quotations"
+
+                "So, I used to many quotations?":
+                    ta1 "Exactly, [povname]!"
+        "Hmm, may I used to many quotations?":
+            ta1 "Exactly, [povname]!"
+
+    ta1 "There were not enough of your own words"
     ta1 "So, we weren't sure whether you have understood the source textes"
     show sara happy at zoom_norm
     pov "What do you mean?"
@@ -1034,7 +1184,7 @@ label mediocre_essay:
     ta1 "That way, we can see that you were not thinking enough about the content"
     ta1 "If you have understood the information you would have been able to phrase everything in your own words"
     show sara happy at zoom_norm
-    pov "Ok, so next time, you want a paragraph with no quotations"
+    pov "Ok, so next time, you want a paragraph with no quotations?"
     show sara talk at zoom_norm
     ta1 "As I said, you can use quotations. But not that many"
     ta1 "Try to really understand the text and then you will see that you will be able to phrase it in your own words"
@@ -1124,16 +1274,28 @@ label overtop_essay:
     show sara talk at zoomed_in
     ta1 "I see. Well, let me explain it to you"
     ta1 "Your essay wasn't bad at all. But you did something that is common for a non-native speaker"
+    menu:
+        ta1 "Do you have an idea of what you might have done to extensive?"
+
+        "Maybe I used to many sources":
+            ta1 "No, the sources were fine. The problem was more about some of the words"
+            pov "What do you mean?"
+            ta1 "Well, your choice of was sometimes a bit off"
+
+        "Hmm, something with the words? I struggled finding my own words":
+            ta1 "Yeah, we could see that"
+
+
     ta1 "You tried to come up with synonyms but some of them didn't make sense"
     show sara happy at zoom_norm
-    pov "Oh, what do you mean?"
+    pov "Which words? What do you mean?"
     show sara mhappy at zoomed_in
     ta1 "Well, it is always good to come up with your own text in your own words"
     ta1 "But some terms are definite scientific terms and you should keep them"
     show sara happy at zoom_norm
-    pov "What do you mean?"
+    pov "Scientific terms?"
     show sara mhappy at zoomed_in
-    ta1 "For example, there is no such thing as an Alan Turing system. This system is called Turing machine"
+    ta1 "For example, there is no such thing as an Alan Turing system. This system is called a Turing machine"
     ta1 "And a computer is a computer and not a digital workspace"
     ta1 "Try to be precise and write a text in your own words"
     ta1 "But keep the scientific terms"
@@ -1141,7 +1303,7 @@ label overtop_essay:
     pov "Hmm, and how do I recognise which terms I shouldn't change?"
     show sara talk at zoom_norm
     ta1 "Well, there is no definite answer"
-    ta1 "But as a rule-of-thumb: if the term has its own article (e.g. on Wikipedia) then you should consider to not change that term"
+    ta1 "But as a rule-of-thumb: if the term has its own article (e.g. on Wikipedia) then you should consider not to change that term"
     show sara happy at zoom_norm
     pov "Okay, I will try my best! Thank you, Sara!"
     pov "I will do it better next time!"
@@ -1249,7 +1411,15 @@ label transition_to_fabrication:
     show text "You spent the next weeks with your good friends Pari and Alex"
     pause
     # Option for more interlude, e.g. in the lecture you learn a lot of useful things
-    show text "In the second week, you are able to gain full marks on your coursework"
+    show text "In the second week, you have to write another essay"
+    pause
+    show text "This time, your topic is for-loops"
+    pause
+    show text "In the following, drag and drop the right paragraphs to the right position"
+    pause
+    call start_parsons_pic
+    scene black
+    show text "Well done! You got full points on your second week's essay!"
     pause
 
     hide sara
@@ -1263,7 +1433,6 @@ label transition_to_fabrication:
             "Do you want to know, how well you did?"
 
             "Yes":
-                "Your score is [firstweek_score]!"
 
                 if firstweek_score >= 12:
                     show text "Well done! You did excellent"
@@ -1297,7 +1466,7 @@ label transition_to_fabrication:
                         "Nah, I'm fine":
                             pass
                 else:
-                    show text "You did too many mistakes"
+                    show text "You did many mistakes"
                     pause
                     show text "Please consider to replay the game"
                     pause
