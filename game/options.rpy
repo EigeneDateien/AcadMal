@@ -185,7 +185,7 @@ define formative = True
 ## distribution. This must be ASCII-only, and must not contain spaces, colons,
 ## or semicolons.
 
-define build.name = "TestProject"
+define build.name = "academic-malpractice"
 
 
 ## Sounds and music ############################################################
@@ -227,6 +227,8 @@ define config.exit_transition = dissolve
 ## Between screens of the game menu.
 
 define config.intra_transition = dissolve
+
+define config.developer = True
 
 
 ## A transition that is used after a game has been loaded.
@@ -358,4 +360,6 @@ init python:
 ## The username and project name associated with an itch.io project, separated
 ## by a slash.
 
-# define build.itch_project = "renpytom/test-project"
+# define build.itch_project = "frederikse/academic-malpractice"
+
+define build.itch_project = "frederikse/academic-malpractice"
