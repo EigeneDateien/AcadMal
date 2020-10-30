@@ -78,6 +78,18 @@ init python:
     plag_play = 0
     fab_play = 0
     diss_play = 0
+    one_chapter_only = False
+    only_plagiarism = False
+    only_coll_fab = False
+    tutorial_already = False
+    upper_right_paragraph_b = False
+    lower_right_paragraph_b = False
+    lower_left_paragraph_b = False
+    chosen_tut_paragraph = ""
+    chosen_tut_paragraph2 = ""
+    upper_right_paragraph_b2 = False
+    lower_right_paragraph_b2 = False
+    lower_left_paragraph_b2 = False
 
 
 
@@ -114,7 +126,6 @@ image bg home2 = "Scene/kilburn-inside.png"
 image bg lab = "Scene/kilburn-lab.png"
 image bg office = "Scene/kilburn-office.png"
 image bg outside = "Scene/bg kilburn outside.png"
-image bg plants = "Scene/Plants.png"
 image bg kilburn lecture = "Scene/kilburn lecture.png"
 image bg kilburn lecture1 = "Scene/kilburn lecture1.png"
 image bg home desk = "Scene/bg home desk.png"
@@ -127,21 +138,65 @@ transform flip:
 # The game starts here.
 
 label start:
+
     scene bg home
-    python:
-        if not persistent.povname:
-            povname = renpy.input("What is your name?")
-            povname = povname.strip()
-            if not povname:
-                povname = "Anony M. Ous"
-            persistent.povname = povname
-        else:
-             povname = persistent.povname
-             persistent.povname = False
+
+    menu:
+        "Which device are you playing on?"
+
+        "Laptop/PC":
+
+            python:
+                if not persistent.povname:
+                    povname = renpy.input("What is your nickname?")
+                    povname = povname.strip()
+                    if not povname:
+                        povname = "Anony M. Ous"
+                    persistent.povname = povname
+                else:
+                     povname = persistent.povname
+                     persistent.povname = False
+
+        "Mobile device/tablet":
+            python:
+                povname = "Player"
+                persistent.povname = povname
 
     jump intro
 
 label intro:
+    scene black
+    with dissolve
+    # show text "The following game consists of three chapters"
+    # pause
+    # show text "The first chapter will take you around 20 minutes. The whole game will take around 45 minutes"
+    # pause
+    # show text "You can decide know whether you only want to play one chapter or whether you want to start the game from the beginning"
+    # pause
+    # show text "When you start the game from the beginning, you can end the game after each of the three chapters"
+    # pause
+    # show text "When you decide to play only one chapter, you can choose which topic you are most interested in"
+    # pause
+    # scene black
+    # menu:
+    #     "Do you want to play only one chapter?"
+    #
+    #     "Yes, one chapter is enough":
+    #         $ one_chapter_only = True
+    #
+    #         menu:
+    #             "Which topic are you more interested in?"
+    #
+    #             "Plagiarism":
+    #                 $ only_plagiarism = True
+    #
+    #             "Collusion and Fabrication of results":
+    #                 $ only_coll_fab = True
+    #
+    #     "No, I want to start the game from the beginning":
+    #         pass
+
+
     scene bg home
 
 
@@ -155,20 +210,6 @@ label intro:
 
     $ score = plagiarism_score + collaboration_score + fabrication_score
 
-    if not formative:
-        python:
-            with open("points.txt","w") as points_file:
-                points_file.write("Points gained by " + povname + "\n")
-                points_file.write("Plagiarism points " + str(plagiarism_score) + "\n")
-                points_file.write("Collusion points " + str(collaboration_score) + "\n")
-                points_file.write("Fabrication points " + str(fabrication_score) + "\n")
-                points_file.write("Overall points " + str(score) + "\n")
-                points_file.write("Times plagiarism played " + str(plag_play) + "\n")
-                points_file.write("Times collaboration played " + str(coll_play) + "\n")
-                points_file.write("Times fabrication played " + str(fab_play) + "\n")
-                points_file.write("Times best practices played " + str(best_play) + "\n")
-
-            points_file.closed
 
     $ MainMenu(confirm=False)()
 

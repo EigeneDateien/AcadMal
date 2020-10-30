@@ -13,6 +13,9 @@ init:
     transform slidewideleft:
         xalign 0.25
         linear 1.0 xalign 0.1
+    transform slidewideleftback:
+        xalign 0.25
+        linear 1.0 xalign 0.5
     transform zoomed_in:
         zoom 0.7
     transform zoom_norm:
@@ -62,8 +65,28 @@ label first_day:
     show alex happy at zoom_norm:
         xalign 0.75
     with Dissolve(1.1, alpha=True)
-    "The three of you arranged to meet outside the university on the first day"
-    jump start_first_day
+
+    if one_chapter_only:
+        scene black
+        with flashbulb
+        show text "You decided to only play one chapter"
+        pause
+        if only_plagiarism:
+            show text "For your coursework, you have to write a short essay about a given topic"
+            pause
+            jump essay_writing_mg
+
+        else:
+            scene black
+            show keri happy at zoom_norm, slideleft
+            show alex happy at zoom_norm:
+                xalign 0.75
+            "The three of you arranged to meet outside the university on the first day"
+            jump start_first_day
+
+    else:
+        "The three of you arranged to meet outside the university on the first day"
+        jump start_first_day
 
 label start_first_day:
     scene bg outside
@@ -82,12 +105,12 @@ label start_first_day:
     show keri happy at zoom_norm, slightleft
 
     menu:
-        "Hey Pari, hey Alex! I'm a bit nervous to be honest":
+        "Hey, Pari, hey, Alex! I'm a bit nervous to be honest":
             show keri mhappy at zoomed_in, slightleft
             p "Yeah, me as well!"
             show keri mhappy at zoom_norm, slightleft
 
-        "Hey Pari, hey Alex! I'm super excited!":
+        "Hey, Pari, hey, Alex! I'm super excited!":
             show alex mhappy at zoomed_in, slightright
             a "Yessss, I'm really looking forward to our first lecture"
 
@@ -121,9 +144,9 @@ label start_first_day:
     show instructor talk at top
     s "Good morning, class!"
     s "Before we start with our lecture, let's give you some facts about this lecture!"
-    s "In the morning we will have a lecture. And after the lunch break we will go to the labs to have some practical work"
+    s "In the morning we will have a lecture. And after the lunch break, we will go to the labs to have some practical work"
     s "You will have some coursework that you can start during the lab session"
-    s "And you can ask questions to the teaching assisants and me, your instructor"
+    s "And you can ask questions to the teaching assistants and me, your instructor"
     s "So, let's start our lecture..."
     scene black
     with dissolve
@@ -150,7 +173,7 @@ label start_first_day:
     show alex happy at zoom_norm, slightright
     pov "Coming!"
     show keri happy at zoom_norm, slightleft
-    pov "Let's get ourself some seats"
+    pov "Let's get ourselves some seats"
     jump lab_session
 
 label lab_session:
@@ -160,9 +183,9 @@ label lab_session:
     show alex happy at zoom_norm, wideleft, sitting
     show keri happy at zoom_norm, wideright, sitting
     show instructor mhappy at top
-    s "Welcome back! In this lab session you can start with you coursework!"
+    s "Welcome back! In this lab session, you can start with your coursework!"
     s "Please remember that all coursework in this week will be individual coursework"
-    s "We recommend that you have a look at the essay first, since most of you might struggle with this the most"
+    s "We recommend that you have a look at the essay first since most of you might struggle with this the most"
     show alex surprised at zoom_norm, wideleft, sitting
     a "There will be essays in Computer Science?!"
 
@@ -234,7 +257,7 @@ label lab_work:
         "It does look tricky. We should divide up the work.":
             hide turing question
             jump failing
-        "It seems straighforward. I'm going to do it on my own.":
+        "It seems straightforward. I'm going to do it on my own.":
             show alex angry at zoomed_in
             a "That's not very nice! Be a jerk about it!"
             show alex angry at zoom_norm
@@ -277,11 +300,13 @@ label lab_work:
 
 label failing:
     # intervention by the ta
+    hide turing question
+    $ collab = True
     $ change_score('failing_coll', -4)
     show sara mhappy at zoomed_in:
         xalign 0.5
     with dissolve
-    ta1 "Hey, you two are seem to get along well."
+    ta1 "Hey, you two seem to get along well."
     show sara mhappy at zoom_norm
     show alex vhappy at zoomed_in
     a "Yeah, [povname] is a great working partner"
@@ -307,7 +332,7 @@ label failing:
             p "Why? I thought we could work together on the essay?"
             show alex happy at zoom_norm
 
-        "We are splitting up the work, because it is too much":
+        "We are splitting up the work because it is too much":
             show sara happy at zoomed_in
             ta1 "Well, I know that these questions seem hard in the beginning, but please stop working together immediately!"
             show sara happy at zoom_norm
@@ -318,6 +343,7 @@ label failing:
     jump sara_feedback
 
 label ask_sara:
+    hide turing question
     $ change_score('ask_sara', +2)
     show alex mhappy at zoomed_in
     a "Oh, alright. Let's ask Sara the TA."
@@ -348,7 +374,7 @@ label sara_feedback:
     show sara talk at zoomed_in
     ta1 "If you have a question or problem, you should ask a TA, email an instructor, or post a question on Blackboard."
     ta1 "If you had worked together on SE1 that would have been collusion!"
-    ta1 "In the best case, you would have gotten zero points on SE1 and a mark on your record."
+    ta1 "You would have gotten zero points on SE1 and a mark on your record."
     show keri surprised
     show alex surprised at zoomed_in
     a "Yeek! Thanks for this! I didn't realise."
@@ -381,10 +407,11 @@ label se1_collaboration(speaker="Instructor"):
         show sara happy:
             zoom 0.6
             xalign 0.5
-        $ s = ta1
+        $ s1 = ta1
     else:
         show instructor happy:
             xalign 0.5
+        $ s1 = s
     show alex happy at zoom_norm
     "We find [speaker] in the lab."
     if speaker == "Sara":
@@ -392,13 +419,12 @@ label se1_collaboration(speaker="Instructor"):
         show sara talk:
             zoom 0.7
             xalign 0.5
-        $ s = ta1
     else:
         pov "Hello, we have a question about SE1."
         show instructor talk:
             xalign 0.5
 
-    s "Sure, what's up?"
+    s1 "Sure, what's up?"
 
     if speaker == "Sara":
         show sara happy at zoom_norm
@@ -428,17 +454,17 @@ label se1_collaboration(speaker="Instructor"):
     else:
         show instructor talk
 
-    s """I understand your concerns.
+    s1 """I understand your concerns.
 
     We think a lot about how our assignments affect your learning, esp. for writing.
 
     You'll have to do a lot of writing in the program here."""
 
-    s "For example, you have other coursework..."
+    s1 "For example, you have other coursework..."
 
-    s "...exams..."
+    s1 "...exams..."
 
-    s "...and your dissertation to write."
+    s1 "...and your dissertation to write."
 
     if speaker == "Sara":
         show sara happy at zoom_norm
@@ -453,16 +479,16 @@ label se1_collaboration(speaker="Instructor"):
                 show sara talk at zoomed_in
             else:
                 show instructor talk
-            s "You aren't doomed."
+            s1 "You aren't doomed."
     if speaker == "Sara":
         show sara talk at zoomed_in
     else:
         show instructor talk
-    s """You can get various sorts of help, but not always before you have to finish some writing.
+    s1 """You can get various sorts of help, but not always before you have to finish some writing.
 
     For example, consider exams."""
     #TODO: show exam situation
-    s """Many exams have short essays on them. You need to formulate an answer, by yourself, with a lot of time pressure.
+    s1 """Many exams have short essays on them. You need to formulate an answer, by yourself, with a lot of time pressure.
 
     You can get help revising for your exam, but no help during the exam.
 
@@ -470,7 +496,6 @@ label se1_collaboration(speaker="Instructor"):
 
     if speaker == "Sara":
         show sara happy at zoom_norm
-        $ s = ta1
     else:
         show instructor happy
 
@@ -480,24 +505,25 @@ label se1_collaboration(speaker="Instructor"):
                 show sara talk
             else:
                 show instructor talk
-            s "If you want, we can talk individually and I will answer your questions as far as possible"
+            s1 "If you want, we can talk individually and I will answer your questions as far as possible"
         "We'll lose points if we don't get help now!":
             if speaker == "Sara":
                 show sara talk
             else:
                 show instructor talk
-            s "Part of the assignement is to figure out how to start and what an essay should entail"
-            s "This way, you will learn the most"
-            s "And you will get helpful feedback after the submission so that you know what to do next time"
+            s1 "Part of the assignment is to figure out how to start and what an essay should entail"
+            s1 "This way, you will learn the most"
+            s1 "And you will get helpful feedback after the submission so that you know what to do next time"
         "What sort of help are we going to get?":
             if speaker == "Sara":
                 show sara talk
             else:
                 show instructor talk
-            s "First, you can always ask a TA or an instructor for help."
-            s "We know how much aid to give without breaking the value of the assignment."
+            s1 "First, you can always ask a TA or an instructor for help."
+            s1 "We know how much aid to give without breaking the value of the assignment."
             if comp61511:
-                s "Next, in a lab after submitting SE1, we'll have an exercise where we will do some peer review."
+                s1 "Next, in a lab after submitting SE1, we'll have an exercise where we will do some peer review."
+
     jump coursework_writing
 
 
@@ -534,6 +560,13 @@ label coursework_writing:
     show keri happy at zoom_norm
     show alex talk at zoomed_in
     a "Bye, [povname]!"
+
+    if only_coll_fab:
+        "You go home and write the essay"
+        "One day before the deadline, you get a message from Alex"
+        scene bg home desk
+        with dissolve
+        jump alex_emergency
 
     scene black
     with dissolve
@@ -572,6 +605,7 @@ label essay_writing_mg:
 
 
 label wikipedia_storyline:
+    $ slides = False
     pov "I could answer it from Wikipedia!"
     hide turing question
     show bg home turing wiki
@@ -630,7 +664,7 @@ label cut_and_paste:
 label .plag(only_one=False):
     pov "These are not my original words!"
     pov "So I guess I should reference it properly"
-    show bg home turing tm3
+    show bg home turing tm3 none
     pov "Perfect! Now I have referenced it properly"
     pov "I wonder if this is sufficient"
     pov "I found the right paragraph which actually answers the question, so this is fine"
@@ -723,26 +757,33 @@ label avoid_patchwriting:
     "Please select the paragraph that you think fits best"
     call screen essay_choice
     $ essay_chosen = _return
-    jump alex_emergency
+    if only_plagiarism:
+        jump essay_feedback
+    else:
+        jump alex_emergency
 
 label alex_emergency:
     # https://lemmasoft.renai.us/forums/viewtopic.php?t=40245
-    call phone_start
-    call message_start("Alex", "Hey [povname], I need your help!!!")
+    call phone_start from _call_phone_start
+    call message_start("Alex", "Hey [povname], I need your help!!!") from _call_message_start
     pause
-    call message_start("Alex", "Can you come to the Lab please?!")
+    call message_start("Alex", "Can you come to the Lab please?!") from _call_message_start_1
     call screen phone_reply("Of course, Alex!","choice1","I'm sorry, Alex! I have no time","choice2")
 
 label choice1:
-    call message_start("Alex", "Thank youuuuuu, [povname]!!!!")
-    call message("Alex", "")
-    call phone_after_menu
+    call message_start("Alex", "Thank youuuuuu, [povname]!!!!") from _call_message_start_2
+    call message("Alex", "") from _call_message
+    call phone_after_menu from _call_phone_after_menu
     jump one_day_before
 
 label choice2:
-    call message_start("Alex", "Wow, [povname]! You never have time for me :(")
-    call message("Alex", "")
-    call phone_after_menu
+    call message_start("Alex", "Wow, [povname]! You never have time for me :(") from _call_message_start_3
+    call message("Alex", "") from _call_message_1
+    call phone_after_menu from _call_phone_after_menu_1
+    if only_coll_fab:
+        "You did not help Alex"
+        "Alex failed his essay, but you did get a high mark for your essay"
+        jump transition_to_fabrication
     jump essay_feedback
 
 screen essay_choice:
@@ -778,7 +819,7 @@ label one_day_before:
             jump near_miss
 
         "I'm sorry, Alex, but I am not allowed to help you":
-            a "Please, I need you! Don't be like that! Without your help I will fail the essay!"
+            a "Please, I need you! Don't be like that! Without your help, I will fail the essay!"
             menu:
                 a "Just let me have a look what you have written"
 
@@ -787,15 +828,19 @@ label one_day_before:
 
                 "No, I'm sorry, Alex!":
                     $ change_score('no_collab_final', +2)
-                    # """Well done! You did not commmit collusion. However, be sure to be polite and explain to your fellow students
+                    # """Well done! You did not commit collusion. However, be sure to be polite and explain to your fellow students
                     # why you are not allowed to help them with their individual coursework. And of course, you can and should help your fellow students
                     # for everything that is not related to individual work."""
+                    if only_coll_fab:
+                        "You did not help Alex"
+                        "Alex failed his essay, but you did get a high mark for your essay"
+                        jump transition_to_fabrication
                     jump essay_feedback
 
 label near_miss:
     # pari will use the same ideas
     show alex vhappy
-    a "Thank you, [povname]! You are a life saver"
+    a "Thank you, [povname]! You are a lifesaver"
     show alex talk
     a "This is such a great help! Your essay is way better than mine!"
     show alex vhappy at zoom_norm
@@ -807,6 +852,7 @@ label near_miss:
 
 label collusion:
     $ change_score('collusion', -4)
+    $ collab = True
     scene black
     with dissolve
     show text "The next day..."
@@ -825,7 +871,7 @@ label collusion:
     show keri mhappy at zoomed_in
     p "I have full points... And you?"
     show keri happy at zoom_norm
-    pov "Alex and me got zero points"
+    pov "Alex and I got zero points"
     show keri surprised at zoomed_in
     p "Whaaat? What did you guys do?!"
     show keri happy at slidewideleft, zoom_norm
@@ -853,7 +899,7 @@ label collusion:
     show sara happy at zoom_norm
     pov "Yes, we compared it, but we wrote different essays"
     show sara talk at zoomed_in
-    ta1 "Thank you for your honesty, [povname]. As I told you before, it was an individual coursework"
+    ta1 "Thank you for your honesty, [povname]. As I told you before, it was individual coursework"
     ta1 "We wanted to see how well you understand the topic. But each of you and not just one of you"
     ta1 "You are glad that it was in a coursework"
     ta1 "Now you will only get zero marks on this coursework"
@@ -873,6 +919,8 @@ label collusion:
                     jump one_day_before
 
                 "No":
+                    if only_coll_fab:
+                        jump transition_to_fabrication
                     scene black
                     jump failed_coursework
 
@@ -891,15 +939,15 @@ label school_comitee:
     pov "And what will happen then?"
     if preferences.fullscreen == True:
         define b = Character("Helper", kind=nvl)
-        b "Hey there, sorry to interupt!"
+        b "Hey there, sorry to interrupt!"
 
         b "You are currently playing the game in fullscreen mode which is awesome"
 
-        b "However, we have some linked resources that can help you understand academic malpratice"
+        b "However, we have some linked resources that can help you understand academic malpractice"
 
         b "If you play in fullscreen mode, you will not see the documents until the end of the game"
 
-        b "You could however play the game in window mode and have a look at the resources"
+        b "You could, however, play the game in window mode and have a look at the resources"
         menu:
             b "Do you want to turn fullscreen off to have a look on the linked resource"
 
@@ -919,11 +967,14 @@ label school_comitee:
             jump one_day_before
 
         "No":
+            if only_coll_fab:
+                jump transition_to_fabrication
             jump failed_coursework
 
 
 label bad_essay:
     $ change_score('bad_essay', -1)
+    $ plag = True
     scene black
     with dissolve
     show text "The next day..."
@@ -942,7 +993,7 @@ label bad_essay:
     show keri mhappy at zoomed_in
     p "I have full points... And you?"
     show keri happy at zoom_norm
-    pov "Alex and me only have a few points"
+    pov "Alex and I only have a few points"
     show keri surprised at zoomed_in
     p "Whaaat? What did you guys do?!"
     show keri happy at zoom_norm
@@ -959,7 +1010,7 @@ label bad_essay:
     show sara happy at zoom_norm
     pov "About my essay. I don't understand why I have only so few points"
     show sara talk at zoomed_in
-    ta1 "I see. Well, to be honest you were in luck"
+    ta1 "I see. Well, to be honest, you were in luck"
     ta1 "You closely copied the source paragraph but at least you referenced it"
     menu:
         ta1 "What do you think why you got only a few points out of it?"
@@ -977,7 +1028,7 @@ label bad_essay:
     ta1 "We expected you to look up the information"
     show sara happy at zoom_norm
     menu:
-        "Which I correcty did":
+        "Which I correctly did":
             show sara mhappy at zoomed_in
             ta1 "Yes, but we wanted you to understand the information"
 
@@ -991,7 +1042,7 @@ label bad_essay:
         "Well, I understood the information!":
             ta1 "I don't say that you didn't"
             ta1 "But with just copying and referencing we can't see that you did"
-    ta1 "That way, you have spend more time referencing the paragraph than actually thinking about the content"
+    ta1 "That way, you have spent more time referencing the paragraph than actually thinking about the content"
     ta1 "Even, when you change some words or the structure of the text, this is not sufficient for a high mark"
     show sara happy at zoom_norm
     pov "So what should I have done?"
@@ -1008,6 +1059,7 @@ label bad_essay:
 
 
 label bad_essay_selected:
+    $ plag = True
     $ change_score('bad_essay', -1)
     scene black
     with dissolve
@@ -1027,7 +1079,7 @@ label bad_essay_selected:
     show keri mhappy at zoomed_in
     p "I have full points... And you?"
     show keri happy at zoom_norm
-    pov "Alex and me only have a few points"
+    pov "Alex and I only have a few points"
     show keri surprised at zoomed_in
     p "Whaaat? What did you guys do?!"
     show keri happy at zoom_norm
@@ -1044,7 +1096,7 @@ label bad_essay_selected:
     show sara happy at zoom_norm
     pov "About my essay. I don't understand why I have only so few points"
     show sara talk at zoomed_in
-    ta1 "I see. Well, to be honest you were in luck"
+    ta1 "I see. Well, to be honest, you were in luck"
     ta1 "You closely copied the source paragraph but at least you referenced it"
     menu:
         ta1 "What do you think why you got only a few points out of it?"
@@ -1088,7 +1140,7 @@ label bad_essay_selected:
     ta1 "We expected you to look up the information"
     show sara happy at zoom_norm
     menu:
-        "Which I correcty did":
+        "Which I correctly did":
             show sara mhappy at zoomed_in
             ta1 "Yes, but we wanted you to understand the information"
 
@@ -1103,7 +1155,7 @@ label bad_essay_selected:
         "Well, I understood the information!":
             ta1 "I don't say that you didn't"
             ta1 "But with just using synonyms we can't see that you did"
-    ta1 "That way, you have spend more time thinking about synonyms than actually thinking about the content"
+    ta1 "That way, you have spent more time thinking about synonyms than actually thinking about the content"
     ta1 "Even, when you change some words or the structure of the text, this is not sufficient for a high mark"
     show sara happy at zoom_norm
     pov "So what should I have done?"
@@ -1130,7 +1182,7 @@ label mediocre_essay:
     a "[povname]! Have you seen the marks? I got zero points! What have you got?"
     show alex angry at zoom_norm
     pov "Let me check..."
-    pov "Oh no! I have some points but not full points. What should I have done different?"
+    pov "Oh no! I have some points but not full points. What should I have done differently?"
     show alex sad at slightright, zoom_norm
     show keri happy at slightleft, zoom_norm
     with dissolve
@@ -1138,7 +1190,7 @@ label mediocre_essay:
     show keri mhappy at zoomed_in
     p "I have full points... And you?"
     show keri happy at zoom_norm
-    pov "Alex has a few points and I have some but not all points"
+    pov "Alex has zero points and I have some but not all points"
     show keri surprised at zoomed_in
     p "I see! Do you know why?"
     show keri happy at zoom_norm
@@ -1149,7 +1201,7 @@ label mediocre_essay:
     scene bg home2
     with dissolve
     show sara happy at top, zoom_norm
-    pov "Hey, Sara? Can I talk to you"
+    pov "Hey, Sara? Can I talk to you?"
     show sara talk at zoomed_in
     ta1 "Sure, what do you want to talk about?"
     show sara happy at zoom_norm
@@ -1169,17 +1221,17 @@ label mediocre_essay:
                 "But I thought we should use several sources":
                     ta1 "Yes, the sources were fine, but your essay consisted of almost nothing else than quotations"
 
-                "So, I used to many quotations?":
+                "So, I used too many quotations?":
                     ta1 "Exactly, [povname]!"
-        "Hmm, may I used to many quotations?":
+        "Hmm, may I used too many quotations?":
             ta1 "Exactly, [povname]!"
 
     ta1 "There were not enough of your own words"
-    ta1 "So, we weren't sure whether you have understood the source textes"
+    ta1 "So, we weren't sure whether you have understood the source texts"
     show sara happy at zoom_norm
     pov "What do you mean?"
     show sara mhappy at zoomed_in
-    ta1 "We wanted you to understand the information in the source textes"
+    ta1 "We wanted you to understand the information in the source texts"
     ta1 "But you just wrote a text around your quotations"
     ta1 "That way, we can see that you were not thinking enough about the content"
     ta1 "If you have understood the information you would have been able to phrase everything in your own words"
@@ -1273,16 +1325,16 @@ label overtop_essay:
     pov "About my essay. I don't understand why I don't have full points"
     show sara talk at zoomed_in
     ta1 "I see. Well, let me explain it to you"
-    ta1 "Your essay wasn't bad at all. But you did something that is common for a non-native speaker"
+    ta1 "Your essay wasn't bad at all. But you did something common for a non-native speaker"
     menu:
         ta1 "Do you have an idea of what you might have done to extensive?"
 
-        "Maybe I used to many sources":
+        "Maybe I used too many sources":
             ta1 "No, the sources were fine. The problem was more about some of the words"
             pov "What do you mean?"
             ta1 "Well, your choice of was sometimes a bit off"
 
-        "Hmm, something with the words? I struggled finding my own words":
+        "Hmm, something with the words? I struggled to find my own words":
             ta1 "Yeah, we could see that"
 
 
@@ -1314,58 +1366,128 @@ label overtop_essay:
 
 label failed_essay:
     $ change_score('failed_essay', -2)
+    $ plag = True
     scene black
     with dissolve
     show text "The next day..."
     pause
     scene bg home2
-    show alex angry at zoomed_in:
+    with dissolve
+    show sara talk at zoomed_in:
         xalign 0.5
-    a "[povname]! Have you seen the marks? I got zero points! What have you got?"
-    show alex angry at zoom_norm
-    pov "Let me check..."
-    pov "Oh no! I also got zero points. But why?"
-    show alex sad at slightright, zoom_norm
-    show keri happy at slightleft, zoom_norm
-    with dissolve
-    pov "Hey, Pari! What have you got on your essay?"
-    show keri mhappy at zoomed_in
-    p "I have full points... And you?"
-    show keri happy at zoom_norm
-    pov "Alex and me have zero points"
-    show keri surprised at zoomed_in
-    p "Whaaat? What did you guys do?!"
-    show keri happy at zoom_norm
-    pov "I don't know..."
-    pov "I will go to Sara and ask her. I will be back in a minute"
-    show keri mhappy at zoomed_in
-    p "Good Luck, [povname]"
-    scene bg home2
-    with dissolve
-    show sara happy at top, zoom_norm
-    pov "Hey, Sara? Can I talk to you"
-    show sara talk at zoomed_in
-    ta1 "Sure, what do you want to talk about?"
+
+
+    ta1 "Hey, [povname]. I need to talk to you about your coursework"
     show sara happy at zoom_norm
-    pov "About my essay. I don't understand why I have no points"
+    menu:
+        "Oh no! Did I do something wrong?":
+            pass
+
+        "Sure! Is everything alright?":
+            pass
+
     show sara talk at zoomed_in
-    ta1 "I see. Well, to be honest it was academic malpractice"
-    ta1 "You just copied the source paragraph and got rid of the footnotes"
-    ta1 "But you didn't put any effort in it"
-    show sara surprised at zoom_norm
+    ta1 "Well, we looked at your essay and we have some questions we want to clarify with you"
+    ta1 "Can you tell me how you approached this task"
+    show sara happy at zoom_norm
     pov "I looked up the information and gave a correct answer!"
-    pov "What was wrong about it?"
+    pov "Was there something wrong about it?"
     show sara mhappy at zoomed_in
-    ta1 "Well, [povname]. Let me explain it to you"
-    ta1 "We were not assessing your googling skills"
-    ta1 "We expected you to look up the information"
+    ta1 "What exactly did you do? Did you write your own paragraph"
     show sara happy at zoom_norm
-    pov "That is what I did!"
+    if slides:
+        pov "Well, no. It was common knowledge. So, I took a paragraph from the slides."
+    else:
+        pov "Well, no. It was common knowledge. So, I took a paragraph from Wikipedia."
+    pov "And I also cleaned it up a bit"
+    show sara talk at zoomed_in
+    menu:
+        ta1 "Did you thought about referencing it"
+
+        "No, it was common knowledge!":
+            pass
+
+        "No, I didn't think that it was necessary":
+            pass
+
+    ta1 "So, you just copied the source paragraph and got rid of the footnotes"
+    ta1 "But you didn't put any effort in it"
+    ta1 "Please have a look at this"
+    jump failed_essay_cont
+
+label failed_essay_cont:
+    show academic_malpractice_tablet at top
+    pause
+    hide academic_malpractice_tablet
     show sara mhappy at zoomed_in
-    ta1 "Yes, but we wanted you to understand the information"
-    ta1 "Just copy and paste a paragraph is not enough"
-    ta1 "That way, you spend no time on understanding the content"
-    ta1 "Plus: you plagiarised your paragraph which is academic malpractice"
+    menu:
+        ta1 "What do you think applies here"
+
+        "Plagiarism":
+            ta1 "Exactly! You committed academic malpractice!"
+
+        "Collusion":
+            ta1 "Please have another look"
+            jump failed_essay_cont
+
+        "Fabrication of results":
+            ta1 "Please have another look"
+            jump failed_essay_cont
+
+        "Falsification of results":
+            ta1 "Please have another look"
+            jump failed_essay_cont
+
+    ta1 "You were just copying and pasting the paragraph"
+    ta1 "You did not produce any own work in addition to this paragraph"
+    ta1 "So, we could not award you any points for this coursework"
+    ta1 "You didn't even reference your source text"
+    show sara happy at zoom_norm
+    menu:
+        "But it was common knowledge?":
+            pass
+
+        "So, I have to reference it?":
+            pass
+
+    show sara talk at zoomed_in
+    ta1 "Even if it is common knowledge, you took someone else's words."
+
+    menu:
+        "So, if I had referenced it...":
+            pass
+
+        "A reference would have been enough?":
+            pass
+
+    show sara mhappy at zoomed_in
+    ta1 "Well, you did not paraphrase the paragraph."
+    ta1 "And you did not produce any additional text on your own"
+    ta1 "So, you would have had to put everything in quotation marks"
+    ta1 "What do you think?"
+    menu:
+        ta1 "How would we have awarded a paragraph that consists of one large citation"
+
+        "At least some points?":
+            ta1 "Well, not that many points"
+
+        "Full points":
+            ta1 "No, it lacks completely of your own work!"
+
+        "Not that many points":
+            ta1 "You are right"
+
+    ta1 "We were not assessing your googling skills"
+    ta1 "We wanted you to understand the information"
+
+    menu:
+        "Yeah, so copy and paste were not enough":
+            ta1 "Exactly!"
+
+        "Well, I understood the information!":
+            ta1 "I don't say that you didn't"
+            ta1 "But with just a copied paragraph we can't see that you did"
+
     show sara happy at zoom_norm
     pov "Hmm, okay"
     show sara mhappy at zoomed_in
@@ -1375,23 +1497,54 @@ label failed_essay:
     ta1 "And beware! If you do any kind of academic malpractice during exams or your dissertation, it will have severe effects"
     show sara happy at zoom_norm
     pov "So what should I have done?"
-    show sara talk at zoom_norm
+    show sara talk at zoomed_in
     ta1 "Well, read the text. Understand it. Try to find some more sources."
     ta1 "Then take the information together and write an essay in your own words without copying large chunks from your sources..."
     show sara happy at zoom_norm
     pov "I see! I think I understand! Thank you, Sara!"
     pov "I will do it better next time!"
-    show sara talk at zoom_norm
+    show sara talk at zoomed_in
     ta1 "Good luck! See you"
     hide sara
-    menu:
-        "Do you want to try again?"
 
-        "Yes":
-            jump cut_and_paste
+    scene black
+    with dissolve
+    show text "Later that day..."
+    pause
+    scene bg home2
+    with dissolve
 
-        "No":
-            jump after_essay_mark
+
+    show alex angry at zoomed_in:
+        xalign 0.5
+    a "[povname]! Have you seen the marks? I got zero points! What have you got?"
+    show alex angry at zoom_norm
+    pov "Oh no! I also got zero points"
+    show alex sad at slightright, zoom_norm
+    show keri happy at slightleft, zoom_norm
+    with dissolve
+    pov "Hey, Pari! What have you got on your essay?"
+    show keri mhappy at zoomed_in
+    p "I have full points... And you?"
+    show keri happy at zoom_norm
+    pov "Alex and I have zero points"
+    show keri surprised at zoomed_in
+    p "Whaaat? What did you guys do?!"
+    show keri surprised at zoom_norm
+    pov "Well, I just copied and pasted a paragraph from Wikipedia"
+    show alex talk at slightright, zoomed_in
+    a "Yeah, I did the same"
+    show alex sad at slightright, zoom_norm
+    show keri surprised at zoomed_in
+    p "I see. So you both plagiarised"
+    p "Guys, you should known better!"
+
+    scene black
+    with dissolve
+    show text "Please try again"
+    pause
+    jump essay_writing_mg
+
 
 
 
@@ -1410,81 +1563,111 @@ label transition_to_fabrication:
     with dissolve
     show text "You spent the next weeks with your good friends Pari and Alex"
     pause
-    # Option for more interlude, e.g. in the lecture you learn a lot of useful things
-    show text "In the second week, you have to write another essay"
-    pause
-    show text "This time, your topic is for-loops"
-    pause
-    show text "In the following, drag and drop the right paragraphs to the right position"
-    pause
-    call start_parsons_pic
-    scene black
-    show text "Well done! You got full points on your second week's essay!"
-    pause
+    # # Option for more interlude, e.g. in the lecture you learn a lot of useful things
+    # show text "In the second week, you have to write another essay"
+    # pause
+    # show text "This time, your topic is for-loops"
+    # pause
+    # show text "In the following, drag and drop the right paragraphs to the right position"
+    # pause
+    # call start_parsons_pic from _call_start_parsons_pic
+    # scene black
+    # show text "Well done! You got full points on your second week's essay!"
+    # pause
 
     hide sara
     hide keri
     scene black
-    $ score = calculate_score()
-    $ firstweek_score = score - initial_score
-    if formative:
-        menu:
+    if not one_chapter_only:
+        $ score = calculate_score()
+        $ firstweek_score = score - initial_score
+        if formative:
 
-            "Do you want to know, how well you did?"
 
-            "Yes":
+            if firstweek_score >= 12:
+                show text "Well done! You did very well"
+                pause
+                show text "You may graduate with distinction"
+                pause
+                show text "Keep up the good work"
+                pause
+            elif firstweek_score >= 9:
+                show text "Well done!"
+                pause
+                show text "You understand what academic malpractice is about"
+                pause
+                show text "Keep up the good work"
+                pause
+            elif firstweek_score >= 6:
+                show text "You did alright"
+                pause
+                show text "However, you should think about investing more time in understanding the topic"
+                pause
+                scene black
+                menu:
+                    "Would you like to have a virtual tutoring?"
 
-                if firstweek_score >= 12:
-                    show text "Well done! You did excellent"
-                    pause
-                    show text "You may graduate with distinction"
-                    pause
-                    show text "Keep up the good work"
-                    pause
-                elif firstweek_score >= 9:
-                    show text "Well done! You did pretty decent"
-                    pause
-                    show text "You understand what academic malpractice is about"
-                    pause
-                    show text "Keep up the good work"
-                    pause
-                elif firstweek_score >= 6:
-                    show text "You did alright"
-                    pause
-                    show text "However, you should think about replaying this part"
-                    pause
-                    scene black
-                    menu:
-                        "Would you like to try again?"
+                    "Sounds helpful":
+                        call introduction_tut
+                    "No, thanks":
+                        scene black
+                        show text "You can still replay the game for a better understanding"
+                        pause
+                scene black
+                menu:
+                    "Would you like to try again?"
 
-                        "Yes, I can do better":
-                            jump first_day
+                    "Yes, I can do better":
+                        jump first_day
 
-                        "Yes, but not from the beginning":
-                            jump lab_session
+                    "Yes, but not from the beginning":
+                        jump lab_session
 
-                        "Nah, I'm fine":
-                            pass
-                else:
-                    show text "You did many mistakes"
-                    pause
-                    show text "Please consider to replay the game"
-                    pause
-                    scene black
-                    menu:
-                        "Would you like to try again?"
+                    "Nah, I'm fine":
+                        pass
+            else:
+                show text "You did many mistakes"
+                pause
+                show text "You should really think about investing more time in understanding the topic"
+                pause
+                scene black
+                menu:
+                    "Would you like to have a virtual tutoring?"
 
-                        "Yes, I can do better":
-                            jump first_day
+                    "Sounds helpful":
+                        call introduction_tut
+                    "No, thanks":
+                        scene black
+                        show text "You can still replay the game for a better understanding"
+                        pause
+                scene black
+                menu:
+                    "Would you like to try again?"
 
-                        "Yes, but not from the beginning":
-                            jump lab_session
+                    "Yes, I can do better":
+                        jump first_day
 
-                        "Nah, I'm fine":
-                            pass
-            "No":
-                pass
-    jump fabrication
+                    "Yes, but not from the beginning":
+                        jump lab_session
+
+                    "Nah, I'm fine":
+                        pass
+
+    if only_plagiarism:
+        jump dissertation_transition
+    if only_coll_fab:
+        jump fabrication
+    scene black
+    menu:
+        "Do you want to end the game?"
+
+        "No, I want to continue":
+            jump fabrication
+
+        "Yes, I want to end the game now":
+            return
+
+    return
 
 
 label failed_coursework:
@@ -1494,7 +1677,7 @@ label failed_coursework:
     pause
     show text "Your motivation dropped for the rest of the course"
     pause
-    show text "In the exam you weren't that good either"
+    show text "In the exam, you weren't that good either"
     pause
     show text "Unfortunately, you had to drop out of the course"
     pause

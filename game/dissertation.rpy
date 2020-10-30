@@ -1,7 +1,8 @@
 label dissertation_transition:
-    $ score = calculate_score()
-    $ initial_score = score
-    $ diss_play += 1
+    if not one_chapter_only:
+        $ initial_score = score
+        $ diss_play += 1
+        $ score = calculate_score()
     scene black
     with dissolve
     show text "During the rest of the year, you learn a lot of useful stuff"
@@ -139,9 +140,9 @@ screen paragraph_choice:
         selected_idle "Scene/bg home paragraphchoice selected.png"
         selected_hover "Scene/bg home paragraphchoice selected.png"
 
-        hotspot (644, 64, 553, 167) clicked Return("paragraph_good")
-        hotspot (644, 232, 553, 213) clicked Return("paragraph_patchwritten")
-        hotspot (644, 437, 553, 166) clicked Return("paragraph1c")
+        hotspot (644, 64, 560, 170) clicked Return("paragraph_good")
+        hotspot (644, 236, 560, 184) clicked Return("paragraph_patchwritten")
+        hotspot (644, 423, 560, 166) clicked Return("paragraph1c")
 
 
 
@@ -190,12 +191,12 @@ label ta_intervention:
             xalign 0.5
             yalign 0.52
 
-        s "See! You are using the exact some words and a similar structure"
+        s "See! You are using the exact same words and a similar structure"
         s "Logic-based representations..."
         s "Commonsense reasoning..."
         s "You just used some synonyms and restructured the text a bit"
         s "This is known as patchwriting"
-        s "I personally wouldn't consider it academic malpractice, but its still a bad scientific style"
+        s "I personally wouldn't consider it academic malpractice, but it is still a bad scientific style"
         s "So if you want a high mark, please rewrite the paragraph and then come back to me"
         call screen paragraph_choice
         $ paragraph_chosen = _return
@@ -204,7 +205,7 @@ label ta_intervention:
         $ change_score('good_paragraph', +2)
         s "Well done, [povname]!"
         s "You don't need to worry at all. The paragraph is perfectly fine"
-        s "You can submit your dissertation now and I will be more then happy to read it!"
+        s "You can submit your dissertation now and I will be more than happy to read it!"
         jump happy_end
 
 
@@ -215,11 +216,11 @@ label failedassignment:
     scene white
     $ change_score('failedassignment', -3)
 
-    pov "Oh no.. "
+    pov "Oh no... "
 
     pov "I've failed my dissertation! But why?"
 
-    pov "Wait - My Supervisor said that one of my paragraphs was plagarised."
+    pov "Wait - My Supervisor said that one of my paragraphs was plagiarised."
 
     pov "Maybe I should have taken her advice seriously"
 
@@ -257,7 +258,7 @@ label happy_end:
     show keri happy at zoom_norm, slightleft
     show alex happy at zoom_norm, slightright
 
-    pov "Hey Pari! Hey Alex! Are you nervous about the graduation?"
+    pov "Hey, Pari! Hey, Alex! Are you nervous about the graduation ceremony?"
 
     show alex mhappy at zoomed_in, slightright
 
@@ -275,42 +276,44 @@ label happy_end:
     show text "Everyone is really proud of you"
     pause
     scene black
-    $ score = calculate_score()
-    $ dissertation_score = score - initial_score
-    if formative:
+    if not one_chapter_only:
+        $ score = calculate_score()
+        $ dissertation_score = score - initial_score
+        if formative:
 
-        menu:
+            # menu:
+            #
+            #     "Do you want to know, how well you did?"
+            #
+            #     "Yes":
 
-            "Do you want to know, how well you did?"
+            if dissertation_score >= 3:
+                show text "Well done!"
+                pause
+                show text "You wrote an excellent dissertation"
+                pause
+            else:
+                show text "You did good, but you could have done better!"
+                pause
+                show text "You should consider replaying this part of the game"
+                pause
+                scene black
+                menu:
+                    "Would you like to try again?"
 
-            "Yes":
+                    "Yes, I can do better":
+                        jump fabrication
 
-                if dissertation_score >= 3:
-                    show text "Well done!"
-                    pause
-                    show text "You wrote an excellent dissertation"
-                    pause
-                else:
-                    show text "You did good, but you could have done better!"
-                    pause
-                    show text "You should consider to replay this part of the game"
-                    pause
-                    scene black
-                    menu:
-                        "Would you like to try again?"
+                    "Yes, but not from the beginning":
+                        jump hurry_up_dialogue
 
-                        "Yes, I can do better":
-                            jump fabrication
-
-                        "Yes, but not from the beginning":
-                            jump hurry_up_dialogue
-
-                        "Nah, I'm fine":
-                            pass
-            "No":
-                pass
+                    "Nah, I'm fine":
+                        pass
+                # "No":
+                #     pass
     scene black
     show text "The End"
     pause
     $ MainMenu(confirm=False)()
+    return
     return

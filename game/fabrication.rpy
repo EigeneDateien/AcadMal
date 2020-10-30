@@ -1,8 +1,23 @@
+﻿init python:
+
+    def piece_dragged(drags, drop):
+
+        if not drop:
+            store.piecelist[(int(drags[0].drag_name[0]) * 10 + int(drags[0].drag_name[1]))][0] = drags[0].x
+            store.piecelist[(int(drags[0].drag_name[0]) * 10 + int(drags[0].drag_name[1]))][1] = drags[0].y
+            return
+
+        store.movedpiece = int(drags[0].drag_name[0]) * 10 + int(drags[0].drag_name[1])
+        store.movedplace = [int(drop.drag_name[0]), int(drop.drag_name[1])]
+
+        return True
+
+
 label fabrication:
     scene black
     show text "In the third week, you have your first group work"
     pause
-    show text "You are very excited, since you will be working together with Pari and Alex"
+    show text "You are very excited since you will be working together with Pari and Alex"
     pause
     scene bg home2
     with dissolve
@@ -10,10 +25,10 @@ label fabrication:
     show alex happy at wideright, zoom_norm
     show instructor talk:
         xalign 0.5
-    s "Hello class. In this lab session you will be working in groups of three"
+    s "Hello class. In this lab session, you will be working in groups of three"
     s "As shown on blackboard, you can choose your own groups"
     s "In your groups, you can discuss freely, but please do not discuss with other groups"
-    s "Your goal for this lab is to come up with optimized queries that are faster then the given queries on the PDF"
+    s "Your goal for this lab is to come up with optimized queries that are faster than the given queries on the PDF"
     s "For this, you will not only have to write down the queries"
     s "But we want you to test the queries on the lab machines as a proof that they are faster"
     s "Please do not forget to submit these statistics as well as they will make up the most of this week's mark"
@@ -37,10 +52,10 @@ label fabrication:
     show keri happy at zoom_norm
     pov "So, does any of you have some experience with this?"
     show alex mhappy at zoomed_in
-    a "Yeah, I have done something similiar before"
+    a "Yeah, I have done something similar before"
     show alex surprised
-    a "But I am not to sure about the testing"
-    a "I have never done these kind of statistics before. And you?"
+    a "But I am not too sure about the testing"
+    a "I have never done this kind of statistics before. And you?"
     show alex happy at zoom_norm
     show keri talk at zoomed_in
     p "This is all new to me. But I am confident that we will succeed"
@@ -61,7 +76,7 @@ label query_selection_loop:
         zoom 0.7
     "Perfect. So let's create our new query!"
 
-    call start_jigsaw
+    call start_jigsaw from _call_start_jigsaw
 
     jump hurry_up_dialogue
 
@@ -132,7 +147,7 @@ label hurry_up_dialogue:
     show alex sad
     show keri sad at zoomed_in
     p "Yes, you are right. And we are running out of time"
-    p "Does any one of you know how to do this?"
+    p "Does anyone of you know how to do this?"
     show keri sad at zoom_norm
     show alex sad at zoomed_in
     a "I have no idea! And you, [povname]?"
@@ -166,7 +181,7 @@ label fabricate_sara:
     ta1 "Well, you should have a closer look on Blackboard!"
     ta1 "There is a guide on how to obtain the statistical data"
     show sara happy at zoom_norm
-    pov "Opps! Thank you, Sara"
+    pov "Oops! Thank you, Sara"
     show sara talk at zoomed_in
     ta1 "You're welcome!"
     hide sara talk
@@ -234,7 +249,7 @@ label dialogue_fabrication_bad:
                     p "Oh yes, you are right"
                     jump falsification_intro
 
-                "It is falsification of results":
+                "It is a falsification of results":
                     show keri talk
                     p "Well, we did not have any results before."
 
@@ -262,7 +277,7 @@ label dialogue_fabrication_good:
     hide academic_malpractice_tablet
     show alex happy at zoom_norm
     show keri surprised at zoomed_in
-    p "Oh, I see. I'm sorry, guys! I didn't knew that"
+    p "Oh, I see. I'm sorry, guys! I didn't know that"
     show keri happy at zoom_norm
     pov "No worries!"
     jump falsification_intro
@@ -310,6 +325,7 @@ label dialogue_falsification:
             jump good_ending
 
 label fabrication_fail(path="falsification"):
+    $ fabrication = True
     if path == "fabrication":
         $ change_score('fabrication_fail', -2)
     if path == "falsification":
@@ -409,64 +425,311 @@ label good_ending:
     jump fabrication_feedback
 
 label fabrication_feedback:
-    $ score = calculate_score()
-    $ fabrication_score = score - initial_score
     scene black
+    if not one_chapter_only:
+        $ score = calculate_score()
+        $ fabrication_score = score - initial_score
 
-    if formative:
+        if formative:
 
-        menu:
+            # menu:
 
-            "Do you want to know, how well you did?"
+                # "Do you want to know, how well you did?"
+                #
+                # "Yes":
 
-            "Yes":
+            if fabrication_score >= 2:
+                show text "Congratulations! You did not fabricate or falsify your results!"
+                pause
+                show text "Even if you did not get the wanted results, never falsify or fabricate data. This will lead to zero marks!"
+                pause
+                show text "If you can explain where you might have struggled or why you think you got the results you obtained, we will reward you with positive marks"
+                pause
+            elif fabrication_score >= 0:
+                show text "You had some problems understanding fabrication and falsification!"
+                pause
+                show text "Maybe have a look at the definitions again!"
+                pause
+                show text "You should think about investing more time in understanding the topic"
+                pause
+                scene black
+                menu:
+                    "Would you like to have a virtual tutoring?"
 
-                if fabrication_score >= 2:
-                    show text "Congratulations! You did not fabricate or falsify your results!"
-                    pause
-                    show text "Even if you did not get the wanted results, never falsify or fabricate data. This will lead to zero marks!"
-                    pause
-                    show text "If you can explain where you might have struggled or why you think you got the results you obtained, we will reward you with positive marks"
-                    pause
-                elif fabrication_score >= 0:
-                    show text "You had some problems understanding fabrication and falsification!"
-                    pause
-                    show text "Maybe have a look at the definitions again!"
-                    pause
-                    show text "You should also consider to replay this chapter"
-                    pause
-                    scene black
-                    menu:
-                        "Would you like to try again?"
+                    "Sounds helpful":
+                        call introduction_tut
+                    "No, thanks":
+                        scene black
+                        show text "You can still replay the game for a better understanding"
+                        pause
+                scene black
+                menu:
+                    "Would you like to try again?"
 
-                        "Yes, I can do better":
-                            jump fabrication
+                    "Yes, I can do better":
+                        jump fabrication
 
-                        "Yes, but not from the beginning":
-                            jump hurry_up_dialogue
+                    "Yes, but not from the beginning":
+                        jump hurry_up_dialogue
 
-                        "Nah, I'm fine":
-                            pass
-                else:
-                    show text "Unfortunately, you commited academic malpractice"
-                    pause
-                    show text "Please make sure to never fabricate or falsify your data"
-                    pause
-                    show text "You should really consider to try the fabrication and falsification part again"
-                    pause
-                    scene black
-                    menu:
-                        "Would you like to try again?"
+                    "Nah, I'm fine":
+                        pass
 
-                        "Yes, I can do better":
-                            jump fabrication
 
-                        "Yes, but not from the beginning":
-                            jump hurry_up_dialogue
 
-                        "Nah, I'm fine":
-                            pass
-            "No":
-                pass
+            else:
+                show text "Unfortunately, you committed academic malpractice"
+                pause
+                show text "Please make sure to never fabricate or falsify your data"
+                pause
+                show text "You should really think about investing more time in understanding the topic"
+                pause
+                scene black
+                menu:
+                    "Would you like to have a virtual tutoring?"
 
-    jump dissertation_transition
+                    "Sounds helpful":
+                        call introduction_tut
+                    "No, thanks":
+                        scene black
+                        show text "You can still replay the game for a better understanding"
+                        pause
+                scene black
+                menu:
+                    "Would you like to try again?"
+
+                    "Yes, I can do better":
+                        jump fabrication
+
+                    "Yes, but not from the beginning":
+                        jump hurry_up_dialogue
+
+                    "Nah, I'm fine":
+                        pass
+
+                # "No":
+                #     pass
+
+    if only_coll_fab:
+        scene black
+        with dissolve
+        show text "You have reached the end of the chapter"
+        pause
+        show text "Thank you very much for playing"
+        pause
+        return
+        return
+    scene black
+    menu:
+        "Do you want to end the game?"
+
+        "No, I want to continue":
+            jump dissertation_transition
+
+        "Yes, I want to end the game now":
+            return
+    return
+
+
+screen jigsaw:
+
+    draggroup:
+
+        drag:
+            drag_name "00"
+            child "empty space.png"
+            draggable False
+            xpos coorlistx[0] ypos coorlisty[0]
+
+        drag:
+            drag_name "01"
+            child "empty space.png"
+            draggable False
+            xpos coorlistx[0] ypos coorlisty[1]
+
+        drag:
+            drag_name "02"
+            child "empty space.png"
+            draggable False
+            xpos coorlistx[0] ypos coorlisty[2]
+
+        drag:
+            drag_name "10"
+            child "empty space.png"
+            draggable False
+            xpos coorlistx[1] ypos coorlisty[0]
+
+        drag:
+            drag_name "11"
+            child "empty space.png"
+            draggable False
+            xpos coorlistx[1] ypos coorlisty[1]
+
+        drag:
+            drag_name "12"
+            child "empty space.png"
+            draggable False
+            xpos coorlistx[1] ypos coorlisty[2]
+
+        drag:
+            drag_name "20"
+            child "empty space.png"
+            draggable False
+            xpos coorlistx[2] ypos coorlisty[0]
+
+        drag:
+            drag_name "21"
+            child "empty space.png"
+            draggable False
+            xpos coorlistx[2] ypos coorlisty[1]
+
+        drag:
+            drag_name "22"
+            child "empty space.png"
+            draggable False
+            xpos coorlistx[2] ypos coorlisty[2]
+
+        drag:
+            drag_name "30"
+            child "empty space.png"
+            draggable False
+            xpos coorlistx[3] ypos coorlisty[0]
+
+        drag:
+            drag_name "31"
+            child "empty space.png"
+            draggable False
+            xpos coorlistx[3] ypos coorlisty[1]
+
+        drag:
+            drag_name "32"
+            child "empty space.png"
+            draggable False
+            xpos coorlistx[3] ypos coorlisty[2]
+
+        drag:
+            drag_name "00 piece"
+            child im.Crop("jigsaw_image.jpg", 0,0, 120, 207)
+            droppable False
+            dragged piece_dragged
+            xpos piecelist[0][0] ypos piecelist[0][1]
+
+        drag:
+            drag_name "01 piece"
+            child im.Crop("jigsaw_image.jpg", 120,0, 120, 207)
+            droppable False
+            dragged piece_dragged
+            xpos piecelist[1][0] ypos piecelist[1][1]
+
+        drag:
+            drag_name "02 piece"
+            child im.Crop("jigsaw_image.jpg", 240,0, 120, 207)
+            droppable False
+            dragged piece_dragged
+            xpos piecelist[2][0] ypos piecelist[2][1]
+
+        drag:
+            drag_name "03 piece"
+            child im.Crop("jigsaw_image.jpg", 360,0, 120, 207)
+            droppable False
+            dragged piece_dragged
+            xpos piecelist[3][0] ypos piecelist[3][1]
+
+        drag:
+            drag_name "04 piece"
+            child im.Crop("jigsaw_image.jpg", 0,207, 120, 207)
+            droppable False
+            dragged piece_dragged
+            xpos piecelist[4][0] ypos piecelist[4][1]
+
+        drag:
+            drag_name "05 piece"
+            child im.Crop("jigsaw_image.jpg", 120,207, 120, 207)
+            droppable False
+            dragged piece_dragged
+            xpos piecelist[5][0] ypos piecelist[5][1]
+
+        drag:
+            drag_name "06 piece"
+            child im.Crop("jigsaw_image.jpg", 240,207, 120, 207)
+            droppable False
+            dragged piece_dragged
+            xpos piecelist[6][0] ypos piecelist[6][1]
+
+        drag:
+            drag_name "07 piece"
+            child im.Crop("jigsaw_image.jpg", 360,207, 120, 207)
+            droppable False
+            dragged piece_dragged
+            xpos piecelist[7][0] ypos piecelist[7][1]
+
+        drag:
+            drag_name "08 piece"
+            child im.Crop("jigsaw_image.jpg", 0,414, 120, 207)
+            droppable False
+            dragged piece_dragged
+            xpos piecelist[8][0] ypos piecelist[8][1]
+
+        drag:
+            drag_name "09 piece"
+            child im.Crop("jigsaw_image.jpg", 120,414, 120, 207)
+            droppable False
+            dragged piece_dragged
+            xpos piecelist[9][0] ypos piecelist[9][1]
+
+        drag:
+            drag_name "10 piece"
+            child im.Crop("jigsaw_image.jpg", 240,414, 120, 207)
+            droppable False
+            dragged piece_dragged
+            xpos piecelist[10][0] ypos piecelist[10][1]
+
+        drag:
+            drag_name "11 piece"
+            child im.Crop("jigsaw_image.jpg", 360,414, 120, 207)
+            droppable False
+            dragged piece_dragged
+            xpos piecelist[11][0] ypos piecelist[11][1]
+
+
+label puzzle:
+    call screen jigsaw
+    if ([coorlistx[movedplace[0]], coorlisty[movedplace[1]]] in piecelist):
+        python:
+            t1 = piecelist[movedpiece]
+            t2 = piecelist.index([coorlistx[movedplace[0]], coorlisty[movedplace[1]]])
+            piecelist[movedpiece] = [coorlistx[movedplace[0]],coorlisty[movedplace[1]]]
+            piecelist[t2] = t1
+    else:
+        $ piecelist[movedpiece] = [coorlistx[movedplace[0]],coorlisty[movedplace[1]]]
+    if piecelist == [[coorlistx[0],coorlisty[0]],
+                        [coorlistx[1],coorlisty[0]],
+                        [coorlistx[2],coorlisty[0]],
+                        [coorlistx[3],coorlisty[0]],
+                        [coorlistx[0],coorlisty[1]],
+                        [coorlistx[1],coorlisty[1]],
+                        [coorlistx[2],coorlisty[1]],
+                        [coorlistx[3],coorlisty[1]],
+                        [coorlistx[0],coorlisty[2]],
+                        [coorlistx[1],coorlisty[2]],
+                        [coorlistx[2],coorlisty[2]],
+                        [coorlistx[3],coorlisty[2]]]:
+        return
+    jump puzzle
+
+label start_jigsaw:
+    scene bg home queryjigsaw
+    image whole = "jigsaw_image.jpg"
+    python:
+        # coorlistx = [10, 130, 250, 370]
+        # coorlisty = [10, 217, 424]
+        coorlistx = [80, 200, 320, 440]
+        coorlisty = [55, 263, 469]
+        piecelist = [[647,263],[612,465],[884,333],[1031,469],[765,241],[572,58],[569,379],[880,338],[818,72],[888,462],[709,57],[985,51]]
+        # for i in range(12):
+        #     x = renpy.random.randint(0, 260) + 560
+        #     y = renpy.random.randint(54, 460)
+        #     piecelist[i] = [x,y]
+        movedpiece = 0
+        movedplace = [0, 0]
+    jump puzzle
