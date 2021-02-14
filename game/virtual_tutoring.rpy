@@ -54,6 +54,7 @@ label plag_tut:
     scene bg office
     show sara mhappy:
         zoom 0.7
+        xalign 0.5
     ta1 "So, let's talk about plagiarism!"
     show sara happy at zoom_norm
     show sara happy at slidewideleft
@@ -136,9 +137,6 @@ label plag_tut:
                 xalign 0.5
                 zoom 0.7
             ta1 "That's right!"
-            show sara happy at zoom_norm
-            pov "Plagiarism is such a big deal here."
-            show sara talk at zoomed_in
 
 
     ta1 "So, let's see some examples then"
@@ -940,7 +938,7 @@ label coll_tut:
     ta1 "Of course, [povname]!"
 
     if plag:
-        ta1 "I see that there is also some confusion about collusion as well"
+        ta1 "I see that there is also some confusion about plagiarism as well"
         jump plag_tut
 
     menu:
