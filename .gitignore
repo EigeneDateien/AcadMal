@@ -1,0 +1,7 @@
+*.rpyc
+*.rpyb
+game/saves/
+errors.txt
+log.txt
+traceback.txt
+progressive_download.txt
