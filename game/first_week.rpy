@@ -41,11 +41,15 @@ label first_day:
     ##################################################################
 
     scene black
-    "You, [povname], are a new student at the University of Manchester"
-    "At first, you were really nervous!"
-    "Studying in a new city, a new environment"
+    show text "You, [povname], are a new student at the University of Manchester"
+    pause
+    show text "At first, you were really nervous!"
+    pause
+    show text "Studying in a new city, a new environment"
+    pause
 
-    "But luckily, you found some new friends during Welcome Week"
+    show text "But luckily, you found some new friends during Welcome Week"
+    pause
 
     scene black
     with flashbulb
@@ -171,9 +175,14 @@ label start_first_day:
     p "Alex! [povname]! Hurry up, we will be late!"
     show keri angry at zoom_norm, slightleft
     show alex happy at zoom_norm, slightright
-    pov "Coming!"
-    show keri happy at zoom_norm, slightleft
-    pov "Let's get ourselves some seats"
+    menu:
+        "Coming!":
+            pass
+        "Let's get ourselves some seats":
+            pass
+    scene black
+    show text "The lab sessions begins..."
+    pause
     jump lab_session
 
 label lab_session:
@@ -186,8 +195,14 @@ label lab_session:
     s "Welcome back! In this lab session, you can start with your coursework!"
     s "Please remember that all coursework in this week will be individual coursework"
     s "We recommend that you have a look at the essay first since most of you might struggle with this the most"
-    show alex surprised at zoom_norm, wideleft, sitting
+    show alex surprised:
+        zoom 0.7
+        yalign -1.0
+        xalign 0.1
     a "There will be essays in Computer Science?!"
+    show alex surprised:
+        zoom 0.6
+        yalign -4.0
 
     menu:
         a "Maaaan, I'm super bad at essays"
@@ -198,6 +213,7 @@ label lab_session:
         "I'm sure they will teach us how to write these essays":
             pass
 
+    hide alex surprised
     show alex happy at zoom_norm, wideleft, sitting
     s "If you have any questions, feel free to ask me or the teaching assistant"
     s "Speaking of TAs, Sara, would you like to introduce yourself?"
@@ -205,7 +221,7 @@ label lab_session:
         xalign 0.5
         linear 1.0 xalign 0.35
     pause 0.5
-    show sara talk at zoom_norm:
+    show sara talk at zoomed_in:
         xalign 0.65
     with Dissolve(0.5, alpha=True)
     ta1 "Thanks! Well, my name is Sara and I am the teaching assistant"
@@ -245,19 +261,20 @@ label lab_work:
     show alex happy at zoom_norm, slidewideright
     show keri happy at zoom_norm, slidewideleft
     show turing question at truecenter
-    pause
-    show turing question:
-        yalign 0.5
-        linear 1.0 yalign 0.05
+    "Let me read that"
     show keri mhappy at zoomed_in:
         xalign 0.1
     p "This looks tricky!"
+    show turing question:
+        yalign 0.5
+        linear 1.0 yalign 0.85
     show keri happy at zoom_norm
     menu:
         "It does look tricky. We should divide up the work.":
             hide turing question
             jump failing
         "It seems straightforward. I'm going to do it on my own.":
+            hide turing question
             show alex angry at zoomed_in
             a "That's not very nice! Be a jerk about it!"
             show alex angry at zoom_norm
@@ -268,6 +285,7 @@ label lab_work:
             hide turing question
             jump ask_sara
         "Look! It says it should be our own work. We can't collaborate.":
+            hide turing question
             $ change_score('own_work', +2)
             show alex talk at zoomed_in
             a "I don't think it means we can't work together."
@@ -306,7 +324,7 @@ label failing:
     show sara mhappy at zoomed_in:
         xalign 0.5
     with dissolve
-    ta1 "Hey, you two seem to get along well."
+    ta1 "Hey, you three seem to get along well."
     show sara mhappy at zoom_norm
     show alex vhappy at zoomed_in
     a "Yeah, [povname] is a great working partner"
@@ -314,7 +332,7 @@ label failing:
     show sara mhappy at zoomed_in
 
     menu:
-        ta1 "Excuse me, you two are not working on the essay together, do you?"
+        ta1 "Excuse me, you are not working on the essay together, do you?"
 
         "We are just discussing what to write":
             ta1 "If you don't understand a question or what you should do, you can always ask a TA or the instructor"
@@ -333,7 +351,7 @@ label failing:
             show alex happy at zoom_norm
 
         "We are splitting up the work because it is too much":
-            show sara happy at zoomed_in
+            show sara angry at zoomed_in
             ta1 "Well, I know that these questions seem hard in the beginning, but please stop working together immediately!"
             show sara happy at zoom_norm
             show alex talk at zoomed_in
@@ -1659,12 +1677,12 @@ label transition_to_fabrication:
         jump fabrication
     scene black
     menu:
-        "Do you want to end the game?"
+        "Do you want to learn more about academic malpractice or do you want to end the game?"
 
-        "No, I want to continue":
+        "I want to learn about collusion and fabrication of results and some more plagiarism":
             jump fabrication
 
-        "Yes, I want to end the game now":
+        "I want to end the game now":
             return
 
     return
