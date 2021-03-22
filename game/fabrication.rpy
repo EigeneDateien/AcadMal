@@ -15,6 +15,12 @@
 
 label fabrication:
     scene black
+    pause 0.5
+    show text "Chapter 2"
+    with dissolve
+    pause
+    scene black
+    pause 0.5
     show text "In the third week, you have your first group work"
     pause
     show text "You are very excited since you will be working together with Pari and Alex"
@@ -26,17 +32,27 @@ label fabrication:
     show instructor talk:
         xalign 0.5
     s "Hello class. In this lab session, you will be working in groups of three"
-    s "As shown on blackboard, you can choose your own groups"
-    s "In your groups, you can discuss freely, but please do not discuss with other groups"
-    s "Your goal for this lab is to come up with optimized queries that are faster than the given queries on the PDF"
+    show instructor mhappy
+    s "As shown on Blackboard, you can choose your own groups"
+    show instructor talk
+    s "You can discuss freely within your groups, but please do not discuss with others"
+    show instructor mhappy
+    s "Your goal for this lab is to come up with optimized SQL queries that are faster than the given ones on the PDF"
+    show instructor talk
     s "For this, you will not only have to write down the queries"
-    s "But we want you to test the queries on the lab machines as a proof that they are faster"
-    s "Please do not forget to submit these statistics as well as they will make up the most of this week's mark"
+    show instructor mhappy
+    s "But we want you to test them on the lab machines as proof that they are faster"
+    show instructor talk
+    s "Please do not forget to submit these statistics. They will make up most of this week's mark"
+    show instructor mhappy
     s "If you have any questions, please feel free to ask me or Sara"
+    show instructor talk
     s "We will collect your queries and the statistics at the end of this lab session"
+    show instructor talk
     s "So be sure to work correctly but also fast"
+    show instructor mhappy
     s "We wish you the best of luck!"
-    hide instructor talk
+    hide instructor mhappy
     with fade
     show keri happy:
         xalign 0.1
@@ -46,15 +62,16 @@ label fabrication:
         xalign 0.9
         linear 2.0 xalign 0.7
 
-    pov "Ok, guys. I guess we work together as a group, right?"
+    pov "Ok, guys. I guess we are working together as a group, right?"
     show keri vhappy at zoomed_in
     p "Of course, [povname]!"
     show keri happy at zoom_norm
     pov "So, does any of you have some experience with this?"
     show alex mhappy at zoomed_in
-    a "Yeah, I have done something similar before"
+    a "Yeah, I did something similar before"
     show alex surprised
     a "But I am not too sure about the testing"
+    show alex talk
     a "I have never done this kind of statistics before. And you?"
     show alex happy at zoom_norm
     show keri talk at zoomed_in
@@ -147,6 +164,7 @@ label hurry_up_dialogue:
     show alex sad
     show keri sad at zoomed_in
     p "Yes, you are right. And we are running out of time"
+    show keri talk
     p "Does anyone of you know how to do this?"
     show keri sad at zoom_norm
     show alex sad at zoomed_in
@@ -174,11 +192,12 @@ label fabricate_sara:
     show alex mhappy at slidewideright
     show keri happy at slidewideleft
     a "Oh, alright. Let's ask Sara the TA."
-    show sara happy at top:
+    show sara happy at top, zoom_norm:
         xalign 0.5
     pov "Hey, Sara! Can you give us a hint on how to obtain the statistics"
     show sara mhappy at zoomed_in
     ta1 "Well, you should have a closer look on Blackboard!"
+    show sara talk
     ta1 "There is a guide on how to obtain the statistical data"
     show sara happy at zoom_norm
     pov "Oops! Thank you, Sara"
@@ -205,8 +224,11 @@ label fabricate_sara:
 label fabricate_data:
     show keri mhappy at zoomed_in
     p "I have an idea!"
-    p "Look on the statistics of the given queries"
+    show keri talk
+    p "Look at the statistics of the given queries"
+    show keri mhappy
     p "We know that our query is faster and we know how the data should look like!"
+    show keri talk
     p "And I can't see any TA or instructor around..."
     show keri vhappy
     menu:
@@ -223,6 +245,7 @@ label dialogue_fabrication_bad:
     show keri happy at zoom_norm
     show alex surprised at zoomed_in
     a "Guys! I don't think this is a good idea!"
+    show alex talk
     a "Have a look at the slides about academic malpractice"
     show academic_malpractice_tablet at top
     pause
@@ -241,7 +264,7 @@ label dialogue_fabrication_bad:
 
                 "It is collusion":
                     show keri talk
-                    p "It is a group work: we are supposed to work together!"
+                    p "It is group work: we are supposed to work together!"
 
                 "It is fabrication of results":
                     $ change_score('fabrication_recognised', +4)
@@ -251,9 +274,9 @@ label dialogue_fabrication_bad:
 
                 "It is a falsification of results":
                     show keri talk
-                    p "Well, we did not have any results before."
+                    p "Well, we did not have any results before"
 
-        "No, we don't plagiarise or collude":
+        "No, we aren't plagiarising or colluding":
             pass
     show keri mhappy
     p "I guess we can continue then"
@@ -263,7 +286,7 @@ label dialogue_fabrication_bad:
 label dialogue_fabrication_good:
     $ change_score('fabrication_dialogue_good', +2)
     show keri talk
-    p "Oh cmon! We have to get the statistical data!"
+    p "Oh, come on! We have to get the statistical data!"
     show keri happy at zoom_norm
     pov "I know, but we cannot fabricate the data"
     show keri talk at zoomed_in
@@ -271,6 +294,7 @@ label dialogue_fabrication_good:
     show keri happy at zoom_norm
     show alex talk at zoomed_in
     a "Pari, [povname] is actually right"
+    show alex mhappy
     a "Have a look at the slides about academic malpractice"
     show academic_malpractice_tablet at top
     pause
@@ -285,7 +309,7 @@ label dialogue_fabrication_good:
 label falsification_intro:
     scene black
     with dissolve
-    show text "You try some more time and are finally able to obtain the statistical data..."
+    show text "You try some more time and you are finally able to obtain the statistical data..."
     pause
     scene bg home2
     show alex happy at zoom_norm, slightright
@@ -294,7 +318,8 @@ label falsification_intro:
     show keri sad
     p "Oh no! Our queries are way too slow!"
     p "And we only have a few minutes left"
-    p "We will never be able to good mark out of this!"
+    p "We will never be able to get a good mark!"
+    show keri talk
     menu:
         p "What do we do now?"
 
@@ -309,7 +334,8 @@ label dialogue_falsification:
     show keri sad at zoom_norm
     show alex sad at zoomed_in
     a "Hmm, [povname], I don't think we should do it!"
-    a "In the slides I showed you, there was something about falsification of results"
+    show alex talk
+    a "In the slides I showed you, there was something about the falsification of results"
     show academic_malpractice_tablet at top:
         zoom 0.7
     a "See?"
@@ -338,12 +364,12 @@ label fabrication_fail(path="falsification"):
     show alex surprised at zoom_norm, slightright
     show keri sad at zoomed_in, slightleft
     p "Alex, [povname]! Have you seen our mark?!"
-    p "We did get zero points!"
+    p "We got zero points!"
     show keri sad at zoom_norm
     show alex sad at zoom_norm
     show alex sad at slidewideright
     show keri angry at slidewideleft
-    p "I want to know why we did get zero points!"
+    p "I want to know why we got zero points!"
     show sara happy at top:
         xalign 0.5
     p "Sara! Why did we get no points?"
@@ -368,11 +394,13 @@ label fabrication_fail(path="falsification"):
 
 
     show keri sad at zoom_norm
-    show sara talk at zoomed_in
+    show sara angry at zoomed_in
     ta1 "I'm sorry, but this is no excuse!"
     ta1 "You should never fabricate or falsify data. It is bad scientific practice and can even put people in danger"
+    show sara talk
     ta1 "Wrong statistics could lead to severe damage! So never fake your data"
-    ta1 "You are lucky, that we only punished you in this coursework. You could risk your degree!"
+    show sara sad
+    ta1 "You are risking your degree! You will have to face disciplinary actions for this"
     show sara sad at zoom_norm
     show keri talk at zoomed_in
     p "We are sorry! We will never do it again!"
@@ -429,6 +457,11 @@ label fabrication_feedback:
     if not one_chapter_only:
         $ score = calculate_score()
         $ fabrication_score = score - initial_score
+        show text "End of Chapter 2"
+        with fade
+        pause
+        scene black
+        pause 0.5
 
         if formative:
 
@@ -441,7 +474,7 @@ label fabrication_feedback:
             if fabrication_score >= 2:
                 show text "Congratulations! You did not fabricate or falsify your results!"
                 pause
-                show text "Even if you did not get the wanted results, never falsify or fabricate data. This will lead to zero marks!"
+                show text "Even if you do not manage to get the wanted results, never falsify or fabricate data. This will lead to severe consequences!"
                 pause
                 show text "If you can explain where you might have struggled or why you think you got the results you obtained, we will reward you with positive marks"
                 pause
@@ -520,13 +553,18 @@ label fabrication_feedback:
         return
         return
     scene black
+    show text "As before, you can end the game early"
+    pause
+    show text "In the final short chapter, you will learn about other forms of plagiarism"
+    pause
+    scene black
     menu:
-        "Do you want to end the game?"
+        "Do you want to continue playing?"
 
-        "No, I want to continue":
+        "Yes, I want to play the last chapter as well":
             jump dissertation_transition
 
-        "Yes, I want to end the game now":
+        "No, I want to end the game now":
             return
     return
 
@@ -690,6 +728,7 @@ screen jigsaw:
             droppable False
             dragged piece_dragged
             xpos piecelist[11][0] ypos piecelist[11][1]
+    textbutton "Skip minigame" xalign 0.94 yalign 0.9 action Return("Skipped")
 
 
 label puzzle:
@@ -715,6 +754,8 @@ label puzzle:
                         [coorlistx[2],coorlisty[2]],
                         [coorlistx[3],coorlisty[2]]]:
         return
+    elif _return == "Skipped":
+        return
     jump puzzle
 
 label start_jigsaw:
@@ -725,7 +766,7 @@ label start_jigsaw:
         # coorlisty = [10, 217, 424]
         coorlistx = [80, 200, 320, 440]
         coorlisty = [55, 263, 469]
-        piecelist = [[647,263],[612,465],[884,333],[1031,469],[765,241],[572,58],[569,379],[880,338],[818,72],[888,462],[709,57],[985,51]]
+        piecelist = [[647,263],[612,465],[884,333],[914,469],[765,241],[572,58],[569,379],[880,338],[818,72],[758,462],[709,57],[985,51]]
         # for i in range(12):
         #     x = renpy.random.randint(0, 260) + 560
         #     y = renpy.random.randint(54, 460)

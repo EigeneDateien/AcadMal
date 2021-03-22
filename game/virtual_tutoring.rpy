@@ -7,7 +7,7 @@ label introduction_tut:
     if tutorial_already:
         ta1 "Hello again, [povname]"
         show sara vhappy
-        ta1 "So, you decided for another tutorial!"
+        ta1 "So, you decided on another tutorial!"
         show sara mhappy
         ta1 "Great!"
 
@@ -16,7 +16,7 @@ label introduction_tut:
 
         ta1 "Hello, [povname]"
         show sara vhappy
-        ta1 "So you decided for the virtual tutoring. Excellent choice"
+        ta1 "So you decided on virtual tutoring. Excellent choice"
         show sara mhappy
         ta1 "We will now go through some examples that might help you understand the topic"
 
@@ -59,20 +59,22 @@ label plag_tut:
     show sara happy at zoom_norm
     show sara happy at slidewideleft
     menu:
-        ta1 "What do you think is Plagiarism?"
+        ta1 "What do you think is plagiarism?"
 
         "Taking someone else's work and passing it off as your own":
             show sara talk:
                 xalign 0.5
                 zoom 0.7
             ta1 "That's certainly one example of plagiarism"
+            show sara mhappy
             ta1 "It's actually all of the previously mentioned examples"
+            show sara talk
             ta1 "Copying someone else's work without paraphrasing or correct quotation is plagiarism, too"
             show sara happy at zoom_norm
-            pov "And copying a paragraph from a friend's essay without their knowing?"
+            pov "And copying a paragraph from a friend's essay without them knowing?"
             show sara talk at zoomed_in
             menu:
-                ta1 "What do you think, is it plagiarism?"
+                ta1 "What do you think: is it plagiarism?"
 
                 "Yes":
                     show sara vhappy
@@ -96,7 +98,7 @@ label plag_tut:
             pov "And copying someone else's work without paraphrasing or correct quotation?"
             show sara talk at zoomed_in
             menu:
-                ta1 "What do you think, is it plagiarism?"
+                ta1 "What do you think? Is it plagiarism?"
 
                 "Yes":
                     show sara vhappy
@@ -147,7 +149,7 @@ label plag_tut:
         xalign 0.5
         yalign 0.5
         zoom 0.8
-    ta1 "Let this be our source text that we want to use for our essay"
+    ta1 "Let this be the source text that we want to use for our essay"
     scene bg home white
     show manchester original:
         xalign 0.15
@@ -169,7 +171,7 @@ label plag_tut:
         yalign 0.62
         zoom 0.7
 
-    ta1 "Lets now compare it with these three attempts"
+    ta1 "Let's now compare it with these three attempts"
     show manchester_copied_reference:
         xalign 0.15
         yalign 0.8
@@ -253,13 +255,14 @@ label continue_plag_tut:
         xalign 0.5
         zoom 0.7
     ta1 "So, as we could see in the examples:"
+    show sara mhappy
     ta1 "If you copy a paragraph, you have to reference it."
     show sara happy at zoom_norm
     pov "And you have to put the copied paragraph in quotation marks"
     show sara vhappy at zoomed_in
     ta1 "Yeah, right!"
     show sara talk
-    ta1 "This way, it is clear, what content you quoted and where you quote comes from"
+    ta1 "This way, it is clear what content you quoted and where you quote comes from"
     show sara mhappy
     ta1 "However, make sure to not use too many quotes but more of your own words"
     show sara happy at zoom_norm
@@ -293,7 +296,7 @@ label continue_plag_tut:
         yalign 0.62
         zoom 0.7
 
-    ta1 "Lets now compare it with these three new attempts"
+    ta1 "Let's now compare it with these three new attempts"
 
     show manchester_perfect:
         xalign 0.15
@@ -390,11 +393,11 @@ label final_plag_tut:
     show sara mhappy
     ta1 "And remember to try to paraphrase the paragraph. Reference the idea and try to use more than just one source"
     show sara talk
-    ta1 "I hoped this little tutorial helped you a bit"
+    ta1 "I hope this little tutorial helped you a bit"
     show sara mhappy
     ta1 "And remember: if you have any questions, you can always ask your instructors or the TAs"
     if collab:
-        ta1 "I see that there is also some confusion about collusion as well"
+        ta1 "I see that there is some confusion about collusion as well"
         jump coll_tut
 
     menu:
@@ -441,7 +444,7 @@ label upper_right_paragraph:
         yalign 0.6
         zoom 0.7
 
-    ta1 "On top, we see the original paragraph"
+    ta1 "On top we see the original paragraph"
     if chosen_tut_paragraph == "upperright":
         ta1 "Below is your chosen paragraph that you think was not plagiarised"
     else:
@@ -461,7 +464,7 @@ label upper_right_paragraph:
 
         "No, I think it is the correct way":
             ta1 "Well, it is plagiarism in its purest form"
-            ta1 "You just copied a paragraph from somewhere, without referencing it at all or marking it as copied"
+            ta1 "You just copied a paragraph from somewhere without referencing it at all or marking it as copied"
             pov "Oh, I see."
 
         "Oh yes, it is":
@@ -513,7 +516,7 @@ label lower_left_paragraph:
         zoom 0.7
 
 
-    ta1 "On top, we see the original paragraph"
+    ta1 "On top we see the original paragraph"
     if chosen_tut_paragraph == "lowerleft":
         ta1 "Below is your chosen paragraph that you think was not plagiarised"
     else:
@@ -528,23 +531,23 @@ label lower_left_paragraph:
             pass
 
     ta1 "Exactly! So, the paragraph was copied"
-    ta1 "But at least, it was referenced, where it was copied from"
+    ta1 "But at least, it was referenced where it was copied from"
     menu:
         ta1 "Do you think a direct copy with a reference is considered plagiarism?"
 
-        "No, because of the reference, this is not plagiarism":
-            ta1 "Well, even with a reference, it is plagiarism"
+        "No, because of the reference this is not plagiarism":
+            ta1 "Well, even with a reference it is plagiarism"
             ta1 "The text is copied without any quotation marks."
-            ta1 "So, a reference just tells the reader, where the information is drawn from"
-            ta1 "But without quotation marks, it seems like you wrote the text..."
+            ta1 "So, a reference just tells the reader where the information is drawn from"
+            ta1 "But without quotation marks it seems like you wrote the text..."
             pov "... which is not the case because I just copied it"
             ta1 "Exactly!"
             pov "Okay, I think I understand"
 
         "Oh yes, a reference is not enough":
             ta1 "You are right"
-            ta1 "The reference just tells the reader, where the information is drawn from"
-            ta1 "But without quotation marks, it seems like you wrote the text..."
+            ta1 "The reference just tells the reader where the information is drawn from"
+            ta1 "But without quotation marks it seems like you wrote the text..."
             pov "... which is not the case because I just copied it"
             ta1 "Exactly! So, this paragraph was plagiarised"
             pov "Yes, yes! That makes sense"
@@ -600,7 +603,7 @@ label lower_right_paragraph:
         yalign 0.6
         zoom 0.7
 
-    ta1 "If we compare both paragraphs, what do you think"
+    ta1 "If we compare both paragraphs, what do you think?"
     menu:
         ta1 "Is this paragraph plagiarised?"
 
@@ -673,7 +676,7 @@ label upper_right_paragraph2:
     else:
         ta1 "Again, below is the paragraph we want to compare"
     menu:
-        ta1 "Do you think this paragraph is a good paraphrase"
+        ta1 "Do you think this paragraph is a good paraphrase?"
 
         "Yes, it is":
             ta1 "Well, look closely at the wording"
@@ -761,7 +764,7 @@ label lower_left_paragraph2:
             ta1 "I see"
 
             menu:
-                ta1 "Why do you think that is is a good paraphrase?"
+                ta1 "Why do you think? Is this a good paraphrase?"
 
                 "It is written in the student's own words and still has a reference to the original":
                     ta1 "Yes, you are right! It is a good paraphrase"
@@ -770,7 +773,7 @@ label lower_left_paragraph2:
                     ta1 "Yes, and it still references the original text but is paraphrased well"
 
 
-        "No, it is too far away from the original":
+        "No, it is too far from the original":
             ta1 "Well, actually, that is the point"
             ta1 "It is written in the student's own words"
             ta1 "But it still includes all the important information"
@@ -781,7 +784,7 @@ label lower_left_paragraph2:
 
 
     if not upper_right_paragraph_b2 or not lower_right_paragraph_b2:
-        ta1 "So, let's see if another paragraphs fits as well"
+        ta1 "So, let's see if another paragraph fits as well"
         if not upper_right_paragraph_b2:
             jump upper_right_paragraph2
         elif not lower_right_paragraph_b2:
@@ -838,7 +841,7 @@ label lower_right_paragraph2:
                 "Mostly, yes":
                     ta1 "Well, most words are just slightly changed"
                     ta1 "'Radical literary history' becomes 'radical history of literature'"
-                    pov "But this only one phrase."
+                    pov "But this is only one phrase..."
                     ta1 "Well, there are other phrases as well"
                     ta1 "'began writing' becomes 'started to write'"
 
@@ -848,7 +851,7 @@ label lower_right_paragraph2:
                     ta1 "'began writing' becomes 'started to write'"
                     ta1 "There are several more examples"
 
-            pov "And that is enough to be accounted as plagiarism?"
+            pov "And that is enough to be accounted for as plagiarism?"
             ta1 "Well, it is just not well paraphrased"
             ta1 "But there is one important part missing"
             pov "Which part?"
@@ -892,16 +895,19 @@ label coll_tut:
     show sara mhappy:
         zoom 0.7
         xalign 0.5
-    ta1 "Let's talk about Collusion!"
+    ta1 "Let's talk about collusion!"
+    show sara talk
     ta1 "Let's say you are supposed to work on individual coursework"
+    show sara mhappy
     ta1 "For this coursework, you are supposed to work alone"
     show sara happy at zoom_norm
     menu:
         ta1 "Can you lend your essay to someone else?"
 
-        "Yes, as long as he doesn't copy my text":
+        "Yes, as long as they don't copy my text":
             show sara sad at zoomed_in
             ta1 "Nooo, you should work on it on your own"
+            show sara talk
             ta1 "This includes not to share your ideas with someone else"
 
         "No, we should not share our ideas with others":
@@ -919,7 +925,7 @@ label coll_tut:
     ta1 "Of course, in general, we encourage you to work together"
     show sara talk
     ta1 "But for individual coursework, we want you to work on your own"
-    ta1 "If you discuss your essay and your sources with other students, you are risking that you also share your ideas"
+    ta1 "If you discuss your essay and your sources with other students, you risk that you also share your ideas"
     show sara happy at zoom_norm
     pov "So, you would not recommend talking about these essays with other students?"
     show sara talk at zoomed_in
@@ -938,7 +944,7 @@ label coll_tut:
     ta1 "Of course, [povname]!"
 
     if plag:
-        ta1 "I see that there is also some confusion about plagiarism as well"
+        ta1 "I see that there is also some confusion about plagiarism"
         jump plag_tut
 
     menu:
@@ -958,7 +964,7 @@ label fabr_tut:
     show sara mhappy:
         zoom 0.7
         xalign 0.5
-    ta1 "Lets talk about Fabrication and Falsification"
+    ta1 "Let's talk about fabrication and falsification"
     show sara happy at zoom_norm
     menu:
         ta1 "What is the simplest way to avoid fabrication and falsification?"
@@ -966,14 +972,16 @@ label fabr_tut:
         "Always work with other students":
             show sara talk at zoomed_in
             ta1 "Well, there might be some areas, where you are supposed to work alone"
-            ta1 "Just always be careful when you record data"
             show sara mhappy
-            ta1 "And never change that data by alternating it"
+            ta1 "Just be always careful when you record data"
+            show sara talk
+            ta1 "And never change that data by altering it"
+            show sara mhappy
             ta1 "And never invent new data"
 
         "Never change any recorded data":
             show sara talk at zoomed_in
-            ta1 "Well, at least you should not alternate it"
+            ta1 "Well, at least you should not alter it"
             ta1 "And never invent new data"
 
     ta1 "So, let's consider some examples"
@@ -984,32 +992,32 @@ label fabr_tut:
 
         "Yes, that is not fabrication or falsification":
             show sara talk at zoomed_in
-            ta1 "Great! Yes, you are allowed to convert data as long as you do not alternate it"
+            ta1 "Great! Yes, you are allowed to convert data as long as you do not alter it"
 
         "No, I should never change my data":
             show sara sad at zoomed_in
-            ta1 "Well, you are still allowed to convert data as long as you do not alternative it"
+            ta1 "Well, you are still allowed to convert data as long as you do not alter it"
 
     show sara talk
     ta1 "Ok, one final question"
 
     show sara happy at zoom_norm
     menu:
-        ta1 "Which is consider to be fabrication or falsification?"
+        ta1 "Which is considered to be fabrication or falsification?"
 
         "Drop some data that does not look right":
             call s_answ_no
 
-        "Change data so that the values reflect what you want to show more closely":
+        "Change data so that the values reflect more closely what you want to show":
             call s_answ_no
 
-        "Invent some data that is missing due to a blackout during the recording of the data":
+        "Invent some data that is missing due to a blackout during the recording of the data itself":
             call s_answ_no
 
         "All of the above":
             show sara vhappy at zoomed_in
             ta1 "Yes, [povname]. Exactly"
-            ta1 "All of these answers are examples for fabrication or falsification"
+            ta1 "All of these answers are examples of fabrication or falsification"
 
     show sara talk
     ta1 "Well, I hope this tutorial was helpful"
@@ -1026,5 +1034,5 @@ label fabr_tut:
 
 label s_answ_no:
     show sara sad at zoomed_in
-    ta1 "Well, [povname]. All of these answers are examples for fabrication or falsification"
-    ta1 "You should never alternate the data or invent new data"
+    ta1 "Well, [povname]. All of these answers are examples of fabrication or falsification"
+    ta1 "You should never alter the data or invent new data"

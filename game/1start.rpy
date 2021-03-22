@@ -65,9 +65,7 @@ init python:
         else:
             renpy.jump(choice)
 
-    scoring = {
-               'ohright': 1,
-               'failedassignment': -1}
+    scoring = {}
     comp61511 = True
     markdown_slides = {}
     meet_already = False
@@ -90,7 +88,7 @@ init python:
     upper_right_paragraph_b2 = False
     lower_right_paragraph_b2 = False
     lower_left_paragraph_b2 = False
-
+    ta_visited = False
 
 
 python:

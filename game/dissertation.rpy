@@ -4,7 +4,12 @@ label dissertation_transition:
         $ diss_play += 1
         $ score = calculate_score()
     scene black
-    with dissolve
+    show text "Final chapter"
+    with fade
+    pause
+    scene black
+    with fade
+    pause 0.5
     show text "During the rest of the year, you learn a lot of useful stuff"
     pause
     show text "And you spend most of your time with Alex and Pari"
@@ -46,7 +51,7 @@ label dissertation_transition:
         xalign 0.5
         yalign 0.3
 
-    pov "Finally I'm finished"
+    pov "Finally, I'm finished"
     pov "Looks great! Should I do something?"
 
     menu:
@@ -75,7 +80,7 @@ label writing_continue:
     pov "Now I referenced it!"
 
     menu:
-        pov "Do I want to change some more?"
+        pov "Do I want to change anything else?"
 
         "No, it's perfect now!":
             $ paragraph_chosen = "cited_paragraph"
@@ -118,7 +123,7 @@ label patchwriting_part2:
         yalign 0.6
         zoom 0.8
 
-    pov "Okay that's good. It's entirely in my own words."
+    pov "Okay, that's good. It's entirely in my own words."
     pov "But I'm still unsure..."
     pov "I think I will write three versions of my paragraph, and then I can choose the one I like best"
     scene black
@@ -156,18 +161,27 @@ label ta_intervention:
     show instructor talk
     s "Hello, [povname]! How can I help you?"
     show instructor happy
-    pov "Well, I have a question about a paragraph for my dissertation"
-    pov "Can I show it to you?"
+    if not ta_visited:
+        pov "Well, I have a question about a paragraph for my dissertation"
+        pov "Can I show it to you?"
+    else:
+        pov "I have rewritten the paragraph, can I show it to you?"
     show instructor talk
     s "Of course!"
     show instructor happy at left
+    $ ta_visited = True
     show paragraph_chosen at truecenter
     if paragraph_chosen == 'bad_paragraph':
         $ change_score('plagiarism_diss', -4)
+        show instructor mhappy
         s "Oh wow, [povname]"
+        show instructor talk
         s "Please rewrite this paragraph, it's plagiarised"
+        show instructor mhappy
         s "You didn't even reference your source"
+        show instructor talk
         s "And it's way too close to the original text"
+        show instructor mhappy
         s "Please rewrite your paragraph and then come back to me"
         menu:
 
@@ -179,10 +193,12 @@ label ta_intervention:
 
     elif paragraph_chosen == 'cited_paragraph' or paragraph_chosen == 'paragraph_patchwritten':
         $ change_score('plagiarism2_diss', -2)
+        show instructor mhappy
+        s "You should really consider rewriting this paragraph"
         show instructor talk
-        s "You should really consider to rewrite this paragraph"
-        s "It is way to close to the original paragraph"
-        s "Let's look at the original paragraph again"
+        s "It is way too close to the original paragraph"
+        show instructor mhappy
+        s "Let's look at it again"
         show logicrep:
             xalign 0.5
             yalign 0.02
@@ -191,20 +207,46 @@ label ta_intervention:
             xalign 0.5
             yalign 0.52
 
+        show instructor talk
         s "See! You are using the exact same words and a similar structure"
+        show instructor mhappy
         s "Logic-based representations..."
+        show instructor talk
         s "Commonsense reasoning..."
-        s "You just used some synonyms and restructured the text a bit"
+        show instructor mhappy
+        menu:
+            s "You just used some synonyms and restructured the text a bit"
+
+            "And?":
+                pass
+
+            "So?":
+                pass
+        show instructor talk
         s "This is known as patchwriting"
-        s "I personally wouldn't consider it academic malpractice, but it is still a bad scientific style"
+        show instructor mhappy
+        menu:
+            s "I personally wouldn't consider it academic malpractice..."
+
+            "So, I am allowed to do it?":
+                s "Well, you shouldn't"
+
+            "And why shouldn't I do it?":
+                pass
+        show instructor talk
+        s "It is still a bad scientific style"
+        show instructor mhappy
         s "So if you want a high mark, please rewrite the paragraph and then come back to me"
         call screen paragraph_choice
         $ paragraph_chosen = _return
         jump ta_intervention
     elif paragraph_chosen == 'paragraph_good' or paragraph_chosen == 'paragraph1c':
         $ change_score('good_paragraph', +2)
+        show instructor mhappy
         s "Well done, [povname]!"
+        show instructor talk
         s "You don't need to worry at all. The paragraph is perfectly fine"
+        show instructor mhappy
         s "You can submit your dissertation now and I will be more than happy to read it!"
         jump happy_end
 
@@ -218,13 +260,15 @@ label failedassignment:
 
     pov "Oh no... "
 
-    pov "I've failed my dissertation! But why?"
+    pov "I failed my dissertation! But why?"
 
-    pov "Wait - My Supervisor said that one of my paragraphs was plagiarised."
+    pov "Wait... My supervisor said that one of my paragraphs was plagiarised."
 
     pov "Maybe I should have taken her advice seriously"
 
-    pov "Now I spent a very difficult year and thousands of Pounds and I didn't even get a degree at the end of it."
+    pov "Now I went through a very difficult year and spent thousands of Pounds..."
+
+    pov "And in the end, I didn't even get my master degree."
 
 
     scene black
@@ -250,7 +294,7 @@ label happy_end:
 
     scene black
     with dissolve
-    show text "Several weeks later..."
+    show text "Several months later..."
     pause
     scene bg outside
     with flashbulb
@@ -262,13 +306,13 @@ label happy_end:
 
     show alex mhappy at zoomed_in, slightright
 
-    a "Yeah, I am a bit nervous to be honest"
+    a "Yeah, I am a bit nervous, to be honest"
 
     show alex happy at zoom_norm, slightright
     show keri mhappy at zoomed_in, slightleft
     p "Yeah, me as well!"
     show keri happy at zoom_norm, slightleft
-    pov "C'mon guys, let's go inside!"
+    pov "Come on guys, let's go inside!"
     scene black
     with dissolve
     show text "You have a great time at the graduation"
@@ -293,7 +337,7 @@ label happy_end:
                 show text "You wrote an excellent dissertation"
                 pause
             else:
-                show text "You did good, but you could have done better!"
+                show text "You did well, but you could have done better!"
                 pause
                 show text "You should consider replaying this part of the game"
                 pause
