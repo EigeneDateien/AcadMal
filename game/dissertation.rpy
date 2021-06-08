@@ -26,13 +26,16 @@ label dissertation_transition:
     pov "Alright, I am nearly finished with my dissertation"
     pov "Finally!"
     pov "Only one paragraph left, and then I will finally be able to submit the dissertation"
-    pov "I need to write something about robots and how they are enabled to interact with their environment"
+    pov "I need to write something about [dissertation_topic]"
     pov "I don't have much time left and I just want to finish my dissertation"
     pov "Let's see if we can find something"
     scene bg home laptop
-    show logicrep:
-        xalign 0.5
-        yalign 0.3
+    if custom_texts:
+        show screen text_screen(source_paragraph, "up")
+    else:
+        show original_source_paragraph:
+            xalign 0.5
+            yalign 0.3
 
     pov "Ahh, this looks perfect!"
     pov "This part of the paragraph is all I need to finish my dissertation."
@@ -41,26 +44,37 @@ label dissertation_transition:
 
     scene bg home white
     with flashbulb
-    show logicrep:
-        xalign 0.5
-        yalign 0.12
-        zoom 0.8
-
-
-    show bad_paragraph:
-        xalign 0.5
-        yalign 0.3
+    if custom_texts:
+        hide screen text_screen
+        show screen dissertation_text(bad_paragraph)
+    else:
+        show original_source_paragraph:
+            xalign 0.5
+            yalign 0.12
+            zoom 0.8
+        show bad_paragraph:
+            xalign 0.5
+            yalign 0.3
 
     pov "Finally, I'm finished"
     pov "Looks great! Should I do something?"
+    if custom_texts:
+        hide screen dissertation_text
+        show screen dissertation_text(bad_paragraph, True)
 
     menu:
 
         "Yeah, there are some more things to be done":
+            if custom_texts:
+                hide screen dissertation_text
+                show screen dissertation_text(bad_paragraph)
             pov "Ohhh, I nearly forgot to reference the source text!"
 
         "No, it's fine! I can finally submit my thesis":
             $ paragraph_chosen = "bad_paragraph"
+            if custom_texts:
+                hide screen dissertation_text
+                show screen dissertation_text(bad_paragraph)
             pov "I will show it to my supervisor first. Just to make sure"
             jump ta_intervention
 
@@ -68,14 +82,17 @@ label dissertation_transition:
 
 label writing_continue:
     scene bg home white
-    show logicrep:
-        xalign 0.5
-        yalign 0.12
-        zoom 0.75
-    show cited_paragraph:
-        xalign 0.5
-        yalign 0.3
-
+    if custom_texts:
+        hide screen dissertation_text
+        show screen dissertation_text(cited_paragraph)
+    else:
+        show original_source_paragraph:
+            xalign 0.5
+            yalign 0.12
+            zoom 0.75
+        show cited_paragraph:
+            xalign 0.5
+            yalign 0.3
 
     pov "Now I referenced it!"
 
@@ -90,6 +107,8 @@ label writing_continue:
         "Yes, I think my text is too close to the original":
             $ change_score('patchwriting', +3)
             pov "I have to use my own words!"
+            if custom_texts:
+                hide screen dissertation_text
             jump patchwriting_part2
 
         "No, I can show it to my supervisor!":
@@ -113,18 +132,7 @@ label patchwriting_part2:
     with flashbulb
     show text "A few minutes later..."
     pause
-    scene bg home white
-    show logicrep:
-        xalign 0.5
-        yalign 0.12
-        zoom 0.75
-    show paragraph1a:
-        xalign 0.5
-        yalign 0.6
-        zoom 0.8
-
-    pov "Okay, that's good. It's entirely in my own words."
-    pov "But I'm still unsure..."
+    scene black
     pov "I think I will write three versions of my paragraph, and then I can choose the one I like best"
     scene black
     with dissolve
@@ -137,22 +145,11 @@ label patchwriting_part2:
     pov "Now I can check with my supervisor"
     jump ta_intervention
 
-screen paragraph_choice:
-    imagemap:
-        ground "Scene/bg home paragraphchoice.png"
-        idle "Scene/bg home paragraphchoice.png"
-        hover "Scene/bg home paragraphchoice hover.png"
-        selected_idle "Scene/bg home paragraphchoice selected.png"
-        selected_hover "Scene/bg home paragraphchoice selected.png"
-
-        hotspot (644, 64, 560, 170) clicked Return("paragraph_good")
-        hotspot (644, 236, 560, 184) clicked Return("paragraph_patchwritten")
-        hotspot (644, 423, 560, 166) clicked Return("paragraph1c")
-
-
-
 label ta_intervention:
-    image paragraph_chosen = "[paragraph_chosen]"
+    if custom_texts:
+        hide screen dissertation_text
+    else:
+        image paragraph_chosen = "[paragraph_chosen]"
     scene black
     with dissolve
     show text "You go to your supervisor's office to check your paragraph"
@@ -170,9 +167,12 @@ label ta_intervention:
     s "Of course!"
     show instructor happy at left
     $ ta_visited = True
-    show paragraph_chosen at truecenter
+    if not custom_texts:
+        show paragraph_chosen at truecenter
     if paragraph_chosen == 'bad_paragraph':
         $ change_score('plagiarism_diss', -4)
+        if custom_texts:
+            show screen show_chosen_paragraph(bad_paragraph)
         show instructor mhappy
         s "Oh wow, [povname]"
         show instructor talk
@@ -186,12 +186,21 @@ label ta_intervention:
         menu:
 
             "Do as she says":
+                if custom_texts:
+                    hide screen show_chosen_paragraph
                 jump writing_continue
 
             "Ignore her":
+                if custom_texts:
+                    hide screen show_chosen_paragraph
                 jump failedassignment
 
     elif paragraph_chosen == 'cited_paragraph' or paragraph_chosen == 'paragraph_patchwritten':
+        if custom_texts:
+            if paragraph_chosen == 'cited_paragraph':
+                show screen show_chosen_paragraph(cited_paragraph)
+            else:
+                show screen show_chosen_paragraph(paragraph_patchwritten)
         $ change_score('plagiarism2_diss', -2)
         show instructor mhappy
         s "You should really consider rewriting this paragraph"
@@ -199,20 +208,41 @@ label ta_intervention:
         s "It is way too close to the original paragraph"
         show instructor mhappy
         s "Let's look at it again"
-        show logicrep:
-            xalign 0.5
-            yalign 0.02
-            zoom 0.75
-        show paragraph_chosen:
-            xalign 0.5
-            yalign 0.52
+        if custom_texts:
+            hide screen show_chosen_paragraph
+            if paragraph_chosen == 'cited_paragraph':
+                show screen compare_chosen_paragraph(cited_paragraph)
+            else:
+                show screen compare_chosen_paragraph(paragraph_patchwritten)
+        else:
+            show original_source_paragraph:
+                xalign 0.5
+                yalign 0.02
+                zoom 0.75
+            show paragraph_chosen:
+                xalign 0.5
+                yalign 0.52
 
         show instructor talk
-        s "See! You are using the exact same words and a similar structure"
-        show instructor mhappy
-        s "Logic-based representations..."
-        show instructor talk
-        s "Commonsense reasoning..."
+        $ similar_words = patchwritten_words
+        while len(similar_words) > 0:
+            $ word = similar_words.pop(0)
+            if custom_texts:
+                if paragraph_chosen == 'cited_paragraph':
+                    $ marked_paragraph = highlight_word(cited_paragraph, word)
+                else:
+                    $ marked_paragraph = highlight_word(paragraph_patchwritten, word)
+                $ marked_source = highlight_word(source_paragraph, word)
+                show screen compare_chosen_paragraph(marked_paragraph, marked_source)
+                s "[word]..."
+                hide screen compare_chosen_paragraph
+            else:
+                s "[word]..."
+        if custom_texts:
+            if paragraph_chosen == 'cited_paragraph':
+                show screen compare_chosen_paragraph(cited_paragraph)
+            else:
+                show screen compare_chosen_paragraph(paragraph_patchwritten)
         show instructor mhappy
         menu:
             s "You just used some synonyms and restructured the text a bit"
@@ -237,17 +267,26 @@ label ta_intervention:
         s "It is still a bad scientific style"
         show instructor mhappy
         s "So if you want a high mark, please rewrite the paragraph and then come back to me"
+        if custom_texts:
+            hide screen compare_chosen_paragraph
         call screen paragraph_choice
         $ paragraph_chosen = _return
         jump ta_intervention
-    elif paragraph_chosen == 'paragraph_good' or paragraph_chosen == 'paragraph1c':
+    elif paragraph_chosen == 'paragraph_good' or paragraph_chosen == 'mediocre_paragraph_with_reference':
         $ change_score('good_paragraph', +2)
+        if custom_texts:
+            if paragraph_chosen == 'paragraph_good':
+                show screen show_chosen_paragraph(paragraph_good)
+            else:
+                show screen show_chosen_paragraph(paragraph_excellent)
         show instructor mhappy
         s "Well done, [povname]!"
         show instructor talk
         s "You don't need to worry at all. The paragraph is perfectly fine"
         show instructor mhappy
         s "You can submit your dissertation now and I will be more than happy to read it!"
+        if custom_texts:
+            hide screen show_chosen_paragraph
         jump happy_end
 
 
