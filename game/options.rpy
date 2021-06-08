@@ -7,7 +7,7 @@
 
 ################# phone code stars ###################
 
-image phone = "images/phone.png"
+image phone = "images/item_assets/phone_screen/phone.png"
 
 
 # Picking up the phone
