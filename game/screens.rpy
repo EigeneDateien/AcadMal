@@ -65,7 +65,7 @@ init 5:
 screen phone_message(who, what):
     vbox at incoming_message:
         style_group "phone_message"
-        add "images/bubble-tip.png" at phone_message_bubble_tip
+        add "images/item_assets/phone_screen/bubble-tip.png" at phone_message_bubble_tip
 
         frame:
             style_group "phone_message"
@@ -81,7 +81,7 @@ screen phone_message2(who, what):
         xoffset -389
         xalign 1.0
         # this one adds the triangular tip for the bubble, if you change colors you change this images too
-        add "images/bubble-tip2.png" at phone_message_bubble_tip2
+        add "images/item_assets/phone_screen/bubble-tip2.png" at phone_message_bubble_tip2
 
         frame:
             style_group "phone_message2"
@@ -99,7 +99,7 @@ screen phone_message3(what):
         xoffset -389
         xalign 1.0
         # this one adds the triangular tip for the bubble, if you change colors you change this images too
-        add "images/bubble-tip2.png" at phone_message_bubble_tip2
+        add "images/item_assets/phone_screen/bubble-tip2.png" at phone_message_bubble_tip2
 
         frame:
             style_group "phone_message2"
@@ -143,7 +143,7 @@ screen phone_message_image(who, what, img):
     vbox at incoming_message:
         style_group "phone_message"
         # this one adds the triangular tip for the bubble, if you change colors you change this images too
-        add "images/bubble-tip.png" at phone_message_bubble_tip
+        add "images/item_assets/phone_screen/bubble-tip.png" at phone_message_bubble_tip
 
         frame:
             style_group "phone_message"

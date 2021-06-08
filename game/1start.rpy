@@ -1,3 +1,45 @@
+init:
+    define flashbulb = Fade(0.2, 0.0, 0.8, color='#fff')
+    transform slideright:
+        xalign 0.5
+        linear 1.0 xalign 0.75
+    transform slideleft:
+        xalign 0.5
+        linear 1.0 xalign 0.25
+    transform slidewideright:
+        xalign 0.75
+        linear 1.0 xalign 0.9
+    transform slidewideleft:
+        xalign 0.25
+        linear 1.0 xalign 0.1
+    transform slidewideleftback:
+        xalign 0.25
+        linear 1.0 xalign 0.5
+    transform zoomed_in:
+        zoom 0.7
+    transform zoom_norm:
+        zoom 0.6
+    transform slightright:
+        xalign 0.75
+    transform slightleft:
+        xalign 0.25
+    transform wideright:
+        xalign 0.9
+    transform wideleft:
+        xalign 0.1
+    transform sitting:
+        yalign -4.0
+    style laptop_text:
+        size 40
+    style list_style is text:
+        size 20
+        justify True
+        text_align 1.0
+        min_width 10
+        adjust_spacing True
+        rest_indent 800
+
+
 
 init python:
     # label_callback code from: https://lemmasoft.renai.us/forums/viewtopic.php?t=10578
@@ -89,14 +131,14 @@ init python:
     lower_right_paragraph_b2 = False
     lower_left_paragraph_b2 = False
     ta_visited = False
+    alex_pari_intro_seen = False
 
 
 python:
     def cond_item(condition, truebranch, falsebranch):
         pass
 
-define p_name = "Pari"
-define p = Character(p_name)
+define p = Character("Pari")
 
 define a = Character("Alex")
 
@@ -105,30 +147,23 @@ define ta1 = Character("Sara the TA")
 define s = Character("Supervisor")
 
 define e = Character("Eileen")
+define povname = "Charlie"
 
-# image pari composite = Composite(
-#     (300, 600),
-#     (64, 0), "Curly.png",
-#     (0, 30+187), "Baggy Pants.png",
-#     (12, 104), "Hoodie.png")
 
-image instructor happy = "instructor/instructor happy.png"
-image eileen happy = "eileen happy.png"
-image pari happy  = "instructor/instructor happy.png"
-
-image txtexamp = Text("\nHello, World! This is fun\nif you like that sort of\nthing", size=40, justify=True)
-
-image se1q = "seq1.png"
-image bg home = "Scene/kilburn-inside2.png"
-image bg home2 = "Scene/kilburn-inside.png"
-image bg lab = "Scene/kilburn-lab.png"
-image bg office = "Scene/kilburn-office.png"
-image bg outside = "Scene/bg kilburn outside.png"
-image bg kilburn lecture = "Scene/kilburn lecture.png"
-image bg kilburn lecture1 = "Scene/kilburn lecture1.png"
+# Could arrange files for each topic
+# e.g. for Computer science
+# image bg outside = "Scene/[study_course_abbreviation]/bg [study_course_abbreviation] outside.png"
+image bg home = "customisable_scenes/studyroom-inside2.png"
+image bg home2 = "customisable_scenes/studyroom-inside.png"
+image bg lab = "customisable_scenes/studyroom-inside3.png"
+image bg office = "customisable_scenes/supervisor-office.png"
+image bg outside = "customisable_scenes/bg school outside.png"
+image bg lectureroom = "customisable_scenes/lecture theatre1.png"
+image bg lectureroom1 = "customisable_scenes/lecture theatre2.png"
 image bg home desk = "Scene/bg home desk.png"
 
-define pov = Character("[povname]")
+# define pov = Character("[povname]")
+define pov = Character("Charlie")
 
 transform flip:
     xzoom -1.0
@@ -157,10 +192,12 @@ label start:
 
         "Mobile device/tablet":
             python:
-                povname = "Player"
+                povname = "Charlie"
                 persistent.povname = povname
 
-    jump intro
+    # jump plagiarism_scenario
+    jump first_day
+    # jump fabrication
 
 label intro:
     scene black
