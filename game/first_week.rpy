@@ -1,45 +1,4 @@
 
-init:
-    define flashbulb = Fade(0.2, 0.0, 0.8, color='#fff')
-    transform slideright:
-        xalign 0.5
-        linear 1.0 xalign 0.75
-    transform slideleft:
-        xalign 0.5
-        linear 1.0 xalign 0.25
-    transform slidewideright:
-        xalign 0.75
-        linear 1.0 xalign 0.9
-    transform slidewideleft:
-        xalign 0.25
-        linear 1.0 xalign 0.1
-    transform slidewideleftback:
-        xalign 0.25
-        linear 1.0 xalign 0.5
-    transform zoomed_in:
-        zoom 0.7
-    transform zoom_norm:
-        zoom 0.6
-    transform slightright:
-        xalign 0.75
-    transform slightleft:
-        xalign 0.25
-    transform wideright:
-        xalign 0.9
-    transform wideleft:
-        xalign 0.1
-    transform sitting:
-        yalign -4.0
-    style laptop_text:
-        size 40
-    style list_style is text:
-        size 20
-        justify True
-        text_align 1.0
-        min_width 10
-        adjust_spacing True
-        rest_indent 800
-
 label first_day:
     $ plag_play += 1
 
@@ -52,7 +11,7 @@ label first_day:
     show text "Chapter 1"
     with fade
     pause
-    show text "You, [povname], are a new student at the University of Manchester"
+    show text "You, [povname], are a new [study_course] student at the [university_name]"
     pause
     show text "At first, you were really nervous!"
     pause
@@ -68,7 +27,7 @@ label first_day:
 
     show alex happy at zoom_norm, top
 
-    "This is Alex, your best friend at university. He feels pretty confident with everything programming related"
+    "This is Alex, your best friend at university. He feels pretty confident with everything hands-on"
 
     hide alex happy
     with fade
@@ -81,36 +40,13 @@ label first_day:
         xalign 0.75
     with Dissolve(1.1, alpha=True)
 
-    if one_chapter_only:
-        scene black
-        with flashbulb
-        show text "You decided to only play one chapter"
-        pause
-        if only_plagiarism:
-            show text "For your coursework, you have to write a short essay about a given topic"
-            pause
-            jump essay_writing_mg
 
-        else:
-            scene black
-            show keri happy at zoom_norm, slideleft
-            show alex happy at zoom_norm:
-                xalign 0.75
-            "The three of you arranged to meet outside the university on the first day"
-            jump start_first_day
-
-    else:
-        "The three of you arranged to meet outside the university on the first day"
-        jump start_first_day
-
-
-
-screen skip_button:
-    frame:
-        xalign 0.95 yalign 0.73
-        button:
-            action Jump("skipped_intro")
-            text _("Skip Intro") style "button_text"
+    scene black
+    show keri happy at zoom_norm, slideleft
+    show alex happy at zoom_norm:
+        xalign 0.75
+    "The three of you arranged to meet outside the university on the first day"
+    jump start_first_day
 
 label start_first_day:
     scene bg outside
@@ -150,7 +86,7 @@ label start_first_day:
 
     hide screen skip_button
 
-    scene bg kilburn lecture1
+    scene bg lectureroom1
     pause 1.0
     show screen skip_button
     show alex vhappy at zoomed_in, top
@@ -160,13 +96,13 @@ label start_first_day:
     with Dissolve(0.5, alpha=True)
     p "Let's take a seat already"
 
-    scene bg kilburn lecture
+    scene bg lectureroom
     show alex happy at zoom_norm, slightright, sitting
     show keri happy at zoom_norm, slightleft, sitting
     pov "I'm curious what this lecture is all about..."
     hide screen skip_button
 
-    scene bg kilburn lecture
+    scene bg lectureroom
     with flashbulb
     show alex happy at zoom_norm, wideright, sitting
     show keri happy at zoom_norm, wideleft, sitting
@@ -174,25 +110,29 @@ label start_first_day:
     show instructor talk at top
     show screen skip_button
     s "Good morning, class!"
+    show instructor mhappy
     s "Before we start, let's give you some facts about this course!"
-    s "In the morning we will have a lecture. And after the lunch break, we will go to the labs to do some practical work"
-    s "You will have some coursework that you can start during the lab session"
+    show instructor talk
+    s "In the morning we will have a lecture. And after the lunch break, we will go to the [practical_room] to do some practical work"
+    show instructor mhappy
+    s "You will have some coursework that you can start during the [practical_part_of_the_course]"
+    show instructor talk
     s "And you can ask questions to the teaching assistants and me, your instructor"
+    show instructor mhappy
     s "So, let's make a start..."
     hide screen skip_button
     scene black
     with dissolve
     show text "After the lecture..."
     pause
-    scene bg kilburn lecture
+    scene bg lectureroom
     with flashbulb
     show screen skip_button
     show alex happy at zoom_norm, wideright, sitting
     show keri happy at zoom_norm, wideleft, sitting
     show instructor talk at top
-    # Cool effect to show time transition
 
-    s "So that was our lecture part! I will see you after the lunch break in the labs!"
+    s "So that was our lecture part! I will see you after the lunch break in the [practical_room]!"
     hide screen skip_button
 
     scene black
@@ -211,14 +151,14 @@ label start_first_day:
         "Let's get ourselves some seats":
             pass
     scene black
-    show text "The lab sessions begins..."
+    show text "The [practical_part_of_the_course] begins..."
     pause
     jump lab_session
 
 label skipped_intro:
     hide screen skip_button
     scene black
-    show text "After a lecture in the morning, you have a lab session in the afternoon"
+    show text "After a lecture in the morning, you have a [practical_part_of_the_course] in the afternoon"
     pause
     jump lab_session
 
@@ -229,9 +169,9 @@ label lab_session:
     show alex happy at zoom_norm, wideleft, sitting
     show keri happy at zoom_norm, wideright, sitting
     show instructor mhappy at top
-    s "Welcome back! In this lab session, you can start with your coursework!"
+    s "Welcome back! In this [practical_part_of_the_course], you can start with your coursework!"
     show instructor talk at top
-    s "Please remember that all coursework in this week will be individual coursework"
+    s "Please remember that all coursework in this week in this week is supposed to be done on your own"
     show instructor mhappy at top
     s "We recommend that you first have a look at the essay since most of you might struggle with it the most"
     show instructor happy at top
@@ -239,7 +179,7 @@ label lab_session:
         zoom 0.7
         yalign -1.0
         xalign 0.1
-    a "There will be essays in Computer Science?!"
+    a "There will be essays in [study_course]?!"
     show alex surprised:
         zoom 0.6
         yalign -4.0
@@ -270,12 +210,12 @@ label lab_session:
     show sara mhappy
     ta1 "If you have any questions just ask me"
     show sara talk
-    ta1 "I will be in the lab two days a week and you can also ask questions on our online forum Blackboard"
+    ta1 "I will be here two days a week and you can also ask questions on our online forum Blackboard"
     show sara happy at zoom_norm:
         xalign 0.65
     show instructor talk:
         xalign 0.35
-    s "So, that would be all. We will go into the lab now."
+    s "So, that would be all. Let's start our [practical_part_of_the_course] now."
     show instructor mhappy
     s "Everyone has their own computer. Feel free to start your coursework now"
     show instructor talk
@@ -294,45 +234,64 @@ label lab_work:
     scene bg lab
     show alex happy at zoom_norm, slightright
     show keri happy at zoom_norm, slightleft
-    "You enter the lab room and choose your seat between Pari and Alex"
+    "You enter the [practical_room] and choose your seat between Pari and Alex"
     show alex talk at zoomed_in, slightright
     a "Hey, [povname]. Can you help me?"
     show alex happy at zoom_norm, slightright
     pov "Sure, what's up?"
     show alex talk at zoomed_in, slightright
     a "I'm struggling with the essay..."
+    show alex mhappy
     a "Have you looked at it yet?"
     show alex happy at zoom_norm, slightright
     pov "No, I will have a look"
 
     show alex happy at zoom_norm, slidewideright
     show keri happy at zoom_norm, slidewideleft
-    show turing question at truecenter
+    if custom_texts:
+        show screen text_screen_white("middle")
+    else:
+        show essay question at truecenter
     "Let me read that"
     show keri mhappy at zoomed_in:
         xalign 0.1
     p "This looks tricky!"
-    show turing question:
-        yalign 0.5
-        linear 1.0 yalign 0.85
+    if custom_texts:
+        hide screen text_screen_white
+        show screen text_screen_white("below")
+    else:
+        show essay question:
+            yalign 0.5
+            linear 1.0 yalign 0.85
     show keri happy at zoom_norm
     menu:
         "It does look tricky. We should divide up the work.":
-            hide turing question
+            if custom_texts:
+                hide screen text_screen_white
+            else:
+                hide essay question
             jump failing
         "It seems straightforward. I'm going to do it on my own.":
-            hide turing question
+            if custom_texts:
+                hide screen text_screen_white
+            else:
+                hide essay question
             show alex angry at zoomed_in
             a "That's not very nice! Be a jerk about it!"
             show alex angry at zoom_norm
             show keri mhappy at zoomed_in
             p "Hey, Alex, calm down! I think [povname] is actually right"
+            show keri talk
             p "We are supposed to work on it on our own! But we could ask the TA"
             show keri happy at zoom_norm
-            hide turing question
+            if not custom_texts:
+                hide essay question
             jump ask_sara
         "Look! It says it should be our own work. We can't collaborate.":
-            hide turing question
+            if custom_texts:
+                hide screen text_screen_white
+            else:
+                hide essay question
             $ change_score('own_work', +2)
             show alex talk at zoomed_in
             a "I don't think it means we can't work together."
@@ -342,7 +301,10 @@ label lab_work:
             menu:
                 "You're right. Let's get started.":
                     $ change_score('own_work', -2)
-                    hide turing question
+                    if custom_texts:
+                        hide screen text_screen_white
+                    else:
+                        hide essay question
                     jump failing
                 "You're wrong. I'm going to work alone.":
                     show alex angry at zoomed_in
@@ -350,6 +312,8 @@ label lab_work:
                     show alex angry at zoom_norm
                     menu:
                         "Let's ask the TA then":
+                            if custom_texts:
+                                hide screen text_screen_white
                             jump ask_sara
                         "No, please leave me alone":
                             $ change_score('no_collab', +3)
@@ -359,14 +323,22 @@ label lab_work:
                             pov "I'm sorry, Alex! But we are not allowed to work together!"
                             show keri talk at zoomed_in
                             p "Alex, [povname] is right. It literally says that it should be done individually"
+                            if custom_texts:
+                                hide screen text_screen_white
                             jump coursework_writing
                 "I'm unsure and think we should ask a TA.":
-                    hide turing question
+                    if custom_texts:
+                        hide screen text_screen_white
+                    else:
+                        hide essay question
                     jump ask_sara
 
 label failing:
     # intervention by the ta
-    hide turing question
+    if custom_texts:
+        hide screen text_screen_white
+    else:
+        hide essay question
     $ collab = True
     $ change_score('failing_coll', -4)
     show sara mhappy at zoomed_in:
@@ -384,6 +356,7 @@ label failing:
 
         "We are just discussing what to write":
             ta1 "If you don't understand a question or the instructions, you can always ask a TA or the instructor"
+            show sara talk
             ta1 "But please don't discuss your answers with each other"
             show sara happy at zoom_norm
             show alex surprised at zoomed_in
@@ -409,7 +382,10 @@ label failing:
     jump sara_feedback
 
 label ask_sara:
-    hide turing question
+    if custom_texts:
+        hide screen text_screen_white
+    else:
+        hide essay question
     $ change_score('ask_sara', +2)
     show alex mhappy at zoomed_in
     a "Oh, alright. Let's ask Sara the TA."
@@ -460,6 +436,7 @@ label sara_feedback:
     show keri happy at zoom_norm
     show alex talk at zoomed_in
     a "Yeah. But I don't know. It's strange. Today in the lecture, the instructor talked about the importance of collaboration."
+    show alex mhappy
     a "What's wrong with working together as long as we each write our own essays?"
     show alex happy at zoom_norm
     menu:
@@ -598,7 +575,7 @@ label se1_collaboration(speaker="Instructor"):
             s1 "First, you can always ask a TA or an instructor for help."
             s1 "We know how much aid to give without breaking the value of the assignment."
             if comp61511:
-                s1 "Next, in a lab after submitting SE1, we'll have an exercise where we will do some peer review."
+                s1 "Next, in a [practical_part_of_the_course] after submitting SE1, we'll have an exercise where we will do some peer review."
 
     jump coursework_writing
 
@@ -617,7 +594,7 @@ label coursework_writing:
     show alex happy at zoom_norm, wideleft
     show keri happy at zoom_norm, wideright
     show instructor talk at top
-    s "So, class! Our lab session is over now"
+    s "So, class! Our [practical_part_of_the_course] is over now"
     show instructor mhappy
     s "However, you can still ask some questions via Blackboard"
     show instructor talk
@@ -640,13 +617,6 @@ label coursework_writing:
     show alex talk at zoomed_in
     a "Bye, [povname]!"
 
-    if only_coll_fab:
-        "You go home and write the essay"
-        "One day before the deadline, you get a message from Alex"
-        scene bg home desk
-        with dissolve
-        jump alex_emergency
-
     scene black
     with dissolve
     show text "You go home and fall asleep almost immediately"
@@ -654,7 +624,7 @@ label coursework_writing:
     show text "Tomorrow, you will try to write the essay"
     pause
 
-    # Auswertung how well do
+    # Assessment of how well student performed
     jump essay_writing_mg
 
 label essay_writing_mg:
@@ -665,12 +635,15 @@ label essay_writing_mg:
     pov "Ok, let's see the essay question again"
     pov "I hope I can answer it correctly"
     scene bg home laptop
-    show turing question:
-         yalign 0.11
-         xalign 0.5
+    if custom_texts:
+        show screen text_screen(essay_question)
+    else:
+        show essay question:
+            yalign 0.11
+            xalign 0.5
     pause
 
-    pov "Hmm, I should define the term 'Turing machine'"
+    pov "Hmm, I should [essay_question_short]"
 
     menu:
         "What should I do first?"
@@ -686,8 +659,13 @@ label essay_writing_mg:
 label wikipedia_storyline:
     $ slides = False
     pov "I could copy the answer from Wikipedia!"
-    hide turing question
-    show bg home turing wiki
+    if custom_texts:
+        hide screen text_screen
+        show screen wikipedia_screen
+    else:
+        hide essay question
+        show essay source wikipedia
+
     with dissolve
     pov "Indeed, it seems like the first paragraph does the job!"
     jump cut_and_paste
@@ -695,10 +673,16 @@ label wikipedia_storyline:
 label slides_storyline:
     $ slides = True
     pov "I will have a look at the slides"
-    hide turing question
-    window hide
-    show bg home turing slide
-    with dissolve
+    if custom_texts:
+        hide screen text_screen
+        window hide
+        show screen slide_screen
+        with dissolve
+    else:
+        hide essay question
+        window hide
+        show essay source slide
+        with dissolve
     pause 1.0
     pov "Perfect, I found the right slide!"
     pov "Indeed, this is the exact paragraph I need!"
@@ -709,41 +693,71 @@ label slides_storyline:
 label cut_and_paste:
     pov "I could cut and paste it and have an answer!"
 
-    show bg home turing tm1
+    if custom_texts:
+        hide screen wikipedia_screen
+        hide screen slide_screen
+        show screen text_screen(wikipedia_short_paragraph)
+    else:
+        hide essay source slide
+        show 1essaytext_copied_source_text
 
     pov "Hmm, I should clean it up a bit! Just getting rid of the footnote markers."
 
-    show bg home turing tm2
+    if custom_texts:
+        hide text_screen
+        show screen text_screen(short_paragraph_cleaned)
+    else:
+        show 2essaytext_no_footnotes
 
     pov "Perfect! Now, it looks like a pretty decent answer!"
 
     pov "Should I do anything else? I think it is common knowledge since it can be also found in the slides"
 
     pov "But the text is not mine, so should I reference it?"
-    show bg home turing tm2_5
+
+    scene bg home white
+    if custom_texts:
+        hide text_screen
+        show screen text_screen(short_paragraph_cleaned, "below")
+    else:
+        show 2_5essaytext_no_footnotes_below
 
     menu:
 
         "No, it's common knowledge, so I guess it's fine!":
             $ change_score('plagiarism', -1)
             $ change_score('passivity', -1)
+            if custom_texts:
+                hide screen text_screen
             jump failed_essay
         "Hmm, maybe I should cite my source":
             $ change_score('plagiarism', +1)
-            show bg home turing tm2
+            if custom_texts:
+                hide screen text_screen
+                show screen text_screen(short_paragraph_cleaned, "middle")
+            else:
+                show 2essaytext_no_footnotes
             pov "Let's fix that citation issue!"
             call .plag(True) from _call_theory_plag
 
         "Well, that's a good start but I should do way more":
             $ change_score('plagiarism', +2)
-            show bg home turing tm2
+            if custom_texts:
+                hide screen text_screen
+                show screen text_screen(short_paragraph_cleaned, "middle")
+            else:
+                show 2essaytext_no_footnotes
             pov "Let's start with the citation problem first"
             jump .plag
 
 label .plag(only_one=False):
     pov "These are not my original words!"
     pov "So I guess I should reference it properly"
-    show bg home turing tm3 none
+    if custom_texts:
+        hide screen text_screen
+        show screen text_screen(short_paragraph_referenced, "middle")
+    else:
+        show 3essaytext_reference_wikipedia
     pov "Perfect! Now I have referenced it properly"
     pov "I wonder if this is sufficient"
     pov "I found the right paragraph which actually answers the question, so this is fine"
@@ -755,6 +769,8 @@ label .plag(only_one=False):
     menu:
         "I think I should leave it like that.":
             $ change_score('passivity', -2)
+            if custom_texts:
+                hide screen text_screen
             jump bad_essay
         "I should write it in my own words for a better grade.":
             $ change_score('plagiarism', +1)
@@ -762,25 +778,40 @@ label .plag(only_one=False):
 
 label .passive:
     pov "Honestly, I didn't do much until now!"
-    pov "I just searched and retrieved a paragraph. But I didn't learn anything about Turing Machines."
+    pov "I just searched and retrieved a paragraph. But I didn't learn anything about the [essay_topic]."
     pov "Let me use some synonyms"
     "In the following minigame, you have to select the words you want to change"
     jump selection_mg
 
 label selection_mg:
-    call screen essay_text
-    pov "Let's change up these words with synonyms"
-    show bg home turing tm4
+    if custom_texts:
+        hide screen text_screen
+        call screen mg_identify_replace_words
+        show screen text_screen(short_paragraph_replaced, "middle")
+    else:
+        call screen essay_text
+        pov "Let's change up these words with synonyms"
+        show 4essaytext_synonyms_before
     pov "Ahh, great! Now my text is different from the original text"
     pov "Now let's get rid of the quotation marks and reference the original text."
     pov "Let's have another look"
-    show bg home turing tm4_1
+    if custom_texts:
+        hide screen text_screen
+        show screen text_screen(paragraph_wiki_referenced, "middle")
+    else:
+        show 4essaytext_synonyms
     pov "Well, that is indeed a pretty good paragraph"
-    show bg home turing tm4_2
+    if custom_texts:
+        hide screen text_screen
+        show screen text_screen(paragraph_wiki_referenced, "up")
+    else:
+        show 4essaytext_synonyms_top
     menu:
         pov "Should I do anything else?"
 
         "No, I'm finally done with everything!":
+            if custom_texts:
+                hide screen text_screen
             jump bad_essay_selected
 
         "I should write a text completely in my own words":
@@ -788,55 +819,15 @@ label selection_mg:
 
 
 
-
-
-
-screen essay_text:
-    default mathematical = None
-    default machine = None
-    default tape = None
-    default table = None
-    default model_simplictiy = None
-    default algorithm = None
-    default turing_machine = None
-    default selected_words = 7
-
-    imagemap:
-        ground "Scene/bg home turing tm3.png"
-        idle "Scene/bg home turing tm3.png"
-        hover "Scene/bg home turing tm3 hover.png"
-        selected_idle "Scene/bg home turing tm3 selected.png"
-        selected_hover "Scene/bg home turing tm3 selected.png"
-
-        hotspot (407, 233, 200, 27) action [SetScreenVariable("selected_words", selected_words-1), SetScreenVariable("mathematical", True)]
-        hotspot (218, 268, 122, 24) action [SetScreenVariable("selected_words", selected_words-1), SetScreenVariable("machine", True)]
-        hotspot (912, 268, 69, 26) action [SetScreenVariable("selected_words", selected_words-1), SetScreenVariable("tape", True)]
-        hotspot (119, 296, 78, 27) action [SetScreenVariable("selected_words", selected_words-1), SetScreenVariable("table", True)]
-        hotspot (433, 296, 307, 27) action [SetScreenVariable("selected_words", selected_words-1), SetScreenVariable("model_simplictiy", True)]
-        hotspot (98, 328, 135, 25) action [SetScreenVariable("selected_words", selected_words-1), SetScreenVariable("algorithm", True)]
-        hotspot (247, 328, 899, 27) action [SetScreenVariable("selected_words", selected_words-1), SetScreenVariable("turing_machine", True)]
-
-        if selected_words >= 1:
-            text "{color=#801a34}Please select [selected_words] more phrases{/color}":
-                xalign 0.5
-                yalign 0.7
-                size 30
-
-        if mathematical and machine and tape and table and model_simplictiy and algorithm and turing_machine:
-            imagebutton auto "select_%s.png":
-                xalign 0.5
-                yalign 0.7
-                action Return()
-        else:
-            textbutton "Skip minigame" xalign 0.88 yalign 0.78 action Return()
-
-
-
 label avoid_patchwriting:
     pov "Okay, let me try to paraphrase the paragraph in my own words"
     pov "I will try different approaches"
     "Please select the paragraph that you think fits best"
-    call screen essay_choice
+    if custom_texts:
+        hide screen text_screen
+        call screen custom_essay_choice
+    else:
+        call screen essay_choice
     $ essay_chosen = _return
     if only_plagiarism:
         jump essay_feedback
@@ -861,24 +852,7 @@ label choice2:
     call message_start("Alex", "Wow, [povname]! You never have time for me :(") from _call_message_start_3
     call message("Alex", "") from _call_message_1
     call phone_after_menu from _call_phone_after_menu_1
-    if only_coll_fab:
-        "You did not help Alex"
-        "Alex failed his essay, but you got a high mark for your essay"
-        jump transition_to_fabrication
     jump essay_feedback
-
-screen essay_choice:
-    imagemap:
-        ground "Scene/bg home turing essaychoice.png"
-        idle "Scene/bg home turing essaychoice.png"
-        hover "Scene/bg home turing essaychoice hover.png"
-        selected_idle "Scene/bg home turing essaychoice selected.png"
-        selected_hover "Scene/bg home turing essaychoice selected.png"
-
-        hotspot (51, 51, 573, 313) clicked Return("bad")
-        hotspot (51, 366, 573, 309) clicked Return("good")
-        hotspot (626, 51, 864, 313) clicked Return("mediocre")
-        hotspot (626, 366, 603, 309) clicked Return("overtop")
 
 
 label one_day_before:
@@ -912,14 +886,10 @@ label one_day_before:
                     # """Well done! You did not commit collusion. However, be sure to be polite and explain to your fellow students
                     # why you are not allowed to help them with their individual coursework. And of course, you can and should help your fellow students
                     # for everything that is not related to individual work."""
-                    if only_coll_fab:
-                        "You did not help Alex"
-                        "Alex failed his essay, but you got a high mark for your essay"
-                        jump transition_to_fabrication
                     jump essay_feedback
 
 label near_miss:
-    # pari will use the same ideas
+    # alex will use the same ideas
     show alex vhappy
     a "Thank you, [povname]! You are a lifesaver"
     show alex talk
@@ -1005,8 +975,6 @@ label collusion:
                     jump one_day_before
 
                 "No":
-                    if only_coll_fab:
-                        jump transition_to_fabrication
                     scene black
                     jump failed_coursework
 
@@ -1053,8 +1021,6 @@ label school_comitee:
             jump one_day_before
 
         "No":
-            if only_coll_fab:
-                jump transition_to_fabrication
             jump failed_coursework
 
 
@@ -1474,9 +1440,9 @@ label overtop_essay:
     show sara happy at zoom_norm
     pov "Scientific terms?"
     show sara mhappy at zoomed_in
-    ta1 "For example, there is no such thing as an Alan Turing system. This system is called a Turing machine"
+    ta1 "For example, there is no such thing as [false_synonyms_examples[0][0]]. This is called [false_synonyms_examples[0][1]]"
     show sara talk
-    ta1 "And a computer is a computer and not a digital workspace"
+    ta1 "And a [false_synonyms_examples[1][1]] is a [false_synonyms_examples[1][1]] and not a [false_synonyms_examples[1][0]]"
     show sara mhappy
     ta1 "Try to be precise and write a text in your own words"
     show sara talk
@@ -1835,7 +1801,7 @@ label transition_to_fabrication:
             jump fabrication
 
         "I want to end the game now":
-            return
+            $ MainMenu(confirm=False)()
 
     return
 

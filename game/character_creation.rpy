@@ -13,126 +13,130 @@ init python:
             renpy.jump(start_dressup_female(name))
 
 
+
+# instructor definition
+image instructor happy = "character_assets/instructor/instructor happy.png"
+
 # sara definition
 define sara = "Sara"
 
 layeredimage sara:
 
     always:
-        "Create_Character/Base/base3.png"
+        "character_assets/female/Base/base3.png"
 
     always:
-        "Create_Character/Bottoms/bottom1_6.png"
+        "character_assets/female/Bottoms/bottom1_6.png"
 
     always:
-        "Create_Character/Tops/top5_5.png"
+        "character_assets/female/Tops/top5_5.png"
 
     always:
-        "Create_Character/Eyes/eyes2_9.png"
+        "character_assets/female/Eyes/eyes2_9.png"
 
     always:
-        "Create_Character/Hair/hair4_7.png"
+        "character_assets/female/Hair/hair4_7.png"
 
     group eyebrows:
 
         attribute happy default:
-            "Create_character/Eyebrows/eyebrows_normal.png"
+            "character_assets/female/Eyebrows/eyebrows_normal.png"
 
         attribute angry:
-            "Create_character/Eyebrows/eyebrows_angry.png"
+            "character_assets/female/Eyebrows/eyebrows_angry.png"
 
         attribute talk:
-            "Create_character/Eyebrows/eyebrows_normal.png"
+            "character_assets/female/Eyebrows/eyebrows_normal.png"
 
         attribute mhappy:
-            "Create_character/Eyebrows/eyebrows_normal.png"
+            "character_assets/female/Eyebrows/eyebrows_normal.png"
 
         attribute vhappy:
-            "Create_character/Eyebrows/eyebrows_normal.png"
+            "character_assets/female/Eyebrows/eyebrows_normal.png"
 
         attribute surprised:
-            "Create_character/Eyebrows/eyebrows_sad.png"
+            "character_assets/female/Eyebrows/eyebrows_sad.png"
 
         attribute sad:
-            "Create_character/Eyebrows/eyebrows_sad.png"
+            "character_assets/female/Eyebrows/eyebrows_sad.png"
 
     group mouth:
 
         attribute happy default:
-            "Create_character/Mouth/mouth_happy.png"
+            "character_assets/female/Mouth/mouth_happy.png"
 
         attribute angry:
-            "Create_character/Mouth/mouth_angry.png"
+            "character_assets/female/Mouth/mouth_angry.png"
 
         attribute talk:
-            "Create_character/Mouth/mouth_talk.png"
+            "character_assets/female/Mouth/mouth_talk.png"
 
         attribute mhappy:
-            "Create_character/Mouth/mouth_mhappy.png"
+            "character_assets/female/Mouth/mouth_mhappy.png"
 
         attribute vhappy:
-            "Create_character/Mouth/mouth_vhappy.png"
+            "character_assets/female/Mouth/mouth_vhappy.png"
 
         attribute surprised:
-            "Create_character/Mouth/mouth_surprised.png"
+            "character_assets/female/Mouth/mouth_surprised.png"
 
         attribute sad:
-            "Create_character/Mouth/mouth_sad.png"
+            "character_assets/female/Mouth/mouth_sad.png"
 
 layeredimage alex:
 
     always:
-        "Create_Character/male/Base/base[skin_color_male].png"
+        "character_assets/male/Base/base[skin_color_male].png"
     always:
-        "Create_character/male/Eyes/eyes[eyes_male]_[eye_color_male].png"
+        "character_assets/male/Eyes/eyes[eyes_male]_[eye_color_male].png"
     always:
-        "Create_character/male/Hair/hair[hairstyle_male]_[hair_color_male].png"
+        "character_assets/male/Hair/hair[hairstyle_male]_[hair_color_male].png"
 
     group eyebrows:
 
         attribute happy default:
-            "Create_character/male/Eyebrows/eyebrows_normal.png"
+            "character_assets/male/Eyebrows/eyebrows_normal.png"
 
         attribute angry:
-            "Create_character/male/Eyebrows/eyebrows_angry.png"
+            "character_assets/male/Eyebrows/eyebrows_angry.png"
 
         attribute talk:
-            "Create_character/male/Eyebrows/eyebrows_normal.png"
+            "character_assets/male/Eyebrows/eyebrows_normal.png"
 
         attribute mhappy:
-            "Create_character/male/Eyebrows/eyebrows_normal.png"
+            "character_assets/male/Eyebrows/eyebrows_normal.png"
 
         attribute vhappy:
-            "Create_character/male/Eyebrows/eyebrows_normal.png"
+            "character_assets/male/Eyebrows/eyebrows_normal.png"
 
         attribute surprised:
-            "Create_character/male/Eyebrows/eyebrows_sad.png"
+            "character_assets/male/Eyebrows/eyebrows_sad.png"
 
         attribute sad:
-            "Create_character/male/Eyebrows/eyebrows_sad.png"
+            "character_assets/male/Eyebrows/eyebrows_sad.png"
 
     group mouth:
 
         attribute happy default:
-            "Create_character/male/Mouth/mouth_happy.png"
+            "character_assets/male/Mouth/mouth_happy.png"
 
         attribute angry:
-            "Create_character/male/Mouth/mouth_angry.png"
+            "character_assets/male/Mouth/mouth_angry.png"
 
         attribute talk:
-            "Create_character/male/Mouth/mouth_talk.png"
+            "character_assets/male/Mouth/mouth_talk.png"
 
         attribute mhappy:
-            "Create_character/male/Mouth/mouth_mhappy.png"
+            "character_assets/male/Mouth/mouth_mhappy.png"
 
         attribute vhappy:
-            "Create_character/male/Mouth/mouth_vhappy.png"
+            "character_assets/male/Mouth/mouth_vhappy.png"
 
         attribute surprised:
-            "Create_character/male/Mouth/mouth_surprised.png"
+            "character_assets/male/Mouth/mouth_surprised.png"
 
         attribute sad:
-            "Create_character/male/Mouth/mouth_sad.png"
+            "character_assets/male/Mouth/mouth_sad.png"
 
 
 define keri = "Keri"
@@ -140,61 +144,61 @@ define keri = "Keri"
 layeredimage keri:
 
     always:
-        "Create_Character/Base/base[skin_color_female].png"
+        "character_assets/female/Base/base[skin_color_female].png"
     always:
-        "Create_character/Bottoms/bottom[bottom_choice]_[bottom_style].png"
+        "character_assets/female/Bottoms/bottom[bottom_choice]_[bottom_style].png"
     always:
-        "Create_character/Tops/top[top_choice]_[top_style].png"
+        "character_assets/female/Tops/top[top_choice]_[top_style].png"
     always:
-        "Create_character/Hair/hair[hairstyle_female]_[hair_color_female].png"
+        "character_assets/female/Hair/hair[hairstyle_female]_[hair_color_female].png"
     always:
-        "Create_character/Eyes/eyes[eyes_female]_[eye_color_female].png"
+        "character_assets/female/Eyes/eyes[eyes_female]_[eye_color_female].png"
 
     group eyebrows:
 
         attribute happy default:
-            "Create_character/Eyebrows/eyebrows_normal.png"
+            "character_assets/female/Eyebrows/eyebrows_normal.png"
 
         attribute angry:
-            "Create_character/Eyebrows/eyebrows_angry.png"
+            "character_assets/female/Eyebrows/eyebrows_angry.png"
 
         attribute talk:
-            "Create_character/Eyebrows/eyebrows_normal.png"
+            "character_assets/female/Eyebrows/eyebrows_normal.png"
 
         attribute mhappy:
-            "Create_character/Eyebrows/eyebrows_normal.png"
+            "character_assets/female/Eyebrows/eyebrows_normal.png"
 
         attribute vhappy:
-            "Create_character/Eyebrows/eyebrows_normal.png"
+            "character_assets/female/Eyebrows/eyebrows_normal.png"
 
         attribute surprised:
-            "Create_character/Eyebrows/eyebrows_sad.png"
+            "character_assets/female/Eyebrows/eyebrows_sad.png"
 
         attribute sad:
-            "Create_character/Eyebrows/eyebrows_sad.png"
+            "character_assets/female/Eyebrows/eyebrows_sad.png"
 
     group mouth:
 
         attribute happy default:
-            "Create_character/Mouth/mouth_happy.png"
+            "character_assets/female/Mouth/mouth_happy.png"
 
         attribute angry:
-            "Create_character/Mouth/mouth_angry.png"
+            "character_assets/female/Mouth/mouth_angry.png"
 
         attribute talk:
-            "Create_character/Mouth/mouth_talk.png"
+            "character_assets/female/Mouth/mouth_talk.png"
 
         attribute mhappy:
-            "Create_character/Mouth/mouth_mhappy.png"
+            "character_assets/female/Mouth/mouth_mhappy.png"
 
         attribute vhappy:
-            "Create_character/Mouth/mouth_vhappy.png"
+            "character_assets/female/Mouth/mouth_vhappy.png"
 
         attribute surprised:
-            "Create_character/Mouth/mouth_surprised.png"
+            "character_assets/female/Mouth/mouth_surprised.png"
 
         attribute sad:
-            "Create_character/Mouth/mouth_sad.png"
+            "character_assets/female/Mouth/mouth_sad.png"
 
 
 label start_dressup:
@@ -259,43 +263,43 @@ init:
 #####################################renpy langauge version:
 image male = Composite(
     (311, 631),
-    (0, 0), "Create_Character/male/Base/base[skin_color_male].png",
-    (0, 0), "Create_character/male/Eyebrows/eyebrows_normal.png",
-    (0, 0), "Create_character/male/Eyes/eyes[eyes_male]_[eye_color_male].png",
-    (0, 0), "Create_character/male/Mouth/mouth_happy.png",
-    (0, 0), "Create_character/male/Hair/hair[hairstyle_male]_[hair_color_male].png",
+    (0, 0), "character_assets/male/Base/base[skin_color_male].png",
+    (0, 0), "character_assets/male/Eyebrows/eyebrows_normal.png",
+    (0, 0), "character_assets/male/Eyes/eyes[eyes_male]_[eye_color_male].png",
+    (0, 0), "character_assets/male/Mouth/mouth_happy.png",
+    (0, 0), "character_assets/male/Hair/hair[hairstyle_male]_[hair_color_male].png",
 )
 image female = Composite(
     (311, 631),
-    (0, 0), "Create_Character/Base/base[skin_color_female].png",
-    (0, 0), "Create_character/Bottoms/bottom[bottom_choice]_[bottom_style].png",
-    (0, 0), "Create_character/Tops/top[top_choice]_[top_style].png",
-    (0, 0), "Create_character/Eyebrows/eyebrows[skin_color_female]_1.png",
-    (0, 0), "Create_character/Eyes/eyes[eyes_female]_[eye_color_female].png",
-    (0, 0), "Create_character/Mouth/mouth[skin_color_female]_1.png",
-    (0, 0), "Create_character/Hair/hair[hairstyle_female]_[hair_color_female].png",
+    (0, 0), "character_assets/female/Base/base[skin_color_female].png",
+    (0, 0), "character_assets/female/Bottoms/bottom[bottom_choice]_[bottom_style].png",
+    (0, 0), "character_assets/female/Tops/top[top_choice]_[top_style].png",
+    (0, 0), "character_assets/female/Eyebrows/eyebrows[skin_color_female]_1.png",
+    (0, 0), "character_assets/female/Eyes/eyes[eyes_female]_[eye_color_female].png",
+    (0, 0), "character_assets/female/Mouth/mouth[skin_color_female]_1.png",
+    (0, 0), "character_assets/female/Hair/hair[hairstyle_female]_[hair_color_female].png",
 )
 #####################################python version:
 # init python:
 #     def alex_sprite(st, at):
 #         return LiveComposite(
 #             (311, 631),
-#             (0, 0), "Create_Character/male/Base/base{}.png".format(skin_color),
-#             (0, 0), "Create_character/male/Eyebrows/eyebrows_normal.png".format(skin_color),
-#             (0, 0), "Create_character/male/Eyes/eyes{}_{}.png".format(eyes, eye_color),
-#             (0, 0), "Create_character/male/Mouth/mouth_happy.png".format(skin_color),
-#             (0, 0), "Create_character/male/Hair/hair{}_{}.png".format(hairstyle, hair_color),
+#             (0, 0), "character_assets/male/Base/base{}.png".format(skin_color),
+#             (0, 0), "character_assets/male/Eyebrows/eyebrows_normal.png".format(skin_color),
+#             (0, 0), "character_assets/male/Eyes/eyes{}_{}.png".format(eyes, eye_color),
+#             (0, 0), "character_assets/male/Mouth/mouth_happy.png".format(skin_color),
+#             (0, 0), "character_assets/male/Hair/hair{}_{}.png".format(hairstyle, hair_color),
 #         ),.1
 #     def keri_sprite(st, at):
 #         return LiveComposite(
 #             (311, 631),
-#             (0, 0), "Create_Character/Base/base{}.png".format(skin_color),
-#             (0, 0), "Create_character/Bottoms/bottom{}_{}.png".format(bottom_choice, bottom_style),
-#             (0, 0), "Create_character/Tops/top{}_{}.png".format(top_choice, top_style),
-#             (0, 0), "Create_character/Eyebrows/eyebrows{}_1.png".format(skin_color),
-#             (0, 0), "Create_character/Eyes/eyes{}_{}.png".format(eyes, eye_color),
-#             (0, 0), "Create_character/Mouth/mouth{}_1.png".format(skin_color),
-#             (0, 0), "Create_character/Hair/hair{}_{}.png".format(hairstyle, hair_color),
+#             (0, 0), "character_assets/female/Base/base{}.png".format(skin_color),
+#             (0, 0), "character_assets/female/Bottoms/bottom{}_{}.png".format(bottom_choice, bottom_style),
+#             (0, 0), "character_assets/female/Tops/top{}_{}.png".format(top_choice, top_style),
+#             (0, 0), "character_assets/female/Eyebrows/eyebrows{}_1.png".format(skin_color),
+#             (0, 0), "character_assets/female/Eyes/eyes{}_{}.png".format(eyes, eye_color),
+#             (0, 0), "character_assets/female/Mouth/mouth{}_1.png".format(skin_color),
+#             (0, 0), "character_assets/female/Hair/hair{}_{}.png".format(hairstyle, hair_color),
 #         ),.1
 
 screen dress_male():
