@@ -63,7 +63,6 @@ label dissertation_transition:
         show screen dissertation_text(bad_paragraph, True)
 
     menu:
-
         "Yeah, there are some more things to be done":
             if custom_texts:
                 hide screen dissertation_text
@@ -114,16 +113,6 @@ label writing_continue:
         "No, I can show it to my supervisor!":
             $ paragraph_chosen = "cited_paragraph"
             jump ta_intervention
-
-
-    # Some Minigame simulating your project
-    # Another Minigame simulating your dissertation
-    # But then, one paragraph is still missing
-    # Patchwriting process
-    # Check in with supervisor all the time
-    # Afterwards, final end with alex and pari at graduation
-    # or failed dissertation and you get lower degree and don't want to attend graduation
-
 
 
 label patchwriting_part2:
@@ -320,9 +309,9 @@ label failedassignment:
         "Do you want to try again?"
 
         "Yes, I can do better!":
-            jump first_day
-        "Yes, but not from the start":
             jump dissertation_transition
+        "Yes, but not from the start":
+            jump ta_intervention
         "No":
             show text "The End"
             pause
@@ -364,12 +353,6 @@ label happy_end:
         $ dissertation_score = score - initial_score
         if formative:
 
-            # menu:
-            #
-            #     "Do you want to know, how well you did?"
-            #
-            #     "Yes":
-
             if dissertation_score >= 3:
                 show text "Well done!"
                 pause
@@ -385,15 +368,11 @@ label happy_end:
                     "Would you like to try again?"
 
                     "Yes, I can do better":
-                        jump fabrication
-
-                    "Yes, but not from the beginning":
-                        jump hurry_up_dialogue
+                        jump dissertation_transition
 
                     "Nah, I'm fine":
                         pass
-                # "No":
-                #     pass
+
     scene black
     show text "The End"
     pause
