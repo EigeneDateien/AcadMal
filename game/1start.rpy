@@ -243,8 +243,11 @@ label start:
                 povname = "Charlie"
                 persistent.povname = povname
 
-    # jump plagiarism_scenario
-    jump first_day
+
+
+    # HERE THE STANDALONE VERSION CAN BE SELECTED
+    jump plagiarism_scenario
+    # jump first_day
     # jump fabrication
 
 label intro:
