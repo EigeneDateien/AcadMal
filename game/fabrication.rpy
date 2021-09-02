@@ -809,12 +809,6 @@ label fabrication_feedback:
 
         if formative:
 
-            # menu:
-
-                # "Do you want to know, how well you did?"
-                #
-                # "Yes":
-
             if fabrication_score >= 2:
                 show text "Congratulations! You did not fabricate or falsify your results!"
                 pause
@@ -847,7 +841,10 @@ label fabrication_feedback:
                         jump fabrication
 
                     "Yes, but not from the beginning":
-                        jump hurry_up_dialogue
+                        if fabrication_topic == "code":
+                            jump hurry_up_dialogue
+                        else:
+                            jump to_few_survey_responses
 
                     "Nah, I'm fine":
                         pass
@@ -879,13 +876,14 @@ label fabrication_feedback:
                         jump fabrication
 
                     "Yes, but not from the beginning":
-                        jump hurry_up_dialogue
+                        if fabrication_topic == "code":
+                            jump hurry_up_dialogue
+                        else:
+                            jump to_few_survey_responses
 
                     "Nah, I'm fine":
                         pass
 
-                # "No":
-                #     pass
 
     if only_coll_fab:
         scene black
@@ -943,15 +941,9 @@ label start_jigsaw:
     scene bg home jigsaw
     image whole = "jigsaw_image.jpg"
     python:
-        # coorlistx = [10, 130, 250, 370]
-        # coorlisty = [10, 217, 424]
         coorlistx = [80, 200, 320, 440]
         coorlisty = [55, 263, 469]
         piecelist = [[647,263],[612,465],[884,333],[914,469],[765,241],[572,58],[569,379],[880,338],[818,72],[758,462],[709,57],[985,51]]
-        # for i in range(12):
-        #     x = renpy.random.randint(0, 260) + 560
-        #     y = renpy.random.randint(54, 460)
-        #     piecelist[i] = [x,y]
         movedpiece = 0
         movedplace = [0, 0]
     jump puzzle

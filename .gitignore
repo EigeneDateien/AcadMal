@@ -7,18 +7,10 @@ traceback.txt
 progressive_download.txt
 Essays for the game.docx
 blackboard_points.xcf
-<<<<<<< HEAD
-plagiarism_scenarios_customisable.rpy
-plagiarism_scenarios.rpy
-collusion_examples_customisable.rpy
-collusion_scenarios.rpy
-fabrication_examples_customisable.rpy
-fabrication_scenarios.rpy
 =======
 plagiarism_scenarios*.rpy
 fabrication_examples_customisable.rpy
 fabrication_scenarios.rpy
 collusion_scenarios.rpy
 collusion_examples_customisable.rpy
->>>>>>> 2379323f30831bfa11a9716cd4b0b90d37efae16
 scoring.rpy

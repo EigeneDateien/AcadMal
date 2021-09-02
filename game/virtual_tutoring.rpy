@@ -74,7 +74,7 @@ label plag_tut:
             pov "And copying a paragraph from a friend's essay without them knowing?"
             show sara talk at zoomed_in
             menu:
-                ta1 "What do you think: is it plagiarism?"
+                ta1 "What do you think: is it plagiarism to copy from a friend without their knowledge?"
 
                 "Yes":
                     show sara vhappy
@@ -342,45 +342,6 @@ label continue_plag_tut:
         "Lower right":
             $ chosen_tut_paragraph2 = "lowerright"
             jump lower_right_paragraph2
-
-
-
-    # ta1 "Speaking of own words:"
-    # ta1 "What if you are in a hurry, because a deadline is coming up"
-    # show sara happy at zoom_norm
-    # menu:
-    #     "Can you just copy a paragraph and change up the words with synonyms"
-    #
-    #
-    #     "Yes, as long as I use enough synonyms":
-    #         show sara sad at zoomed_in
-    #         ta1 "No, sorry. You still haven't done much"
-    #         show sara talk
-    #         ta1 "You just replaced some words"
-    #         ta1 "But you should write it in your own words"
-    #         show sara mhappy
-    #         ta1 "Especially if you do not reference the original paragraph"
-    #         ta1 "Try to paraphrase the paragraph, reference the idea and try to use more than just one source"
-    #
-    #     "No, only if I change up the structure as well":
-    #         show sara sad at zoomed_in
-    #         ta1 "Sorry, [povname]! I know that most students think that this is enough"
-    #         show sara talk
-    #         ta1 "But you should write it in your own words"
-    #         show sara happy at zoom_norm
-    #         pov "But what if I am not too confident about my English?"
-    #         show sara mhappy at zoomed_in
-    #         ta1 "You would still need a reference. But even if you struggle with your English:"
-    #         ta1 "It is always better to write a text in your own words. Even when there are some mistakes"
-    #         ta1 "Try to paraphrase the paragraph, reference the idea and try to use more than just one source"
-    #
-    #
-    #     "No, I should write it completely in my own words.":
-    #         show sara vhappy at zoomed_in
-    #         ta1 "Yes! Perfect!"
-    #         show sara talk
-    #         ta1 "It is always better to write a text in your own words. Even when there are some mistakes"
-    #         ta1 "And remember to try to paraphrase the paragraph. Reference the idea and try to use more than just one source"
 
 
 label final_plag_tut:

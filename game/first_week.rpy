@@ -883,9 +883,6 @@ label one_day_before:
 
                 "No, I'm sorry, Alex!":
                     $ change_score('no_collab_final', +2)
-                    # """Well done! You did not commit collusion. However, be sure to be polite and explain to your fellow students
-                    # why you are not allowed to help them with their individual coursework. And of course, you can and should help your fellow students
-                    # for everything that is not related to individual work."""
                     jump essay_feedback
 
 label near_miss:
@@ -1685,17 +1682,6 @@ label transition_to_fabrication:
     with dissolve
     show text "You spend the next weeks with your good friends Pari and Alex"
     pause
-    # # Option for more interlude, e.g. in the lecture you learn a lot of useful things
-    # show text "In the second week, you have to write another essay"
-    # pause
-    # show text "This time, your topic is for-loops"
-    # pause
-    # show text "In the following, drag and drop the right paragraphs to the right position"
-    # pause
-    # call start_parsons_pic from _call_start_parsons_pic
-    # scene black
-    # show text "Well done! You got full points on your second week's essay!"
-    # pause
 
     hide sara
     hide keri
@@ -1833,12 +1819,6 @@ label essay_feedback:
         jump good_essay
     elif essay_chosen == "overtop":
         jump overtop_essay
-
-
-
-
-
-
 
     # This ends the game.
 
