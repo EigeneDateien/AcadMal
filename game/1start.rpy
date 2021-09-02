@@ -132,6 +132,7 @@ init python:
     lower_left_paragraph_b2 = False
     ta_visited = False
     alex_pari_intro_seen = False
+    study_course_abbreviation = "ACS"
 
 
 python:
@@ -151,28 +152,75 @@ define povname = "Charlie"
 
 
 # Could arrange files for each topic
-# e.g. for Computer science
-# image bg outside = "Scene/[study_course_abbreviation]/bg [study_course_abbreviation] outside.png"
-image bg home = "customisable_scenes/studyroom-inside2.png"
-image bg home2 = "customisable_scenes/studyroom-inside.png"
-image bg lab = "customisable_scenes/studyroom-inside3.png"
-image bg office = "customisable_scenes/supervisor-office.png"
-image bg outside = "customisable_scenes/bg school outside.png"
-image bg lectureroom = "customisable_scenes/lecture theatre1.png"
-image bg lectureroom1 = "customisable_scenes/lecture theatre2.png"
 image bg home desk = "Scene/bg home desk.png"
 
-# define pov = Character("[povname]")
-define pov = Character("Charlie")
+
+image bg home = "customisable_scenes/[study_course_abbreviation]/studyroom-inside2.png"
+image bg home2 = "customisable_scenes/[study_course_abbreviation]/studyroom-inside.png"
+image bg lab = "customisable_scenes/[study_course_abbreviation]/studyroom-inside3.png"
+image bg office = "customisable_scenes/[study_course_abbreviation]/supervisor-office.png"
+image bg outside = "customisable_scenes/[study_course_abbreviation]/bg school outside.png"
+image bg lectureroom = "customisable_scenes/[study_course_abbreviation]/lecture theatre1.png"
+image bg lectureroom1 = "customisable_scenes/[study_course_abbreviation]/lecture theatre2.png"
+
+define pov = Character("[povname]")
 
 transform flip:
     xzoom -1.0
 
 # The game starts here.
 
+define config.menu_include_disabled = True
+define not_selected = False
+
+label main_menu:
+    return
+
 label start:
 
-    scene bg home
+    scene bg home desk
+
+    ###
+    ## Example
+    ## Intro menu asking players for the course they study (e.g. BSc Computer Science)
+    ## Given that choice, the course abbreviation is chosen.
+    ## The course abbreviation is then used to load the background images for the given course in the folder images/customisable_scenes
+    ###
+    # if not persistent.study_course_abbreviation:
+    #     menu:
+    #         "What is your university school?"
+    #
+    #         "Arts and Humanities":
+    #             menu:
+    #                 "Which course are you in?"
+    #
+    #                 "German":
+    #                     $ study_course_abbreviation = "GERM"
+    #
+    #                 "Russian":
+    #                     $ study_course_abbreviation = "RUSS"
+    #
+    #
+    #         "Science and Engineering":
+    #             menu:
+    #                 "Which course are you in?"
+    #
+    #                 "BSc Computer Science":
+    #                     $ study_course_abbreviation = "BCS"
+    #
+    #                 "MSc Advanced Computer Science":
+    #                     $ study_course_abbreviation = "ACS"
+    #
+    #     $ persistent.study_course_abbreviation = study_course_abbreviation
+    #     $ renpy.full_restart()
+    # else:
+    #     $ study_course_abbreviation = persistent.study_course_abbreviation
+    #     $ persistent.study_course_abbreviation = False
+    #
+    # scene bg home
+    #
+    #
+    # "You study the course [study_course_abbreviation]"
 
     menu:
         "Which device are you playing on?"
