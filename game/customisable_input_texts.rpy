@@ -5,7 +5,7 @@ init python:
     ##########################################################################################
 
     # Please decide whether you want to use custom strings as texts or replace the screenshots
-    custom_texts = True
+    custom_texts = False
 
     # Please decide what topic is to be studied
     study_course = "Computer Science"
@@ -18,8 +18,8 @@ init python:
     practical_room = "labs"
 
     # Please decide whether the fabrication example is about a survey or a computer programm
-    # fabrication_topic = "code"
-    fabrication_topic = "survey"
+    fabrication_topic = "code"
+    # fabrication_topic = "survey"
 
 
 
